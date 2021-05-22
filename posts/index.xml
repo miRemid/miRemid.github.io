@@ -1,4 +1,99 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.zxykm.xyz/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 08 Jan 2021 21:33:13 +0000</lastBuildDate><atom:link href="https://blog.zxykm.xyz/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Web用户认证方法对比</title><link>https://blog.zxykm.xyz/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</link><pubDate>Fri, 08 Jan 2021 21:33:13 +0000</pubDate><guid>https://blog.zxykm.xyz/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</guid><description>&lt;blockquote>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.zxykm.xyz/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 22 May 2021 17:37:27 +0800</lastBuildDate><atom:link href="https://blog.zxykm.xyz/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo+Github Action自动部署静态页面</title><link>https://blog.zxykm.xyz/posts/hugo+github-action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/</link><pubDate>Sat, 22 May 2021 17:37:27 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/hugo+github-action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/</guid><description>Hugo Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again.
+安装 如果你是Windows用户，可以直接从Github Release页面下载对应的版本即可
+如果你是Linux用户则有三种方式来安装Hugo
+从Github Release下载 从包管理器下载 自行编译 在这介绍下自行编译，最新的Hugo使用到了go1.16的io/fs包，因此如果想自行编译最新版本的Hugo则要安装或更新系统go版本至1.16+。安装完语言编译环境后按以下步骤进行
+mkdir $HOME/src cd $HOME/src git clone https://github.com/gohugoio/hugo.git cd hugo go install 如果你想让Hugo支持sass的话则需要编译另一个版本
+CGO_ENABLED=1 go install --tags extended 在终端中输入hugo version来检查是否编译成功
+创建站点 安装完Hugo后就可以来创建一个网站站点，假设名称为demo
+hugo new site demo cd demo git init 在初始化站点后，需要为站点选择一个主题，这里选择我使用的Hermit</description><content type="html"><![CDATA[<h2 id="hugohttpsgohugoio"><a href="https://gohugo.io/">Hugo</a></h2>
+<blockquote>
+<p>Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again.</p>
+</blockquote>
+<h3 id="安装">安装</h3>
+<p>如果你是Windows用户，可以直接从<a href="https://github.com/gohugoio/hugo/releases">Github Release</a>页面下载对应的版本即可</p>
+<p>如果你是Linux用户则有三种方式来安装Hugo</p>
+<ul>
+<li>从<a href="https://github.com/gohugoio/hugo/releases">Github Release</a>下载</li>
+<li>从包管理器下载</li>
+<li>自行编译</li>
+</ul>
+<p>在这介绍下自行编译，最新的Hugo使用到了<code>go1.16</code>的<code>io/fs</code>包，因此如果想自行编译最新版本的Hugo则要安装或更新系统<code>go</code>版本至<code>1.16+</code>。安装完语言编译环境后按以下步骤进行</p>
+<pre><code>mkdir $HOME/src
+cd $HOME/src
+git clone https://github.com/gohugoio/hugo.git
+cd hugo
+go install
+</code></pre>
+<p>如果你想让Hugo支持<code>sass</code>的话则需要编译另一个版本</p>
+<pre><code>CGO_ENABLED=1 go install --tags extended
+</code></pre>
+<p>在终端中输入<code>hugo version</code>来检查是否编译成功</p>
+<h3 id="创建站点">创建站点</h3>
+<p>安装完Hugo后就可以来创建一个网站站点，假设名称为<code>demo</code></p>
+<pre><code>hugo new site demo
+cd demo
+git init
+</code></pre>
+<p>在初始化站点后，需要为站点选择一个主题，这里选择我使用的<a href="https://github.com/Track3/hermit">Hermit</a></p>
+<pre><code>git submodule add https://github.com/Track3/hermit.git themes/hermit
+cp themes/hermit/exampleSite/config.toml .
+</code></pre>
+<p>随后创建一篇新文章</p>
+<pre><code>hugo new posts/Hello-hugo.md
+</code></pre>
+<p>添加完文章后输入以下指令进行预览</p>
+<pre><code>hugo server -D
+</code></pre>
+<p><img src="https://i.loli.net/2021/05/22/ULygZGTj8bPilw6.png" alt="预览图"></p>
+<h2 id="github-action自动化发布">Github Action自动化发布</h2>
+<p>当完成一个站点之后，可以发布到github page中，在这介绍如何使用Github Action来自动化部署站点到github page中</p>
+<p>Github Page分为用户Page和项目Page，用户Page通常为<code>username.github.io</code>而项目Page通常为<code>username.github.io/project</code>，但也可以通过添加<code>CNAME</code>文件来自定义域名，在这展示项目Page</p>
+<p>首先创建一个项目(<code>Repository</code>)，假设为<code>demo</code>记住要设置为公开，然后在你的站点的根目录创建以下文件并写入</p>
+<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># .github/workflows/gh-pages.yml</span><span class="w">
+</span><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">github pages</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">master </span><span class="w"> </span><span class="c"># 要编译的文件分支</span><span class="w">
+</span><span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">deploy</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-20.04</span><span class="w">
+</span><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
+</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c"># Fetch Hugo themes (true OR recursive)</span><span class="w">
+</span><span class="w">          </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">    </span><span class="c"># Fetch all history for .GitInfo and .Lastmod</span><span class="w">
+</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
+</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2</span><span class="w">
+</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">hugo-version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;latest&#39;</span><span class="w">
+</span><span class="w">          </span><span class="nt">extended</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build</span><span class="w">
+</span><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo --minify</span><span class="w">
+</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
+</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-gh-pages@v3</span><span class="w">
+</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w">
+</span><span class="w">          </span><span class="nt">publish_dir</span><span class="p">:</span><span class="w"> </span><span class="l">./public</span><span class="w">
+</span></code></pre></div><p>在部署到Github之前，还需要更改Hugo的根配置，将<code>config.toml</code>中的<code>baseURL</code>更改为<code>https://{username}.github.io/demo</code>，如果配置了域名则为<code>https://{CUSTOM_DOMAIN}/demo</code></p>
+<p>随后，将你的站点所有文件push到Github中</p>
+<pre><code>git remote add origin https://github.com/{your_user_name}/{your_project}.git
+git add .
+git commit -m &quot;Upload&quot;
+git push -u origin master
+</code></pre>
+<p>这时，前往你的项目页面查看<code>Actions</code>标签查看编译结果，如果成功则如下所示</p>
+<p><img src="https://i.loli.net/2021/05/22/bwJztQ7qr9k2PnM.png" alt="Action"></p>
+<p>完成编译之后，还不能立刻通过网址来访问，需要在项目的<code>Settings\Pages</code>中，选择Github Page的来源，在这选择<code>gh-pages</code></p>
+<p>设置成功后访问<code>https://{username}.github.com/{project_name}</code>即可，如果配置了<code>CNAME</code>则通过<code>https://{CUSTOM_DOMAIN}/{project_name}</code>即可</p>
+<p><img src="https://i.loli.net/2021/05/22/Z6gRYaLcfUbpByx.png" alt="结果"></p>
+]]></content></item><item><title>Web用户认证方法对比</title><link>https://blog.zxykm.xyz/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</link><pubDate>Fri, 08 Jan 2021 21:33:13 +0000</pubDate><guid>https://blog.zxykm.xyz/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</guid><description>&lt;blockquote>
 &lt;p>本文翻译自&lt;a href="https://testdriven.io/blog/web-authentication-methods/#authentication-vs-authorization">testdriven.io&lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;p>在这篇文章，我们将从一名Python开发者的视角来观察目前最常见的几种处理Web认证的方式&lt;/p>
