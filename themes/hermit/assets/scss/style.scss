@@ -7,11 +7,11 @@
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
-  background: $midnightblue;
+  background: #a5a5a5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: rgb(43, 68, 78);
 
   &:hover {
     background: $text;
