@@ -59,6 +59,14 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
     name = "github"
     url = "https://github.com/miRemid"
 
+  [[params.gitalk]]
+    clientID = "6f2c6176848b78ef2c3b"
+    clientSecret = "34f050cf4cd5211a3ec844937162f141397d49d7"
+    repo = "miRemid.github.io"
+    owner = "miRemid"
+    distractionFreeMode = false
+    createIssueManually = true
+
 [menu]
 
   [[menu.main]]
