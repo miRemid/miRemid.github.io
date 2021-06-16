@@ -83,4 +83,5 @@ HTTPS的加密解密同时使用了对称加密和非对称加密，由于非对
 &lt;p>认证比授权出现的更早，用户必须在获得访问资源权限之前经过合法验证。最常见的用户认证方法就是&lt;code>username&lt;/code>和&lt;code>password&lt;/code>。一旦认证完成，不同身份例如&lt;code>admin&lt;/code>、&lt;code>moderator&lt;/code>等等，都将被附加在用户身上用于提供访问系统的身份信息。&lt;/p>
 &lt;p>有了上述的解释，让我们来看一看验证用户的不同方法吧&lt;/p></description></item><item><title>About Me</title><link>https://blog.zxykm.xyz/about-me/</link><pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate><guid>https://blog.zxykm.xyz/about-me/</guid><description>I&amp;rsquo;m a postgraduate from SZU, interested in blockchain and distributed system.
 Go is my favorite programming language, and I&amp;rsquo;m learning Rust now.
-My GitHub.</description></item></channel></rss>
+My GitHub.
+My Steam ID is [Wind]. If you want to play with me, plz send me a friend request:)</description></item></channel></rss>
