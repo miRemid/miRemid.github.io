@@ -1,4 +1,141 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.zxykm.xyz/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 14 Jun 2021 19:18:03 +0800</lastBuildDate><atom:link href="https://blog.zxykm.xyz/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>NFT基本原理</title><link>https://blog.zxykm.xyz/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 14 Jun 2021 19:18:03 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</guid><description>本文节选翻译自Github Ethereum EIPs Eip-721#rationale
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.zxykm.xyz/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 19 Jun 2021 21:07:52 +0800</lastBuildDate><atom:link href="https://blog.zxykm.xyz/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>利用fusuma为Linux添加触控板手势</title><link>https://blog.zxykm.xyz/posts/%E5%88%A9%E7%94%A8fusuma%E4%B8%BAlinux%E6%B7%BB%E5%8A%A0%E8%A7%A6%E6%8E%A7%E6%9D%BF%E6%89%8B%E5%8A%BF/</link><pubDate>Sat, 19 Jun 2021 21:07:52 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/%E5%88%A9%E7%94%A8fusuma%E4%B8%BAlinux%E6%B7%BB%E5%8A%A0%E8%A7%A6%E6%8E%A7%E6%9D%BF%E6%89%8B%E5%8A%BF/</guid><description>之前一直在新笔记本上用虚拟机开Linux编写毕设，现在毕业答辩已经完成，所以就直接将Win10更换到Linux系统。但是众所周知，Linux并没有自带触控板手势驱动，但我早已习惯于win上的一些手势，所以我开始寻找一个合适的触控板手势驱动。
+在最初，我发现了一个名为libinput-gesture的库，其Github上有3k赞，于是我立马就尝试了这个库。安装过程一切畅通，但最后运行的阶段却出了问题。在启动该库时提示我启动失败，但并没有给其他错误信息。我检查了xinput和libinput对触控板的驱动，并没有任何问题。谷歌了一下发现这玩意对arch用户非常良好，但对我这使用的ubuntu来说会出现这种情况。于是我把目光转向另一个库，fusuma。
+fusuma这个包非常完美的解决了Ubuntu触控板手势的问题，并且安装过程极其简单，配置也十分简洁明了。
+安装 配置用户权限 首先需要配置一下用户状态组，将用户添加到input组中
+sudo gpasswd -a $USER input newgrp input // 立刻刷新 对于Debian系用户(Ubuntu,Debian,Mint,Pop!OS) 安装libinput sudo apt install libinput-tools 安装Ruby 由于fusuma需要在ruby上运行，因此需要安装ruby。
+sudo apt install ruby 安装Fusuma sudo gem install fusuma 安装xdotool(可选，但是对后续非常有用建议安装) sudo apt install xdotool 对于Arch用户 sudo pacman -S libinput ruby xdotool sudo gem install fusuma 启动 fusuma 配置 Fusuma的配置非常简单，首先需要在用户目录下创建配置文件~/.config/fusuma/config.yml
+mkdir -p $HOME/.config/fusuma touch $HOME/.config/fusuma/config.yml 这里简单贴出我使用的配置，可以在配置中发现，其实手势是通过xdotool工具间接调用系统的快捷键来实现手势控制的
+swipe:3:left:command:&amp;#34;xdotool key alt+Right&amp;#34;# History forwardright:command:&amp;#34;xdotool key alt+Left&amp;#34;# History back#up:#command: &amp;#34;xdotool key super&amp;#34; # Activity#down:#command: &amp;#34;xdotool key super&amp;#34; # Activity4:left:command:&amp;#34;xdotool key alt+u&amp;#34;# Switch to next workspaceright:command:&amp;#34;xdotool key alt+d&amp;#34;# Switch to previous workspaceup:command:&amp;#34;xdotool key alt+u&amp;#34;# Switch to next workspacedown:command:&amp;#34;xdotool key alt+d&amp;#34;# Switch to previous workspacepinch:in:command:&amp;#34;xdotool keydown ctrl click 4 keyup ctrl&amp;#34;# Zoom inout:command:&amp;#34;xdotool keydown ctrl click 5 keyup ctrl&amp;#34;# Zoom out在添加完配置文件后，重新启动fusuma即可使用手势动作了</description><content type="html"><![CDATA[<p>之前一直在新笔记本上用虚拟机开Linux编写毕设，现在毕业答辩已经完成，所以就直接将Win10更换到Linux系统。但是众所周知，Linux并没有自带触控板手势驱动，但我早已习惯于win上的一些手势，所以我开始寻找一个合适的触控板手势驱动。</p>
+<p>在最初，我发现了一个名为<code>libinput-gesture</code>的库，其Github上有3k赞，于是我立马就尝试了这个库。安装过程一切畅通，但最后运行的阶段却出了问题。在启动该库时提示我启动失败，但并没有给其他错误信息。我检查了<code>xinput</code>和<code>libinput</code>对触控板的驱动，并没有任何问题。谷歌了一下发现这玩意对arch用户非常良好，但对我这使用的ubuntu来说会出现这种情况。于是我把目光转向另一个库，<code>fusuma</code>。</p>
+<p><code>fusuma</code>这个包非常完美的解决了Ubuntu触控板手势的问题，并且安装过程极其简单，配置也十分简洁明了。</p>
+<h2 id="安装">安装</h2>
+<h4 id="配置用户权限">配置用户权限</h4>
+<p>首先需要配置一下用户状态组，将用户添加到<code>input</code>组中</p>
+<pre><code>sudo gpasswd -a $USER input
+newgrp input // 立刻刷新
+</code></pre>
+<h4 id="对于debian系用户ubuntudebianmintpopos">对于Debian系用户(Ubuntu,Debian,Mint,Pop!OS)</h4>
+<ol>
+<li>安装libinput</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo apt install libinput-tools
+</code></pre></div><ol start="2">
+<li>安装Ruby</li>
+</ol>
+<p>由于fusuma需要在ruby上运行，因此需要安装ruby。</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo apt install ruby
+</code></pre></div><ol start="3">
+<li>安装Fusuma</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo gem install fusuma
+</code></pre></div><ol start="4">
+<li>安装xdotool(可选，但是对后续非常有用建议安装)</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo apt install xdotool
+</code></pre></div><h4 id="对于arch用户">对于Arch用户</h4>
+<pre><code>sudo pacman -S libinput ruby xdotool
+sudo gem install fusuma
+</code></pre>
+<h4 id="启动">启动</h4>
+<pre><code>fusuma
+</code></pre>
+<h2 id="配置">配置</h2>
+<p>Fusuma的配置非常简单，首先需要在用户目录下创建配置文件<code>~/.config/fusuma/config.yml</code></p>
+<pre><code>mkdir -p $HOME/.config/fusuma
+touch $HOME/.config/fusuma/config.yml
+</code></pre>
+<p>这里简单贴出我使用的配置，可以在配置中发现，其实手势是通过<code>xdotool</code>工具间接调用系统的快捷键来实现手势控制的</p>
+<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">swipe</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">3</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">left</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xdotool key alt+Right&#34;</span><span class="w"> </span><span class="c"># History forward</span><span class="w">
+</span><span class="w">    </span><span class="nt">right</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xdotool key alt+Left&#34;</span><span class="w"> </span><span class="c"># History back</span><span class="w">
+</span><span class="w">      </span><span class="c">#up:</span><span class="w">
+</span><span class="w">      </span><span class="c">#command: &#34;xdotool key super&#34; # Activity</span><span class="w">
+</span><span class="w">      </span><span class="c">#down:</span><span class="w">
+</span><span class="w">      </span><span class="c">#command: &#34;xdotool key super&#34; # Activity</span><span class="w">
+</span><span class="w">  </span><span class="nt">4</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">left</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xdotool key alt+u&#34;</span><span class="w"> </span><span class="c"># Switch to next workspace</span><span class="w">
+</span><span class="w">    </span><span class="nt">right</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xdotool key alt+d&#34;</span><span class="w"> </span><span class="c"># Switch to previous workspace</span><span class="w">
+</span><span class="w">    </span><span class="nt">up</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xdotool key alt+u&#34;</span><span class="w"> </span><span class="c"># Switch to next workspace</span><span class="w">
+</span><span class="w">    </span><span class="nt">down</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xdotool key alt+d&#34;</span><span class="w"> </span><span class="c"># Switch to previous workspace</span><span class="w">
+</span><span class="w"></span><span class="nt">pinch</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">in</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xdotool keydown ctrl click 4 keyup ctrl&#34;</span><span class="w"> </span><span class="c"># Zoom in</span><span class="w">
+</span><span class="w">  </span><span class="nt">out</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;xdotool keydown ctrl click 5 keyup ctrl&#34;</span><span class="w"> </span><span class="c"># Zoom out</span><span class="w">
+</span></code></pre></div><p>在添加完配置文件后，重新启动fusuma即可使用手势动作了</p>
+<blockquote>
+<p>配置文件中的alt+u和alt+d为本人自定义快捷键，请更换为自己系统快捷键</p>
+</blockquote>
+<h2 id="开机自启动">开机自启动</h2>
+<p>Fusuma的开机自启动也比较简单，有两种方式</p>
+<h4 id="通过桌面管理器自启">通过桌面管理器自启</h4>
+<p>大部分用户使用的桌面都带有Autostart的功能，如官方提供的教程所说(Gnome用户)：</p>
+<ol>
+<li>使用<code>which fusuma</code>查看fusuma位置</li>
+<li>打开<code>gnome-session-properties</code></li>
+<li>添加Fusuma相关信息</li>
+<li>在命令末尾添加<code>-d</code>选项</li>
+</ol>
+<h4 id="通过systemd开机启动">通过systemd开机启动</h4>
+<p>这种方式适用于所有用户，但需要注意的是，由于触控板驱动是用户层使用的，在service文件中如果采取系统级别的启动需要额外添加环境配置信息，如果是以用户服务启动则无需添加</p>
+<ol>
+<li>系统服务</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># /etc/systemd/system/fusuma.service</span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Fusuma touchpad gestures
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">EnvironmentFile</span><span class="o">=</span><span class="s2">&#34;DISPLAY=:0&#34;</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/local/bin/fusuma
+<span class="nv">ExecReload</span><span class="o">=</span>/bin/kill -HUP <span class="nv">$MAINPID</span>
+<span class="nv">KillMode</span><span class="o">=</span>process
+<span class="nv">Restart</span><span class="o">=</span>on-failure
+<span class="nv">RestartSec</span><span class="o">=</span>42s
+<span class="nv">User</span><span class="o">=</span>youruser
+<span class="nv">Group</span><span class="o">=</span>yourusergroup
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</code></pre></div><blockquote>
+<p>参考<a href="https://github.com/iberianpig/fusuma/issues/52">Github Fusuma Issue</a></p>
+</blockquote>
+<p>然后启动服务，并设置自启</p>
+<pre><code>sudo systemctl enable fusuma
+sudo systemctl start fusuma
+# 查看启动状态
+sudo systemctl status fusuma
+</code></pre>
+<ol start="2">
+<li>用户服务</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># $HOME/.config/systemd/user/fusuma.service</span>
+<span class="o">[</span>Unit<span class="o">]</span>
+<span class="nv">Description</span><span class="o">=</span>Fusuma touchpad gestures
+
+<span class="o">[</span>Service<span class="o">]</span>
+<span class="nv">ExecStart</span><span class="o">=</span>/usr/local/bin/fusuma -d
+<span class="nv">ExecReload</span><span class="o">=</span>/bin/kill -HUP <span class="nv">$MAINPID</span>
+<span class="nv">KillMode</span><span class="o">=</span>process
+<span class="nv">Restart</span><span class="o">=</span>on-failure
+
+<span class="o">[</span>Install<span class="o">]</span>
+<span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</code></pre></div><p>然后启动服务，并设置自启</p>
+<pre><code>systemctl --user enable fusuma
+systemctl --user start fusuma
+# 查看启动状态
+systemctl --user status fusuma
+</code></pre>
+<p>最后就可以通过手势来操控桌面了~</p>
+]]></content></item><item><title>NFT基本原理</title><link>https://blog.zxykm.xyz/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 14 Jun 2021 19:18:03 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</guid><description>本文节选翻译自Github Ethereum EIPs Eip-721#rationale
 现在有很多旨在追踪可区分资产的基于以太坊智能合约的提议。例如Decentraland现有或计划中的的NFT、CryptoPunks中的eponymouse和游戏中如DMarket或EnjinCoin的物品系统。在未来，可以用于追踪现实生活中的资产例如房产（如ubiquity和Propy等公司的想法）。当这些物品在分类账单中没有集中在一起时显得至关重要，每个资产必须单独并能够独立追踪其所有权信息。
 为什么选择NFT这个词 NFT这个词让几乎每个人都能够满意的接受，并且广泛适用于可区分数字资产的领域。我们认识到契约在对于一个本标准的某些应用时又确切的描述（特别是物理性质）。
 除了NFT这个词还考虑了别的单词，例如：Alternatives considered, Distinguishable asset, Title, Token, Asset, Equity, Ticket
@@ -765,16 +902,16 @@ Session id在负载均衡会出现问题，而Ticket的方法则不会因为他�
 <span class="p">}</span>
 
 
-<span class="nd">@auth.verify_password</span>
+<span class="nd">@auth</span><span class="o">.</span><span class="n">verify_password</span>
 <span class="k">def</span> <span class="nf">verify_password</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">users</span> <span class="ow">and</span> <span class="n">check_password_hash</span><span class="p">(</span><span class="n">users</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;username&#34;</span><span class="p">),</span> <span class="n">password</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">username</span>
 
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
-<span class="nd">@auth.login_required</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+<span class="nd">@auth</span><span class="o">.</span><span class="n">login_required</span>
 <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">f</span><span class="s2">&#34;You have successfully logged in, {auth.current_user()}&#34;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&#34;You have successfully logged in, </span><span class="si">{</span><span class="n">auth</span><span class="o">.</span><span class="n">current_user</span><span class="p">()</span><span class="si">}</span><span class="s2">&#34;</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
@@ -828,16 +965,16 @@ Session id在负载均衡会出现问题，而Ticket的方法则不会因为他�
 <span class="p">}</span>
 
 
-<span class="nd">@auth.get_password</span>
+<span class="nd">@auth</span><span class="o">.</span><span class="n">get_password</span>
 <span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">users</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
 
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
-<span class="nd">@auth.login_required</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+<span class="nd">@auth</span><span class="o">.</span><span class="n">login_required</span>
 <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">f</span><span class="s2">&#34;You have successfully logged in, {auth.current_user()}&#34;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&#34;You have successfully logged in, </span><span class="si">{</span><span class="n">auth</span><span class="o">.</span><span class="n">current_user</span><span class="p">()</span><span class="si">}</span><span class="s2">&#34;</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
@@ -902,16 +1039,16 @@ Session id在负载均衡会出现问题，而Ticket的方法则不会因为他�
     <span class="o">...</span>
 
 
-<span class="nd">@login_manager.user_loader</span>
+<span class="nd">@login_manager</span><span class="o">.</span><span class="n">user_loader</span>
 <span class="k">def</span> <span class="nf">user_loader</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">username</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
         <span class="n">user_model</span> <span class="o">=</span> <span class="n">User</span><span class="p">()</span>
         <span class="n">user_model</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">username</span>
         <span class="k">return</span> <span class="n">user_model</span>
-    <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="kc">None</span>
 
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;POST&#34;</span><span class="p">])</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;POST&#34;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">login_page</span><span class="p">():</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
     <span class="n">username</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;username&#34;</span><span class="p">)</span>
@@ -927,10 +1064,10 @@ Session id在负载均衡会出现问题，而Ticket的方法则不会因为他�
     <span class="k">return</span> <span class="s2">&#34;logged in&#34;</span>
 
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
 <span class="nd">@login_required</span>
 <span class="k">def</span> <span class="nf">protected</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">f</span><span class="s2">&#34;Current user: {current_user.id}&#34;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&#34;Current user: </span><span class="si">{</span><span class="n">current_user</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&#34;</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
@@ -1002,7 +1139,7 @@ Session id在负载均衡会出现问题，而Ticket的方法则不会因为他�
 <span class="p">}</span>
 
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;POST&#34;</span><span class="p">])</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/login&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&#34;POST&#34;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">login_page</span><span class="p">():</span>
     <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;username&#34;</span><span class="p">)</span>
     <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;password&#34;</span><span class="p">)</span>
@@ -1015,7 +1152,7 @@ Session id在负载均衡会出现问题，而Ticket的方法则不会因为他�
     <span class="k">return</span> <span class="s2">&#34;Wrong credentials&#34;</span><span class="p">,</span> <span class="mi">400</span>
 
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
 <span class="nd">@jwt_required</span>
 <span class="k">def</span> <span class="nf">protected</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">logged_in_as</span><span class="o">=</span><span class="n">get_jwt_identity</span><span class="p">()),</span> <span class="mi">200</span>
@@ -1083,10 +1220,10 @@ Session id在负载均衡会出现问题，而Ticket的方法则不会因为他�
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
     <span class="n">otp</span> <span class="o">=</span> <span class="n">pyotp</span><span class="o">.</span><span class="n">TOTP</span><span class="p">(</span><span class="n">pyotp</span><span class="o">.</span><span class="n">random_base32</span><span class="p">())</span>
     <span class="n">code</span> <span class="o">=</span> <span class="n">otp</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;OTP generated: {code}&#34;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Verify OTP: {otp.verify(code)}&#34;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;OTP generated: </span><span class="si">{</span><span class="n">code</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Verify OTP: </span><span class="si">{</span><span class="n">otp</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
     <span class="n">sleep</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Verify after 30s: {otp.verify(code)}&#34;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Verify after 30s: </span><span class="si">{</span><span class="n">otp</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
 </code></pre></div><pre><code>OTP generated: 474771
 Verify OTP: True
 Verify after 30s: False
@@ -1148,13 +1285,13 @@ Verify after 30s: False
 <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">github_blueprint</span><span class="p">,</span> <span class="n">url_prefix</span><span class="o">=</span><span class="s2">&#34;/login&#34;</span><span class="p">)</span>
 
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">github</span><span class="o">.</span><span class="n">authorized</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;github.login&#34;</span><span class="p">))</span>
     <span class="n">resp</span> <span class="o">=</span> <span class="n">github</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;/user&#34;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">ok</span>
-    <span class="k">return</span> <span class="n">f</span><span class="s2">&#34;You have successfully logged in, {resp.json()[&#39;login&#39;]}&#34;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&#34;You have successfully logged in, </span><span class="si">{</span><span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;login&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#34;</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>

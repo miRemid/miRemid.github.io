@@ -71,16 +71,16 @@
 <span class=p>}</span>
 
 
-<span class=nd>@auth.verify_password</span>
+<span class=nd>@auth</span><span class=o>.</span><span class=n>verify_password</span>
 <span class=k>def</span> <span class=nf>verify_password</span><span class=p>(</span><span class=n>username</span><span class=p>,</span> <span class=n>password</span><span class=p>):</span>
     <span class=k>if</span> <span class=n>username</span> <span class=ow>in</span> <span class=n>users</span> <span class=ow>and</span> <span class=n>check_password_hash</span><span class=p>(</span><span class=n>users</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;username&#34;</span><span class=p>),</span> <span class=n>password</span><span class=p>):</span>
         <span class=k>return</span> <span class=n>username</span>
 
 
-<span class=nd>@app.route</span><span class=p>(</span><span class=s2>&#34;/&#34;</span><span class=p>)</span>
-<span class=nd>@auth.login_required</span>
+<span class=nd>@app</span><span class=o>.</span><span class=n>route</span><span class=p>(</span><span class=s2>&#34;/&#34;</span><span class=p>)</span>
+<span class=nd>@auth</span><span class=o>.</span><span class=n>login_required</span>
 <span class=k>def</span> <span class=nf>index</span><span class=p>():</span>
-    <span class=k>return</span> <span class=n>f</span><span class=s2>&#34;You have successfully logged in, {auth.current_user()}&#34;</span>
+    <span class=k>return</span> <span class=sa>f</span><span class=s2>&#34;You have successfully logged in, </span><span class=si>{</span><span class=n>auth</span><span class=o>.</span><span class=n>current_user</span><span class=p>()</span><span class=si>}</span><span class=s2>&#34;</span>
 
 
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
@@ -98,16 +98,16 @@
 <span class=p>}</span>
 
 
-<span class=nd>@auth.get_password</span>
+<span class=nd>@auth</span><span class=o>.</span><span class=n>get_password</span>
 <span class=k>def</span> <span class=nf>get_user</span><span class=p>(</span><span class=n>username</span><span class=p>):</span>
     <span class=k>if</span> <span class=n>username</span> <span class=ow>in</span> <span class=n>users</span><span class=p>:</span>
         <span class=k>return</span> <span class=n>users</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>username</span><span class=p>)</span>
 
 
-<span class=nd>@app.route</span><span class=p>(</span><span class=s2>&#34;/&#34;</span><span class=p>)</span>
-<span class=nd>@auth.login_required</span>
+<span class=nd>@app</span><span class=o>.</span><span class=n>route</span><span class=p>(</span><span class=s2>&#34;/&#34;</span><span class=p>)</span>
+<span class=nd>@auth</span><span class=o>.</span><span class=n>login_required</span>
 <span class=k>def</span> <span class=nf>index</span><span class=p>():</span>
-    <span class=k>return</span> <span class=n>f</span><span class=s2>&#34;You have successfully logged in, {auth.current_user()}&#34;</span>
+    <span class=k>return</span> <span class=sa>f</span><span class=s2>&#34;You have successfully logged in, </span><span class=si>{</span><span class=n>auth</span><span class=o>.</span><span class=n>current_user</span><span class=p>()</span><span class=si>}</span><span class=s2>&#34;</span>
 
 
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
@@ -141,16 +141,16 @@
     <span class=o>...</span>
 
 
-<span class=nd>@login_manager.user_loader</span>
+<span class=nd>@login_manager</span><span class=o>.</span><span class=n>user_loader</span>
 <span class=k>def</span> <span class=nf>user_loader</span><span class=p>(</span><span class=n>username</span><span class=p>:</span> <span class=nb>str</span><span class=p>):</span>
     <span class=k>if</span> <span class=n>username</span> <span class=ow>in</span> <span class=n>users</span><span class=p>:</span>
         <span class=n>user_model</span> <span class=o>=</span> <span class=n>User</span><span class=p>()</span>
         <span class=n>user_model</span><span class=o>.</span><span class=n>id</span> <span class=o>=</span> <span class=n>username</span>
         <span class=k>return</span> <span class=n>user_model</span>
-    <span class=k>return</span> <span class=bp>None</span>
+    <span class=k>return</span> <span class=kc>None</span>
 
 
-<span class=nd>@app.route</span><span class=p>(</span><span class=s2>&#34;/login&#34;</span><span class=p>,</span> <span class=n>methods</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;POST&#34;</span><span class=p>])</span>
+<span class=nd>@app</span><span class=o>.</span><span class=n>route</span><span class=p>(</span><span class=s2>&#34;/login&#34;</span><span class=p>,</span> <span class=n>methods</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;POST&#34;</span><span class=p>])</span>
 <span class=k>def</span> <span class=nf>login_page</span><span class=p>():</span>
     <span class=n>data</span> <span class=o>=</span> <span class=n>request</span><span class=o>.</span><span class=n>get_json</span><span class=p>()</span>
     <span class=n>username</span> <span class=o>=</span> <span class=n>data</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;username&#34;</span><span class=p>)</span>
@@ -166,10 +166,10 @@
     <span class=k>return</span> <span class=s2>&#34;logged in&#34;</span>
 
 
-<span class=nd>@app.route</span><span class=p>(</span><span class=s2>&#34;/&#34;</span><span class=p>)</span>
+<span class=nd>@app</span><span class=o>.</span><span class=n>route</span><span class=p>(</span><span class=s2>&#34;/&#34;</span><span class=p>)</span>
 <span class=nd>@login_required</span>
 <span class=k>def</span> <span class=nf>protected</span><span class=p>():</span>
-    <span class=k>return</span> <span class=n>f</span><span class=s2>&#34;Current user: {current_user.id}&#34;</span>
+    <span class=k>return</span> <span class=sa>f</span><span class=s2>&#34;Current user: </span><span class=si>{</span><span class=n>current_user</span><span class=o>.</span><span class=n>id</span><span class=si>}</span><span class=s2>&#34;</span>
 
 
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
@@ -195,7 +195,7 @@
 <span class=p>}</span>
 
 
-<span class=nd>@app.route</span><span class=p>(</span><span class=s2>&#34;/login&#34;</span><span class=p>,</span> <span class=n>methods</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;POST&#34;</span><span class=p>])</span>
+<span class=nd>@app</span><span class=o>.</span><span class=n>route</span><span class=p>(</span><span class=s2>&#34;/login&#34;</span><span class=p>,</span> <span class=n>methods</span><span class=o>=</span><span class=p>[</span><span class=s2>&#34;POST&#34;</span><span class=p>])</span>
 <span class=k>def</span> <span class=nf>login_page</span><span class=p>():</span>
     <span class=n>username</span> <span class=o>=</span> <span class=n>request</span><span class=o>.</span><span class=n>json</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;username&#34;</span><span class=p>)</span>
     <span class=n>password</span> <span class=o>=</span> <span class=n>request</span><span class=o>.</span><span class=n>json</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;password&#34;</span><span class=p>)</span>
@@ -208,7 +208,7 @@
     <span class=k>return</span> <span class=s2>&#34;Wrong credentials&#34;</span><span class=p>,</span> <span class=mi>400</span>
 
 
-<span class=nd>@app.route</span><span class=p>(</span><span class=s2>&#34;/&#34;</span><span class=p>)</span>
+<span class=nd>@app</span><span class=o>.</span><span class=n>route</span><span class=p>(</span><span class=s2>&#34;/&#34;</span><span class=p>)</span>
 <span class=nd>@jwt_required</span>
 <span class=k>def</span> <span class=nf>protected</span><span class=p>():</span>
     <span class=k>return</span> <span class=n>jsonify</span><span class=p>(</span><span class=n>logged_in_as</span><span class=o>=</span><span class=n>get_jwt_identity</span><span class=p>()),</span> <span class=mi>200</span>
@@ -223,10 +223,10 @@
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
     <span class=n>otp</span> <span class=o>=</span> <span class=n>pyotp</span><span class=o>.</span><span class=n>TOTP</span><span class=p>(</span><span class=n>pyotp</span><span class=o>.</span><span class=n>random_base32</span><span class=p>())</span>
     <span class=n>code</span> <span class=o>=</span> <span class=n>otp</span><span class=o>.</span><span class=n>now</span><span class=p>()</span>
-    <span class=k>print</span><span class=p>(</span><span class=n>f</span><span class=s2>&#34;OTP generated: {code}&#34;</span><span class=p>)</span>
-    <span class=k>print</span><span class=p>(</span><span class=n>f</span><span class=s2>&#34;Verify OTP: {otp.verify(code)}&#34;</span><span class=p>)</span>
+    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;OTP generated: </span><span class=si>{</span><span class=n>code</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Verify OTP: </span><span class=si>{</span><span class=n>otp</span><span class=o>.</span><span class=n>verify</span><span class=p>(</span><span class=n>code</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
     <span class=n>sleep</span><span class=p>(</span><span class=mi>30</span><span class=p>)</span>
-    <span class=k>print</span><span class=p>(</span><span class=n>f</span><span class=s2>&#34;Verify after 30s: {otp.verify(code)}&#34;</span><span class=p>)</span>
+    <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Verify after 30s: </span><span class=si>{</span><span class=n>otp</span><span class=o>.</span><span class=n>verify</span><span class=p>(</span><span class=n>code</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
 </code></pre></div><pre><code>OTP generated: 474771
 Verify OTP: True
 Verify after 30s: False
@@ -242,13 +242,13 @@ Verify after 30s: False
 <span class=n>app</span><span class=o>.</span><span class=n>register_blueprint</span><span class=p>(</span><span class=n>github_blueprint</span><span class=p>,</span> <span class=n>url_prefix</span><span class=o>=</span><span class=s2>&#34;/login&#34;</span><span class=p>)</span>
 
 
-<span class=nd>@app.route</span><span class=p>(</span><span class=s2>&#34;/&#34;</span><span class=p>)</span>
+<span class=nd>@app</span><span class=o>.</span><span class=n>route</span><span class=p>(</span><span class=s2>&#34;/&#34;</span><span class=p>)</span>
 <span class=k>def</span> <span class=nf>index</span><span class=p>():</span>
     <span class=k>if</span> <span class=ow>not</span> <span class=n>github</span><span class=o>.</span><span class=n>authorized</span><span class=p>:</span>
         <span class=k>return</span> <span class=n>redirect</span><span class=p>(</span><span class=n>url_for</span><span class=p>(</span><span class=s2>&#34;github.login&#34;</span><span class=p>))</span>
     <span class=n>resp</span> <span class=o>=</span> <span class=n>github</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s2>&#34;/user&#34;</span><span class=p>)</span>
     <span class=k>assert</span> <span class=n>resp</span><span class=o>.</span><span class=n>ok</span>
-    <span class=k>return</span> <span class=n>f</span><span class=s2>&#34;You have successfully logged in, {resp.json()[&#39;login&#39;]}&#34;</span>
+    <span class=k>return</span> <span class=sa>f</span><span class=s2>&#34;You have successfully logged in, </span><span class=si>{</span><span class=n>resp</span><span class=o>.</span><span class=n>json</span><span class=p>()[</span><span class=s1>&#39;login&#39;</span><span class=p>]</span><span class=si>}</span><span class=s2>&#34;</span>
 
 
 <span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
