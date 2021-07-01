@@ -7,6 +7,7 @@ images:
 tags: 
   - web
   - python
+  - 翻译
 ---
 
 > 本文翻译自[testdriven.io](https://testdriven.io/blog/web-authentication-methods/#authentication-vs-authorization)

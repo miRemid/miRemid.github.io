@@ -7,6 +7,7 @@ images:
 tags: 
   - NFT
   - 区块链
+  - 翻译
 ---
 
 > 本文翻译自[NFTs make the internet ownable](https://variant.mirror.xyz/T8kdtZRIgy_srXB5B06L8vBqFHYlEBcv6ae2zR6Y_eo)

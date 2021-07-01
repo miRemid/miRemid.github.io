@@ -1,11 +1,12 @@
 ---
 title: "React钩子对比Redux，谁能在状态管理更胜一筹?"
 date: 2021-06-21T14:47:25+08:00
-draft: true
+draft: false 
 toc: false
 images:
 tags: 
-  - untagged
+  - react 
+  - 翻译
 ---
 
 > 本文翻译自[Nicola Grujicic](https://www.framelessgrid.com/react-hooks-vs-redux-for-state-management-in-2021/)

@@ -7,6 +7,7 @@ images:
 tags: 
   - NFT
   - 区块链
+  - 翻译
 ---
 
 > 本文节选翻译自[Github Ethereum EIPs Eip-721#rationale](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md#rationale)
