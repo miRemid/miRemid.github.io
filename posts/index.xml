@@ -25,8 +25,8 @@ An integer x is covered by an interval ranges[i] = [starti, endi] if starti &amp
     <span class="p">}</span>
     <span class="k">return</span> <span class="kc">true</span>
 <span class="p">}</span>
-</code></pre></div><p>执行用时：4 ms, 在所有 Go 提交中击败了21.05%的用户
-内存消耗：2.6 MB, 在所有 Go 提交中击败了14.91%的用户</p>
+</code></pre></div><p>执行用时：4 ms, 在所有 Go 提交中击败了21.05%的用户</p>
+<p>内存消耗：2.6 MB, 在所有 Go 提交中击败了14.91%的用户</p>
 <h4 id="差分数组">差分数组</h4>
 <p>另一种简单的方法就是差分数组，先统计每组Range的氛围，然后再看提供的数字是否处于范围之内即可</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">isCovered</span><span class="p">(</span><span class="nx">ranges</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">left</span><span class="p">,</span> <span class="nx">right</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
@@ -46,8 +46,35 @@ An integer x is covered by an interval ranges[i] = [starti, endi] if starti &amp
     <span class="p">}</span>
     <span class="k">return</span> <span class="kc">true</span>
 <span class="p">}</span>
-</code></pre></div><p>执行用时：0 ms, 在所有 Go 提交中击败了100%的用户
-内存消耗：2.5 MB, 在所有 Go 提交中击败了80.70%的用户</p>
+</code></pre></div><p>执行用时：0 ms, 在所有 Go 提交中击败了100%的用户</p>
+<p>内存消耗：2.5 MB, 在所有 Go 提交中击败了80.70%的用户</p>
+<h2 id="2021726-1713-minimum-operations-to-make-a-subsequence-hard">2021/7/26 1713 Minimum Operations to Make a Subsequence (HARD)</h2>
+<p>You are given an array target that consists of distinct integers and another integer array arr that can have duplicates.</p>
+<p>In one operation, you can insert any integer at any position in arr. For example, if arr = [1,4,1,2], you can add 3 in the middle and make it [1,4,3,1,2]. Note that you can insert the integer at the very beginning or end of the array.</p>
+<p>Return the minimum number of operations needed to make target a subsequence of arr.</p>
+<p>A subsequence of an array is a new array generated from the original array by deleting some elements (possibly none) without changing the remaining elements' relative order. For example, [2,7,4] is a subsequence of [4,2,3,7,2,1,4] (the underlined elements), while [2,4,2] is not.</p>
+<h4 id="贪心">贪心</h4>
+<p>题目要求寻找到两个数组中的最少插入元素个数使target成为arr的子集，可以转换思路，寻找到两个数组的最长公共子集，最后要插入的个数就是target数组的长度减去最长公共子集长度</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">minOperations</span><span class="p">(</span><span class="nx">target</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">arr</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span>
+	<span class="nx">pos</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">val</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">target</span> <span class="p">{</span>
+		<span class="nx">pos</span><span class="p">[</span><span class="nx">val</span><span class="p">]</span> <span class="p">=</span> <span class="nx">i</span>
+	<span class="p">}</span>
+	<span class="nx">d</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{}</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">val</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">arr</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">idx</span><span class="p">,</span> <span class="nx">has</span> <span class="o">:=</span> <span class="nx">pos</span><span class="p">[</span><span class="nx">val</span><span class="p">];</span> <span class="nx">has</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">p</span> <span class="o">:=</span> <span class="nx">sort</span><span class="p">.</span><span class="nf">SearchInts</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="nx">idx</span><span class="p">);</span> <span class="nx">p</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+				<span class="nx">d</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="p">=</span> <span class="nx">idx</span>
+			<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+				<span class="nx">d</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">d</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">n</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>执行用时：168 ms, 在所有 Go 提交中击败了63.89%的用户</p>
+<p>内存消耗：12.3 MB, 在所有 Go 提交中击败了91.67%的用户</p>
 ]]></content></item><item><title>Windows11是如何运行安卓应用的</title><link>https://blog.zxykm.xyz/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</link><pubDate>Thu, 01 Jul 2021 15:25:32 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</guid><description>本文翻译自arstechnica
 微软在发布Windows11时公布了一个令人惊喜的东西，Windows11将支持Win应用和安卓应用同时运行。但是，并没有在关键的地方留下太多的信息。这些应用是否是通过模拟器运行的呢？现存与Windows的Linux子系统将会被放弃吗？我们将在这篇文章得到答案，同时感谢以下开发者探讨这些细节。
 微软官方将这个功能称之为“为安卓而生的Windows子系统”，这也向你说明了许多关于它如何工作的信息。Windows目前拥有一个Linux子系统（WSL），它使用Windows下的Hyper-V虚拟机的功能让Windows能在一个独立的环境下使用一个真正意义上的Linux系统来运行Linux应用。（Hyper-V让次系统能够访问宿主机的硬件而不是通过在原生资源上套用一个顶层的管理操作系统从而只能使用少数宿主机资源）。一个现实中的安卓手机运行的是Linux内核，而微软正在为Windows的安卓子系统建立一个基于WSL的安卓框架。这看上去非常类似于在Hyper-V虚拟机中运行x86架构的安卓系统。
