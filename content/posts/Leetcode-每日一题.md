@@ -40,6 +40,7 @@ func isCovered(ranges [][]int, left, right int) bool {
 }
 ```
 执行用时：4 ms, 在所有 Go 提交中击败了21.05%的用户
+
 内存消耗：2.6 MB, 在所有 Go 提交中击败了14.91%的用户
 
 #### 差分数组
@@ -64,24 +65,44 @@ func isCovered(ranges [][]int, left, right int) bool {
 }
 ```
 执行用时：0 ms, 在所有 Go 提交中击败了100%的用户
+
 内存消耗：2.5 MB, 在所有 Go 提交中击败了80.70%的用户
 
+## 2021/7/26 1713 Minimum Operations to Make a Subsequence (HARD)
 
+You are given an array target that consists of distinct integers and another integer array arr that can have duplicates.
 
+In one operation, you can insert any integer at any position in arr. For example, if arr = [1,4,1,2], you can add 3 in the middle and make it [1,4,3,1,2]. Note that you can insert the integer at the very beginning or end of the array.
 
+Return the minimum number of operations needed to make target a subsequence of arr.
 
+A subsequence of an array is a new array generated from the original array by deleting some elements (possibly none) without changing the remaining elements' relative order. For example, [2,7,4] is a subsequence of [4,2,3,7,2,1,4] (the underlined elements), while [2,4,2] is not.
 
+#### 贪心
 
+题目要求寻找到两个数组中的最少插入元素个数使target成为arr的子集，可以转换思路，寻找到两个数组的最长公共子集，最后要插入的个数就是target数组的长度减去最长公共子集长度
 
+```go
+func minOperations(target []int, arr []int) int {
+	n := len(target)
+	pos := make(map[int]int, n)
+	for i, val := range target {
+		pos[val] = i
+	}
+	d := []int{}
+	for _, val := range arr {
+		if idx, has := pos[val]; has {
+			if p := sort.SearchInts(d, idx); p < len(d) {
+				d[p] = idx
+			} else {
+				d = append(d, idx)
+			}
+		}
+	}
+	return n - len(d)
+}
+```
 
+执行用时：168 ms, 在所有 Go 提交中击败了63.89%的用户
 
-
-
-
-
-
-
-
-
-
-
+内存消耗：12.3 MB, 在所有 Go 提交中击败了91.67%的用户
