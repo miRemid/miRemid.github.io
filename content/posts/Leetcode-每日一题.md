@@ -106,3 +106,36 @@ func minOperations(target []int, arr []int) int {
 执行用时：168 ms, 在所有 Go 提交中击败了63.89%的用户
 
 内存消耗：12.3 MB, 在所有 Go 提交中击败了91.67%的用户
+
+## 2021/7.26 671 Second Minimum Node In a Binary Tree (EASY)
+
+Given a non-empty special binary tree consisting of nodes with the non-negative value, where each node in this tree has exactly two or zero sub-node. If the node has two sub-nodes, then this node's value is the smaller value among its two sub-nodes. More formally, the property root.val = min(root.left.val, root.right.val) always holds.
+
+Given such a binary tree, you need to output the second minimum value in the set made of all the nodes' value in the whole tree.
+
+If no such second minimum value exists, output -1 instead.
+
+#### DFS暴力
+由题意可知，根节点的值是最小的，要找到整棵树中的第二小的值只需要对所有节点进行遍历，寻找到大于根节点的最大值即可
+
+初始化一个`ans`等于-1，代表未找到第二小的值，对树进行遍历，当值大于root的值并大于ans时，更新ans的值。最后返回ans的值，就是第二小的值
+
+```go
+func findSecondMinimumValue(root *TreeNode) int {
+    ans := -1
+    rootVal := root.Val
+    var dfs func(*TreeNode)
+    dfs = func(node *TreeNode) {
+        if node == nil || ans != -1 && node.Val >= ans {
+            return
+        }
+        if node.Val > rootVal {
+            ans = node.Val
+        }
+        dfs(node.Left)
+        dfs(node.Right)
+    }
+    dfs(root)
+    return ans
+}
+```
