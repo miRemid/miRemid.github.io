@@ -10,7 +10,7 @@
 Return true if each integer in the inclusive range [left, right] is covered by at least one interval in ranges. Return false otherwise.
 An integer x is covered by an interval ranges[i] = [starti, endi] if starti <= x <= endi."><meta itemprop=datePublished content="2021-07-23T11:50:27+08:00">
 <meta itemprop=dateModified content="2021-07-23T11:50:27+08:00">
-<meta itemprop=wordCount content="449">
+<meta itemprop=wordCount content="601">
 <meta itemprop=keywords content="Leetcode,"><meta property="og:title" content="Leetcode 每日一题">
 <meta property="og:description" content="2021/7/23 1893 Check if All the Integers in a Range Are Covered (EASY) You are given a 2D integer array ranges and two integers left and right. Each ranges[i] = [starti, endi] represents an inclusive interval between starti and endi.
 Return true if each integer in the inclusive range [left, right] is covered by at least one interval in ranges. Return false otherwise.
@@ -140,13 +140,38 @@ An integer x is covered by an interval ranges[i] = [starti, endi] if starti <= x
 <span class=p>}</span>
 </code></pre></div><p>执行用时：168 ms, 在所有 Go 提交中击败了63.89%的用户</p>
 <p>内存消耗：12.3 MB, 在所有 Go 提交中击败了91.67%的用户</p>
+<h2 id=2021726-671-second-minimum-node-in-a-binary-tree-easy>2021/7.26 671 Second Minimum Node In a Binary Tree (EASY)<a href=#2021726-671-second-minimum-node-in-a-binary-tree-easy class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2>
+<p>Given a non-empty special binary tree consisting of nodes with the non-negative value, where each node in this tree has exactly two or zero sub-node. If the node has two sub-nodes, then this node&rsquo;s value is the smaller value among its two sub-nodes. More formally, the property root.val = min(root.left.val, root.right.val) always holds.</p>
+<p>Given such a binary tree, you need to output the second minimum value in the set made of all the nodes' value in the whole tree.</p>
+<p>If no such second minimum value exists, output -1 instead.</p>
+<h4 id=dfs暴力>DFS暴力<a href=#dfs暴力 class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h4>
+<p>由题意可知，根节点的值是最小的，要找到整棵树中的第二小的值只需要对所有节点进行遍历，寻找到大于根节点的最大值即可</p>
+<p>初始化一个<code>ans</code>等于-1，代表未找到第二小的值，对树进行遍历，当值大于root的值并大于ans时，更新ans的值。最后返回ans的值，就是第二小的值</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>findSecondMinimumValue</span><span class=p>(</span><span class=nx>root</span> <span class=o>*</span><span class=nx>TreeNode</span><span class=p>)</span> <span class=kt>int</span> <span class=p>{</span>
+    <span class=nx>ans</span> <span class=o>:=</span> <span class=o>-</span><span class=mi>1</span>
+    <span class=nx>rootVal</span> <span class=o>:=</span> <span class=nx>root</span><span class=p>.</span><span class=nx>Val</span>
+    <span class=kd>var</span> <span class=nx>dfs</span> <span class=kd>func</span><span class=p>(</span><span class=o>*</span><span class=nx>TreeNode</span><span class=p>)</span>
+    <span class=nx>dfs</span> <span class=p>=</span> <span class=kd>func</span><span class=p>(</span><span class=nx>node</span> <span class=o>*</span><span class=nx>TreeNode</span><span class=p>)</span> <span class=p>{</span>
+        <span class=k>if</span> <span class=nx>node</span> <span class=o>==</span> <span class=kc>nil</span> <span class=o>||</span> <span class=nx>ans</span> <span class=o>!=</span> <span class=o>-</span><span class=mi>1</span> <span class=o>&amp;&amp;</span> <span class=nx>node</span><span class=p>.</span><span class=nx>Val</span> <span class=o>&gt;=</span> <span class=nx>ans</span> <span class=p>{</span>
+            <span class=k>return</span>
+        <span class=p>}</span>
+        <span class=k>if</span> <span class=nx>node</span><span class=p>.</span><span class=nx>Val</span> <span class=p>&gt;</span> <span class=nx>rootVal</span> <span class=p>{</span>
+            <span class=nx>ans</span> <span class=p>=</span> <span class=nx>node</span><span class=p>.</span><span class=nx>Val</span>
+        <span class=p>}</span>
+        <span class=nf>dfs</span><span class=p>(</span><span class=nx>node</span><span class=p>.</span><span class=nx>Left</span><span class=p>)</span>
+        <span class=nf>dfs</span><span class=p>(</span><span class=nx>node</span><span class=p>.</span><span class=nx>Right</span><span class=p>)</span>
+    <span class=p>}</span>
+    <span class=nf>dfs</span><span class=p>(</span><span class=nx>root</span><span class=p>)</span>
+    <span class=k>return</span> <span class=nx>ans</span>
+<span class=p>}</span>
+</code></pre></div>
 </div>
 <hr class=post-end>
 <footer class=post-info>
 <p>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=tag><a href=https://blog.zxykm.xyz/tags/leetcode>Leetcode</a></span>
 </p>
-<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>449 Words</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>601 Words</p>
 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2021-07-23 03:50 +0000</p>
 </footer>
 </article>
