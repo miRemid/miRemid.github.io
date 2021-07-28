@@ -10,7 +10,7 @@
 Return true if each integer in the inclusive range [left, right] is covered by at least one interval in ranges. Return false otherwise.
 An integer x is covered by an interval ranges[i] = [starti, endi] if starti <= x <= endi."><meta itemprop=datePublished content="2021-07-23T11:50:27+08:00">
 <meta itemprop=dateModified content="2021-07-23T11:50:27+08:00">
-<meta itemprop=wordCount content="601">
+<meta itemprop=wordCount content="792">
 <meta itemprop=keywords content="Leetcode,"><meta property="og:title" content="Leetcode 每日一题">
 <meta property="og:description" content="2021/7/23 1893 Check if All the Integers in a Range Are Covered (EASY) You are given a 2D integer array ranges and two integers left and right. Each ranges[i] = [starti, endi] represents an inclusive interval between starti and endi.
 Return true if each integer in the inclusive range [left, right] is covered by at least one interval in ranges. Return false otherwise.
@@ -164,14 +164,62 @@ An integer x is covered by an interval ranges[i] = [starti, endi] if starti <= x
     <span class=nf>dfs</span><span class=p>(</span><span class=nx>root</span><span class=p>)</span>
     <span class=k>return</span> <span class=nx>ans</span>
 <span class=p>}</span>
-</code></pre></div>
+</code></pre></div><h2 id=2021728-863>2021/7.28 863<a href=#2021728-863 class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2>
+<p>Given the root of a binary tree, the value of a target node target, and an integer k, return an array of the values of all nodes that have a distance k from the target node.</p>
+<p>You can return the answer in any order.</p>
+<h4 id=哈系dfs>哈系+DFS<a href=#哈系dfs class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h4>
+<p>首先寻找到所有节点的父节点，然后从Target节点出发，寻找距离K的节点即可</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>distanceK</span><span class=p>(</span><span class=nx>root</span> <span class=o>*</span><span class=nx>TreeNode</span><span class=p>,</span> <span class=nx>target</span> <span class=o>*</span><span class=nx>TreeNode</span><span class=p>,</span> <span class=nx>k</span> <span class=kt>int</span><span class=p>)</span> <span class=p>[]</span><span class=kt>int</span> <span class=p>{</span>
+    <span class=c1>// 1. get all father node
+</span><span class=c1></span>	<span class=kd>var</span> <span class=nx>fathers</span> <span class=p>=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>map</span><span class=p>[</span><span class=kt>int</span><span class=p>]</span><span class=o>*</span><span class=nx>TreeNode</span><span class=p>)</span>
+	<span class=kd>var</span> <span class=nx>getFather</span> <span class=kd>func</span><span class=p>(</span><span class=nx>root</span> <span class=o>*</span><span class=nx>TreeNode</span><span class=p>)</span>
+	<span class=nx>getFather</span> <span class=p>=</span> <span class=kd>func</span><span class=p>(</span><span class=nx>root</span> <span class=o>*</span><span class=nx>TreeNode</span><span class=p>)</span> <span class=p>{</span>
+		<span class=k>if</span> <span class=nx>root</span> <span class=o>==</span> <span class=kc>nil</span> <span class=p>{</span>
+			<span class=k>return</span>
+		<span class=p>}</span>
+		<span class=k>if</span> <span class=nx>root</span><span class=p>.</span><span class=nx>Left</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+			<span class=nx>fathers</span><span class=p>[</span><span class=nx>root</span><span class=p>.</span><span class=nx>Left</span><span class=p>.</span><span class=nx>Val</span><span class=p>]</span> <span class=p>=</span> <span class=nx>root</span>
+			<span class=nf>getFather</span><span class=p>(</span><span class=nx>root</span><span class=p>.</span><span class=nx>Left</span><span class=p>)</span>
+		<span class=p>}</span>
+		<span class=k>if</span> <span class=nx>root</span><span class=p>.</span><span class=nx>Right</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+			<span class=nx>fathers</span><span class=p>[</span><span class=nx>root</span><span class=p>.</span><span class=nx>Right</span><span class=p>.</span><span class=nx>Val</span><span class=p>]</span> <span class=p>=</span> <span class=nx>root</span>
+			<span class=nf>getFather</span><span class=p>(</span><span class=nx>root</span><span class=p>.</span><span class=nx>Right</span><span class=p>)</span>
+		<span class=p>}</span>
+	<span class=p>}</span>
+	<span class=nf>getFather</span><span class=p>(</span><span class=nx>root</span><span class=p>)</span>
+	<span class=kd>var</span> <span class=nx>res</span> <span class=p>=</span> <span class=nb>make</span><span class=p>([]</span><span class=kt>int</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+	<span class=c1>// 2. find the target node
+</span><span class=c1></span>	<span class=kd>var</span> <span class=nx>getNode</span> <span class=kd>func</span><span class=p>(</span><span class=o>*</span><span class=nx>TreeNode</span><span class=p>,</span> <span class=o>*</span><span class=nx>TreeNode</span><span class=p>,</span> <span class=kt>int</span><span class=p>)</span>
+	<span class=nx>getNode</span> <span class=p>=</span> <span class=kd>func</span><span class=p>(</span><span class=nx>node</span><span class=p>,</span> <span class=nx>from</span> <span class=o>*</span><span class=nx>TreeNode</span><span class=p>,</span> <span class=nx>dis</span> <span class=kt>int</span><span class=p>)</span> <span class=p>{</span>
+		<span class=k>if</span> <span class=nx>node</span> <span class=o>==</span> <span class=kc>nil</span> <span class=p>{</span>
+			<span class=k>return</span>
+		<span class=p>}</span>
+		<span class=k>if</span> <span class=nx>dis</span> <span class=o>==</span> <span class=nx>k</span> <span class=p>{</span>
+			<span class=nx>res</span> <span class=p>=</span> <span class=nb>append</span><span class=p>(</span><span class=nx>res</span><span class=p>,</span> <span class=nx>node</span><span class=p>.</span><span class=nx>Val</span><span class=p>)</span>
+			<span class=k>return</span>
+		<span class=p>}</span>
+		<span class=k>if</span> <span class=nx>node</span><span class=p>.</span><span class=nx>Left</span> <span class=o>!=</span> <span class=nx>from</span> <span class=p>{</span>
+			<span class=nf>getNode</span><span class=p>(</span><span class=nx>node</span><span class=p>.</span><span class=nx>Left</span><span class=p>,</span> <span class=nx>node</span><span class=p>,</span> <span class=nx>dis</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span>
+		<span class=p>}</span>
+		<span class=k>if</span> <span class=nx>node</span><span class=p>.</span><span class=nx>Right</span> <span class=o>!=</span> <span class=nx>from</span> <span class=p>{</span>
+			<span class=nf>getNode</span><span class=p>(</span><span class=nx>node</span><span class=p>.</span><span class=nx>Right</span><span class=p>,</span> <span class=nx>node</span><span class=p>,</span> <span class=nx>dis</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span>
+		<span class=p>}</span>
+		<span class=k>if</span> <span class=nx>fathers</span><span class=p>[</span><span class=nx>node</span><span class=p>.</span><span class=nx>Val</span><span class=p>]</span> <span class=o>!=</span> <span class=nx>from</span> <span class=p>{</span>
+			<span class=nf>getNode</span><span class=p>(</span><span class=nx>fathers</span><span class=p>[</span><span class=nx>node</span><span class=p>.</span><span class=nx>Val</span><span class=p>],</span> <span class=nx>node</span><span class=p>,</span> <span class=nx>dis</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span>
+		<span class=p>}</span>
+	<span class=p>}</span>
+	<span class=nf>getNode</span><span class=p>(</span><span class=nx>target</span><span class=p>,</span> <span class=kc>nil</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+	<span class=k>return</span> <span class=nx>res</span>
+<span class=p>}</span>
+</code></pre></div><p>执行用时：0 ms, 在所有 Go 提交中击败了100%的用户</p>
+<p>内存消耗：3.2 MB, 在所有 Go 提交中击败了52.08%的用户</p>
 </div>
 <hr class=post-end>
 <footer class=post-info>
 <p>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=tag><a href=https://blog.zxykm.xyz/tags/leetcode>Leetcode</a></span>
 </p>
-<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>601 Words</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>792 Words</p>
 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2021-07-23 03:50 +0000</p>
 </footer>
 </article>
