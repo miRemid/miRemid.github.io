@@ -139,3 +139,62 @@ func findSecondMinimumValue(root *TreeNode) int {
     return ans
 }
 ```
+
+## 2021/7.28 863 
+Given the root of a binary tree, the value of a target node target, and an integer k, return an array of the values of all nodes that have a distance k from the target node.
+
+You can return the answer in any order.
+
+#### 哈系+DFS
+
+首先寻找到所有节点的父节点，然后从Target节点出发，寻找距离K的节点即可
+
+```go
+func distanceK(root *TreeNode, target *TreeNode, k int) []int {
+    // 1. get all father node
+	var fathers = make(map[int]*TreeNode)
+	var getFather func(root *TreeNode)
+	getFather = func(root *TreeNode) {
+		if root == nil {
+			return
+		}
+		if root.Left != nil {
+			fathers[root.Left.Val] = root
+			getFather(root.Left)
+		}
+		if root.Right != nil {
+			fathers[root.Right.Val] = root
+			getFather(root.Right)
+		}
+	}
+	getFather(root)
+	var res = make([]int, 0)
+	// 2. find the target node
+	var getNode func(*TreeNode, *TreeNode, int)
+	getNode = func(node, from *TreeNode, dis int) {
+		if node == nil {
+			return
+		}
+		if dis == k {
+			res = append(res, node.Val)
+			return
+		}
+		if node.Left != from {
+			getNode(node.Left, node, dis+1)
+		}
+		if node.Right != from {
+			getNode(node.Right, node, dis+1)
+		}
+		if fathers[node.Val] != from {
+			getNode(fathers[node.Val], node, dis+1)
+		}
+	}
+	getNode(target, nil, 0)
+	return res
+}
+```
+
+执行用时：0 ms, 在所有 Go 提交中击败了100%的用户
+
+内存消耗：3.2 MB, 在所有 Go 提交中击败了52.08%的用户
+
