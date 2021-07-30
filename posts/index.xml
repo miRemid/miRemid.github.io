@@ -148,7 +148,27 @@ An integer x is covered by an interval ranges[i] = [starti, endi] if starti &amp
 <span class="p">}</span>
 </code></pre></div><p>执行用时：0 ms, 在所有 Go 提交中击败了100%的用户</p>
 <p>内存消耗：3.2 MB, 在所有 Go 提交中击败了52.08%的用户</p>
-]]></content></item><item><title>Windows11是如何运行安卓应用的</title><link>https://blog.zxykm.xyz/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</link><pubDate>Thu, 01 Jul 2021 15:25:32 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</guid><description>本文翻译自arstechnica
+<h2 id="2021730-171-excel-sheet-column-number-easy">2021/7.30 171 Excel Sheet Column Number (EASY)</h2>
+<p>Given a string columnTitle that represents the column title as appear in an Excel sheet, return its corresponding column number.</p>
+<pre><code>A -&gt; 1
+B -&gt; 2
+...
+Z -&gt; 26
+AA -&gt; 27
+...
+</code></pre>
+<h4 id="遍历">遍历</h4>
+<p>进制转换题，非常简单</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">titleToNumber</span><span class="p">(</span><span class="nx">columnTitle</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">num</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">mul</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">columnTitle</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
+        <span class="nx">k</span> <span class="o">:=</span> <span class="nx">columnTitle</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;A&#39;</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="nx">num</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">k</span><span class="p">)</span> <span class="o">*</span> <span class="nx">mul</span>
+        <span class="nx">mul</span> <span class="o">*=</span> <span class="mi">26</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">num</span>
+<span class="p">}</span>
+</code></pre></div>]]></content></item><item><title>Windows11是如何运行安卓应用的</title><link>https://blog.zxykm.xyz/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</link><pubDate>Thu, 01 Jul 2021 15:25:32 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</guid><description>本文翻译自arstechnica
 微软在发布Windows11时公布了一个令人惊喜的东西，Windows11将支持Win应用和安卓应用同时运行。但是，并没有在关键的地方留下太多的信息。这些应用是否是通过模拟器运行的呢？现存与Windows的Linux子系统将会被放弃吗？我们将在这篇文章得到答案，同时感谢以下开发者探讨这些细节。
 微软官方将这个功能称之为“为安卓而生的Windows子系统”，这也向你说明了许多关于它如何工作的信息。Windows目前拥有一个Linux子系统（WSL），它使用Windows下的Hyper-V虚拟机的功能让Windows能在一个独立的环境下使用一个真正意义上的Linux系统来运行Linux应用。（Hyper-V让次系统能够访问宿主机的硬件而不是通过在原生资源上套用一个顶层的管理操作系统从而只能使用少数宿主机资源）。一个现实中的安卓手机运行的是Linux内核，而微软正在为Windows的安卓子系统建立一个基于WSL的安卓框架。这看上去非常类似于在Hyper-V虚拟机中运行x86架构的安卓系统。
 在Windows下运行安卓应用就如同在原生机器上运行Windwos原生应用一样，顶层有窗口栏，任务图标，并且可以“钉”在开始菜单中。在发布会中，微软说：“在屏幕背后，我们还创建栏一个代理应用用于处理安卓运行和Windows引用之间的交互”。这大概可以推测，系统将会提供类似于启动快捷键、图标和卸载入口，并且其窗口化的模式让应用看起来像原生应用一样。

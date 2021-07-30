@@ -10,7 +10,7 @@
 Return true if each integer in the inclusive range [left, right] is covered by at least one interval in ranges. Return false otherwise.
 An integer x is covered by an interval ranges[i] = [starti, endi] if starti <= x <= endi."><meta itemprop=datePublished content="2021-07-23T11:50:27+08:00">
 <meta itemprop=dateModified content="2021-07-23T11:50:27+08:00">
-<meta itemprop=wordCount content="792">
+<meta itemprop=wordCount content="876">
 <meta itemprop=keywords content="Leetcode,"><meta property="og:title" content="Leetcode 每日一题">
 <meta property="og:description" content="2021/7/23 1893 Check if All the Integers in a Range Are Covered (EASY) You are given a 2D integer array ranges and two integers left and right. Each ranges[i] = [starti, endi] represents an inclusive interval between starti and endi.
 Return true if each integer in the inclusive range [left, right] is covered by at least one interval in ranges. Return false otherwise.
@@ -213,13 +213,34 @@ An integer x is covered by an interval ranges[i] = [starti, endi] if starti <= x
 <span class=p>}</span>
 </code></pre></div><p>执行用时：0 ms, 在所有 Go 提交中击败了100%的用户</p>
 <p>内存消耗：3.2 MB, 在所有 Go 提交中击败了52.08%的用户</p>
+<h2 id=2021730-171-excel-sheet-column-number-easy>2021/7.30 171 Excel Sheet Column Number (EASY)<a href=#2021730-171-excel-sheet-column-number-easy class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2>
+<p>Given a string columnTitle that represents the column title as appear in an Excel sheet, return its corresponding column number.</p>
+<pre><code>A -&gt; 1
+B -&gt; 2
+...
+Z -&gt; 26
+AA -&gt; 27
+...
+</code></pre>
+<h4 id=遍历>遍历<a href=#遍历 class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h4>
+<p>进制转换题，非常简单</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>func</span> <span class=nf>titleToNumber</span><span class=p>(</span><span class=nx>columnTitle</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>int</span> <span class=p>{</span>
+    <span class=kd>var</span> <span class=nx>num</span> <span class=kt>int</span> <span class=p>=</span> <span class=mi>0</span>
+    <span class=k>for</span> <span class=nx>i</span><span class=p>,</span> <span class=nx>mul</span> <span class=o>:=</span> <span class=nb>len</span><span class=p>(</span><span class=nx>columnTitle</span><span class=p>)</span> <span class=o>-</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>;</span> <span class=nx>i</span><span class=o>&gt;=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span><span class=o>--</span> <span class=p>{</span>
+        <span class=nx>k</span> <span class=o>:=</span> <span class=nx>columnTitle</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span> <span class=o>-</span> <span class=sc>&#39;A&#39;</span> <span class=o>+</span> <span class=mi>1</span>
+        <span class=nx>num</span> <span class=o>+=</span> <span class=nb>int</span><span class=p>(</span><span class=nx>k</span><span class=p>)</span> <span class=o>*</span> <span class=nx>mul</span>
+        <span class=nx>mul</span> <span class=o>*=</span> <span class=mi>26</span>
+    <span class=p>}</span>
+    <span class=k>return</span> <span class=nx>num</span>
+<span class=p>}</span>
+</code></pre></div>
 </div>
 <hr class=post-end>
 <footer class=post-info>
 <p>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=tag><a href=https://blog.zxykm.xyz/tags/leetcode>Leetcode</a></span>
 </p>
-<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>792 Words</p>
+<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>876 Words</p>
 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2021-07-23 03:50 +0000</p>
 </footer>
 </article>
