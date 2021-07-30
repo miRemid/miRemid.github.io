@@ -198,3 +198,26 @@ func distanceK(root *TreeNode, target *TreeNode, k int) []int {
 
 内存消耗：3.2 MB, 在所有 Go 提交中击败了52.08%的用户
 
+## 2021/7.30 171 Excel Sheet Column Number (EASY)
+Given a string columnTitle that represents the column title as appear in an Excel sheet, return its corresponding column number.
+
+    A -> 1
+    B -> 2
+    ...
+    Z -> 26
+    AA -> 27
+    ...
+
+#### 遍历
+进制转换题，非常简单
+```go
+func titleToNumber(columnTitle string) int {
+    var num int = 0
+    for i, mul := len(columnTitle) - 1, 1; i>= 0; i-- {
+        k := columnTitle[i] - 'A' + 1
+        num += int(k) * mul
+        mul *= 26
+    }
+    return num
+}
+```
