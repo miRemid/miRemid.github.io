@@ -221,3 +221,61 @@ func titleToNumber(columnTitle string) int {
     return num
 }
 ```
+## 987 2021/7/31 Vertical Order Traversall of a Binary Tree
+
+Give the root of a binary tree, calculate the vertical order traversal of the binary tree.
+
+For each node at position (row, col), its left and right children will be at positions (row + 1, col - 1) and (row + 1, col + 1) respectively. The rootof the tree is at (0, 0)
+
+The vertical order traversal of a binary tree is a list of top-to-bottom orderings for each column index starting from the leftmost column and ending on the rightmost column. There may be multiple nodes in the same row and same column. In such a case, sort these nodes by their valeus.
+
+Return the vertical order traversal of the binary tree.
+
+#### DFS暴力+Sort+Hash
+Map直接存同col的节点，然后从小到大遍历并排序输出即可
+
+```go
+func verticalTraversal(root *TreeNode) (res [][]int) {
+    // 1. hash map, find the same coloumn nodes
+    var hashMap = make(map[int][]int)
+    var left, right = 999, -999
+    var dfs func(root *TreeNode, row, col int)
+    dfs = func(root *TreeNode, row, col int) {
+        if root == nil {
+            return
+        }
+        if col < left {
+            left = col
+        }
+        if col > right {
+            right = col
+        }
+        if _, ok := hashMap[col]; ok {
+            hashMap[col] = append(hashMap[col], root.Val)
+        } else {
+            hashMap[col] = make([]int, 0)
+            hashMap[col] = append(hashMap[col], root.Val)
+        }
+        dfs(root.Left, row+1, col-1)
+        dfs(root.Right, row+1, col+1)
+    }
+    dfs(root, 0, 0)
+    for i := left; i <= right; i++ {
+        if arr, ok := hashMap[i]; ok {
+            sort.Ints(arr)
+            res = append(res, arr)
+        }
+    }
+    return
+}
+```
+
+Leetcode-cn测试集有问题
+
+    Input:
+    [3, 1, 4, 0, 2, 2]
+    Output:
+    [[0], [1], [2, 2, 3], [4]]
+    Expect:
+    [[0], [1], [3, 2, 2], [4]] # 题意从小到大，但预期为从大到小
+
