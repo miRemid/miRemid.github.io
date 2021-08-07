@@ -1,4 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>狸猫窝</title><link>https://blog.zxykm.xyz/</link><description>Recent content on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 23 Jul 2021 11:50:27 +0800</lastBuildDate><atom:link href="https://blog.zxykm.xyz/index.xml" rel="self" type="application/rss+xml"/><item><title>Leetcode 每日一题</title><link>https://blog.zxykm.xyz/posts/leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/</link><pubDate>Fri, 23 Jul 2021 11:50:27 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/</guid><description>2021/7/23 1893 Check if All the Integers in a Range Are Covered (EASY) You are given a 2D integer array ranges and two integers left and right. Each ranges[i] = [starti, endi] represents an inclusive interval between starti and endi.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>狸猫窝</title><link>https://blog.zxykm.xyz/</link><description>Recent content on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 07 Aug 2021 15:00:19 +0800</lastBuildDate><atom:link href="https://blog.zxykm.xyz/index.xml" rel="self" type="application/rss+xml"/><item><title>Websocket关闭错误代码含义</title><link>https://blog.zxykm.xyz/posts/websocket%E5%85%B3%E9%97%AD%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E5%90%AB%E4%B9%89/</link><pubDate>Sat, 07 Aug 2021 15:00:19 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/websocket%E5%85%B3%E9%97%AD%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E5%90%AB%E4%B9%89/</guid><description>前情 在处理B站直播的Websocket源时，经常发生连接关闭的错误，最常见的就是close 1006 (abnormal closure): unexpected EOF错误，你说http的状态码还知道，这websocet的状态码还真不知道，于是去查了查记录一下
+RFC 6455 根据RFC 6455定义的内容，Websocket在处理关闭时设置了一系列的代码提示。当对一个已经建立的连接进行关闭时，在终端处可能提供一个关闭的解释说明，客户端可以根据这个代码来推测终端关闭连接的原因从而更新客户端连接的代码。当然，终端在关闭时也可以忽视代码直接进行关闭
+1000 Normal Closure 1000表明这是一个正常的关闭，表明要传输的数据已经全部完成可以退出
+1001 Going Away 1001说明终端可能已经找不到该连接，例如服务可能宕机或浏览器重定向至其他页面
+1002 Protocal error 1002说明连接被终端由于消息协议错误而进行强制性退出
+1003 Unsupported Data 1003说明终端接受到一个无法处理的数据而进行强制性退出(例如，服务器可能只能够处理文本数据但接受到了二进制数据)
+1004 &amp;mdash;Reserved&amp;mdash; 1004字段保留，未来可能用得到
+1005 No Status Rcvd 1005是一个保留数据，绝对不允许终端将其设置为关闭时的状态码。It is designated for use in applications expecting a status code to indicate the no stats code was actually present.
+1006 Abnormal Closure 1006是一个保留数据，绝对不允许终端将其设置为关闭时的状态码。它是用来指定需要状态码标志连接异常关闭的程序，例如没有发送或接受控制数据</description></item><item><title>Leetcode 每日一题</title><link>https://blog.zxykm.xyz/posts/leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/</link><pubDate>Fri, 23 Jul 2021 11:50:27 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/</guid><description>2021/7/23 1893 Check if All the Integers in a Range Are Covered (EASY) You are given a 2D integer array ranges and two integers left and right. Each ranges[i] = [starti, endi] represents an inclusive interval between starti and endi.
 Return true if each integer in the inclusive range [left, right] is covered by at least one interval in ranges. Return false otherwise.
 An integer x is covered by an interval ranges[i] = [starti, endi] if starti &amp;lt;= x &amp;lt;= endi.</description></item><item><title>Windows11是如何运行安卓应用的</title><link>https://blog.zxykm.xyz/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</link><pubDate>Thu, 01 Jul 2021 15:25:32 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</guid><description>本文翻译自arstechnica
 微软在发布Windows11时公布了一个令人惊喜的东西，Windows11将支持Win应用和安卓应用同时运行。但是，并没有在关键的地方留下太多的信息。这些应用是否是通过模拟器运行的呢？现存与Windows的Linux子系统将会被放弃吗？我们将在这篇文章得到答案，同时感谢以下开发者探讨这些细节。
@@ -87,21 +95,4 @@ fdisk /dev/sda # 进入分区模式 g # 创建分区表 n # 创建swap分区 # �
 mkdir $HOME/src cd $HOME/src git clone https://github.com/gohugoio/hugo.git cd hugo go install 如果你想让Hugo支持sass的话则需要编译另一个版本
 CGO_ENABLED=1 go install --tags extended 在终端中输入hugo version来检查是否编译成功
 创建站点 安装完Hugo后就可以来创建一个网站站点，假设名称为demo
-hugo new site demo cd demo git init 在初始化站点后，需要为站点选择一个主题，这里选择我使用的Hermit</description></item><item><title>TCP和HTTP和HTTPS</title><link>https://blog.zxykm.xyz/posts/tcp%E5%92%8Chttp%E5%92%8Chttps/</link><pubDate>Wed, 24 Feb 2021 21:49:01 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/tcp%E5%92%8Chttp%E5%92%8Chttps/</guid><description>本文主要介绍一下TCP和HTTP&amp;amp;HTTPS之间的关系
-TCP TCP是传输层上的面向连接的可靠传输协议
-三次握手 TCP的连接通过三次握手来完成，第一次握手由客户端发起，客户端设置数据包中SYN字段为1，ACK字段为1并随机选取一个值x作为该数据包的seq发送给服务器并调整当前状态为SYN_SEND 服务器在接受到来自客户端的SYN=1的数据包后知道要开始建立连接，于是服务器设置SYN字段为1，ACK为1，随机选取一个值y作为该包的seq并设置下一个希望得到的数据包序列号为x+1最后发送给客户端并调整当前转台为SYN_RECIVE 客户端在收到第二个握手包后可以确定服务端与自己的连接是互通的，于是设置数据包的ACK字段为1，seq为x+1并设置希望下一个来自服务端的数据包的序列号为y+1发送给服务端服务端在接受到第三个握手包后可以确定客户端与自己的连接是互通的，由此可以确保数据的传输 四次挥手 TCP的断开连接可以由客户端或服务端发起，设发起的一方为客户端
-客户端设置数据包的FIN字段为1，假设当前seq为u发送该包之后客户端调整状态为FIN_WAIT1 服务端在收到FIN的数据包后调整状态为CLOSE_WAIT并设置数据包的ACK为1，ack为u+1,seq为w 客户端在收到服务端的ACK包后进入FIN_WAIT2状态，持续等待；服务端在发送完ACK包后不会立刻断开连接，而是会等待服务端所有数据全部传输完成之后在向客户端发起第三次挥手，其FIN为1，ACK为1，seq为v，ack为u+1 客户端在收到该FIN后进入TIME_WAIT状态并向服务端发送ACK=1，seq为u+1，ack=v+1的数据包通知服务端关闭连接，服务端在收到后会立刻关闭连接而客户端则会等待2 如果客户端出现故障会如何 服务端会在与客户端连接之后设置一个计时器，当客户端出现故障，服务端不可能一直等待下去，计时器会在建立时开始及时，通常为2个消失，每一次收到客户端连接之后都会重置计时器。当计时器结束之后服务端可以认为客户端出现故障或不再需要数据，此时就关闭连接
-HTTP HTTP是一种明文传输的超文本传输协议
-由于其是明文的因此非常的不安全，由此诞生了HTTPS
-HTTPS HTTPS是建立在HTTP之上的，其在传输过程中加上了一层SSL/TLS用于给文本加密
-HTTPS的加密解密同时使用了对称加密和非对称加密，由于非对称加密的性能要比对称加密低，因此HTTPS会在交换对称加密密钥时进行非对称加密传输，防止被中间人猜出。然后再根据得到的密钥文件对要传输的内容进行对称加密
-认证问题 在HTTPS中，每一个连接都会在其头部添加数字签名，生成数字签名的密钥由CA发放
-服务端报文经过HASH处理后生成摘要信息，摘要信息使用私钥加密生成签名，随同报文一起发送给客户端
-客户端接受后将签名提取出来并用公钥进行解密，如果能正确解密则说明该报文是来自服务端的
-数据完整性 在解决认证问题后就要解决数据完整性的问题，而这个问题就会使用上述的摘要信息进行完成
-客户端在对摘要进行解密后会得到该报文的Hash摘要，客户端只需要通过把报文中的数据提取出来进行相同的Hash操作得到另一份摘要后与前一份进行对比就能判断传输的数据是否完整了
-而Hash算法等相关信息都会在证书交换中进行传送
-工作流程 Client Hello
-客户端向服务端发送Client Hello消息，该消息包含客户端生成的随机数Random1、客户端支持的加密套件和SSL版本信息等 Server Hello
-服务端向客户端发送Server Hello消息，该消息会从Client Hello中确定一份加密套件，该套件决定了后续加密和生成摘要所需使用的集体算法，除此之外还会生成一个随机数Random2 Certificate
-服务端下发证书给客户端，让客户端验证自己的身份，客户端验证通过后取出公钥 Certificate Verify 客户端收到服务端的证书后先从CA验证证书合法性，提取证书中的公钥并生成随机数Random3，再用刚刚提取的公钥对随机数加密生成PreMasterKey发送给服务端 Client Key Exchange 服务端通过私钥解密得到Random3，此时客户端服务端均包含三个随机数，双方根据之前协定的算法生成一份密钥，在握手结束后的数据传输均使用该密钥进行对称加密 EncryptedHandshakeMessage 客户端将前面的握手消息生成摘要再用协商好的密钥加密发送给服务端，服务端用密钥解密如果能够解出则说明密钥一致 Change Cipher Spec 服务端通知客户端后续消息均使用加密 Encrypted Handshake Message 服务端将握手消息生成摘要加密发送给客户端，客户端接受后解密，成功则说明一致 Application data 此时双方已安全协商密钥，至此后续所有应用层数据都将使用该密钥进行加密后通过TCP进行传输 TLS版本区别 在1.</description></item></channel></rss>
+hugo new site demo cd demo git init 在初始化站点后，需要为站点选择一个主题，这里选择我使用的Hermit</description></item></channel></rss>
