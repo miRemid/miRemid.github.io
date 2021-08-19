@@ -279,3 +279,10 @@ Leetcode-cn测试集有问题
     Expect:
     [[0], [1], [3, 2, 2], [4]] # 题意从小到大，但预期为从大到小
 
+
+## 516 Longest Palindromic Subsequence [Medium] 
+Given a string `s`, find the longest palindromic subsequence's length in s.
+
+A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
+
+#### 
