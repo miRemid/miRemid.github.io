@@ -1,7 +1,7 @@
 ---
-title: "Ubuntu server 20.04自定义IP地址及其网关"
-date: 2021-08-19T14:52:19+08:00
-draft: true
+title: "Ubuntu Server 20"
+date: 2021-08-19T15:36:40+08:00
+draft: false 
 toc: false
 images:
 tags: 
