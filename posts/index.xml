@@ -1,4 +1,32 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.zxykm.xyz/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 07 Aug 2021 15:00:19 +0800</lastBuildDate><atom:link href="https://blog.zxykm.xyz/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Websocket关闭错误代码含义</title><link>https://blog.zxykm.xyz/posts/websocket%E5%85%B3%E9%97%AD%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E5%90%AB%E4%B9%89/</link><pubDate>Sat, 07 Aug 2021 15:00:19 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/websocket%E5%85%B3%E9%97%AD%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E5%90%AB%E4%B9%89/</guid><description>前情 在处理B站直播的Websocket源时，经常发生连接关闭的错误，最常见的就是close 1006 (abnormal closure): unexpected EOF错误，你说http的状态码还知道，这websocet的状态码还真不知道，于是去查了查记录一下
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.zxykm.xyz/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 19 Aug 2021 15:36:40 +0800</lastBuildDate><atom:link href="https://blog.zxykm.xyz/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu Server 20</title><link>https://blog.zxykm.xyz/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</link><pubDate>Thu, 19 Aug 2021 15:36:40 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</guid><description>Ubuntu从20.04版本开始使用netplan对网络进行管理，百度上使用的/etc/network/interfaces文件已不再适用，需要修改netplan配置文件进行更新
+修改配置文件 netplan的配置文件存放在/etc/netplan中，其中有诸如00-installer-config.yaml的配置文件，打开可以发现
+# This is the network config written by &amp;#39;subiquity&amp;#39;network:ethernets:# 网卡名称，我这是虚拟机ens33ens33:# 是否开启dhcp服务，设置为true后后续的ip和网关可以不用设置dhcp4:no# IP地址，一般设置一个就行# 后面的24是子网掩码数目，代表255.255.255.0(11111111.11111111.11111111.00000000)addresses:[192.168.1.106/24]optional:true# 网关地址gateway4:192.168.1.253# dns地址nameservers:addresses:[233.5.5.5,192.168.1.253]version:2当然，这只是最为基础的网络配置，对于多张网卡还可以进行其他的配置，详情可以参考Netplan官方文档
+在修改完文件之后，终端输入以下命令应用配置，Ping外网测试连通性
+sudo netplay apply ping 8.8.8.8</description><content type="html"><![CDATA[<p>Ubuntu从20.04版本开始使用<code>netplan</code>对网络进行管理，百度上使用的<code>/etc/network/interfaces</code>文件已不再适用，需要修改<code>netplan</code>配置文件进行更新</p>
+<h2 id="修改配置文件">修改配置文件</h2>
+<p><code>netplan</code>的配置文件存放在<code>/etc/netplan</code>中，其中有诸如<code>00-installer-config.yaml</code>的配置文件，打开可以发现</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># This is the network config written by &#39;subiquity&#39;</span><span class="w">
+</span><span class="w"></span><span class="nt">network</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">ethernets</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># 网卡名称，我这是虚拟机ens33</span><span class="w">
+</span><span class="w">    </span><span class="nt">ens33</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="c"># 是否开启dhcp服务，设置为true后后续的ip和网关可以不用设置</span><span class="w">
+</span><span class="w">      </span><span class="nt">dhcp4</span><span class="p">:</span><span class="w"> </span><span class="kc">no</span><span class="w">
+</span><span class="w">      </span><span class="c"># IP地址，一般设置一个就行</span><span class="w">
+</span><span class="w">      </span><span class="c"># 后面的24是子网掩码数目，代表255.255.255.0(11111111.11111111.11111111.00000000)</span><span class="w">
+</span><span class="w">      </span><span class="nt">addresses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">192.168.1.106</span><span class="l">/24]</span><span class="w">
+</span><span class="w">      </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">      </span><span class="c"># 网关地址</span><span class="w">
+</span><span class="w">      </span><span class="nt">gateway4</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.1.253</span><span class="w">
+</span><span class="w">      </span><span class="c"># dns地址</span><span class="w">
+</span><span class="w">      </span><span class="nt">nameservers</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">addresses</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">233.5.5.5</span><span class="p">,</span><span class="w"> </span><span class="m">192.168.1.253</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></code></pre></div><p>当然，这只是最为基础的网络配置，对于多张网卡还可以进行其他的配置，详情可以参考<a href="%22https://netplan.io/examples/%22">Netplan官方文档</a></p>
+<p>在修改完文件之后，终端输入以下命令应用配置，Ping外网测试连通性</p>
+<pre><code>sudo netplay apply
+ping 8.8.8.8</code></pre>
+]]></content></item><item><title>Websocket关闭错误代码含义</title><link>https://blog.zxykm.xyz/posts/websocket%E5%85%B3%E9%97%AD%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E5%90%AB%E4%B9%89/</link><pubDate>Sat, 07 Aug 2021 15:00:19 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/websocket%E5%85%B3%E9%97%AD%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E5%90%AB%E4%B9%89/</guid><description>前情 在处理B站直播的Websocket源时，经常发生连接关闭的错误，最常见的就是close 1006 (abnormal closure): unexpected EOF错误，你说http的状态码还知道，这websocet的状态码还真不知道，于是去查了查记录一下
 RFC 6455 根据RFC 6455定义的内容，Websocket在处理关闭时设置了一系列的代码提示。当对一个已经建立的连接进行关闭时，在终端处可能提供一个关闭的解释说明，客户端可以根据这个代码来推测终端关闭连接的原因从而更新客户端连接的代码。当然，终端在关闭时也可以忽视代码直接进行关闭
 1000 Normal Closure 1000表明这是一个正常的关闭，表明要传输的数据已经全部完成可以退出
 1001 Going Away 1001说明终端可能已经找不到该连接，例如服务可能宕机或浏览器重定向至其他页面
