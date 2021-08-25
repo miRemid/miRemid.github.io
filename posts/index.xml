@@ -1,4 +1,115 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.zxykm.xyz/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 19 Aug 2021 15:36:40 +0800</lastBuildDate><atom:link href="https://blog.zxykm.xyz/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu Server 20</title><link>https://blog.zxykm.xyz/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</link><pubDate>Thu, 19 Aug 2021 15:36:40 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</guid><description>Ubuntu从20.04版本开始使用netplan对网络进行管理，百度上使用的/etc/network/interfaces文件已不再适用，需要修改netplan配置文件进行更新
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.zxykm.xyz/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 25 Aug 2021 09:01:12 +0800</lastBuildDate><atom:link href="https://blog.zxykm.xyz/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker多级构建指南</title><link>https://blog.zxykm.xyz/posts/docker%E5%A4%9A%E7%BA%A7%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Wed, 25 Aug 2021 09:01:12 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/docker%E5%A4%9A%E7%BA%A7%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>多级构建让你的容器更小巧~
+在构建Docker镜像的时候经常发现构建出来的容器大小非常的大，而我本地编译出来的二进制文件也不过26MB左右而Docker容器居然有120MB！ 问题出现在哪里了呢？我们一步一步从最起始的地方开始看起
+构建方式 Docker容器的构建方法我个人常用以下几种
+本地打包二进制后直接放入Docker中运行 容器内打包直接运行 第一种的方式就是在本地编译好要执行的文件之后放入容器之中运行，这种方式无疑是最简单的方法也是最容易理解的方法。 但这种方法仔细一想就会发现有很多问题，假设我们需要在Windows机器编译Linux版本的容器内运行要怎么办呢？ 除此之外，假设我们换了一台机器也需要编译一份Docker镜像时，本地没有对应的编译工具要如何解决呢？ 为了应对上述问题，也就有了第二种方法。
+第二种的方式就是将代码放在容器内部编译，这样既解决了编译环境问题也解决了编译平台的问题。 但第二种方法带来的问题就是我今天要说的，那就是打包后的镜像体积过大，完全不如第一种打包出来的镜像。 这是因为，第一种只是将二进制文件放入容器内直接运行，而第二种还添加了项目的源代码文件，除此之外，还有一堆用于 编译二进制文件的工具在镜像之中，因此打包出来的镜像体积会非常巨大。 那有没有一种方法既能随意构建又不产生大体积的镜像呢？那就要谈谈Docker的多级构建了。
+多级构建 Docker的多级构建也就是常说的multi-stage build，你可以通过指定多个stage分别完成不同的任务最后合在一起完成最终的构建。
+例如有一个Go的项目，我们可以在stage1阶段进行编译操作，而在stage2阶段进行运行操作，这样就相当于构建1和2相结合，完成最后的构建。
+多级构建其实非常简单，其精髓就在于一个命令那就是COPY，这个命令不仅仅可以将本地文件拷贝至Docker的build进程上下文中，还可以在多个stage中 进行文件的复制，而ADD命令则只能用于前者，因此我通常在第一级构建时使用ADD命令将所有的源代码复制到Docker上下文中后，使用COPY应对其他层级的构建。COPY的参数非常简单
+COPY --from=stage source dest 其中from就是用于表明从哪个stage中复制文件，不添加该参数则默认从宿主机中复制文件。stage可以用数字表示从第几级复制(从0开始)，也可以用字符串来指定层级复制但需要对层级进行命名
+# builder stage FROM x as builder # final stage FROM x as final COPY --from=builder /abc /abc COPY --from=0 /abc/abc 实战 以我的Yuki为例，该项目由React和Go组成，其中Go将会提供服务器提供前端接口。
+首先分析阶层，我们需要编译两个项目，其中是React另一个是Go，并且Go的编译需要依赖于React。因此很容易得出，以下顺序
+编译React 编译Go 运行 为了让编译出来的容器尽可能的小，我们在选取构建容器时也尽量选择小的容器来进行编译例如我最喜欢的alpine。因此在Docker Hub中寻找关于nodejs和golang的alpine版本，由于原版golang的alpine版本不附带gcc因此我选择了第三方的容器tetafro/golang-gcc。而提供运行环境的容器我也选择了alpine:3.14
+NodeJS: node:14.17.5-alpine(117MB) Golang: tetafro/golang-gcc:1.16-alpine(425MB) Runtime: alpine:3.</description><content type="html"><![CDATA[<blockquote>
+<p>多级构建让你的容器更小巧~</p>
+</blockquote>
+<p>在构建Docker镜像的时候经常发现构建出来的容器大小非常的大，而我本地编译出来的二进制文件也不过26MB左右而Docker容器居然有120MB！
+问题出现在哪里了呢？我们一步一步从最起始的地方开始看起</p>
+<h2 id="构建方式">构建方式</h2>
+<p>Docker容器的构建方法我个人常用以下几种</p>
+<ol>
+<li>本地打包二进制后直接放入Docker中运行</li>
+<li>容器内打包直接运行</li>
+</ol>
+<p>第一种的方式就是在本地编译好要执行的文件之后放入容器之中运行，这种方式无疑是最简单的方法也是最容易理解的方法。
+但这种方法仔细一想就会发现有很多问题，假设我们需要在Windows机器编译Linux版本的容器内运行要怎么办呢？
+除此之外，假设我们换了一台机器也需要编译一份Docker镜像时，本地没有对应的编译工具要如何解决呢？
+为了应对上述问题，也就有了第二种方法。</p>
+<p>第二种的方式就是将代码放在容器内部编译，这样既解决了编译环境问题也解决了编译平台的问题。
+但第二种方法带来的问题就是我今天要说的，那就是打包后的镜像体积过大，完全不如第一种打包出来的镜像。
+这是因为，第一种只是将二进制文件放入容器内直接运行，而第二种还添加了项目的源代码文件，除此之外，还有一堆用于
+编译二进制文件的工具在镜像之中，因此打包出来的镜像体积会非常巨大。
+那有没有一种方法既能随意构建又不产生大体积的镜像呢？那就要谈谈Docker的多级构建了。</p>
+<h2 id="多级构建">多级构建</h2>
+<p>Docker的多级构建也就是常说的<code>multi-stage build</code>，你可以通过指定多个stage分别完成不同的任务最后合在一起完成最终的构建。</p>
+<p>例如有一个Go的项目，我们可以在stage1阶段进行编译操作，而在stage2阶段进行运行操作，这样就相当于构建1和2相结合，完成最后的构建。</p>
+<p>多级构建其实非常简单，其精髓就在于一个命令那就是<code>COPY</code>，这个命令不仅仅可以将本地文件拷贝至Docker的build进程上下文中，还可以在多个stage中
+进行文件的复制，而<code>ADD</code>命令则只能用于前者，因此我通常在第一级构建时使用<code>ADD</code>命令将所有的源代码复制到Docker上下文中后，使用<code>COPY</code>应对其他层级的构建。<code>COPY</code>的参数非常简单</p>
+<pre><code>COPY --from=stage source dest
+</code></pre>
+<p>其中<code>from</code>就是用于表明从哪个stage中复制文件，不添加该参数则默认从宿主机中复制文件。stage可以用数字表示从第几级复制(从0开始)，也可以用字符串来指定层级复制但需要对层级进行命名</p>
+<pre><code># builder stage
+FROM x as builder
+
+# final stage
+FROM x as final
+COPY --from=builder /abc /abc
+COPY --from=0 /abc/abc
+</code></pre>
+<h2 id="实战">实战</h2>
+<p>以我的<a href="https://github.com/miRemid/yuki">Yuki</a>为例，该项目由<code>React</code>和<code>Go</code>组成，其中<code>Go</code>将会提供服务器提供前端接口。</p>
+<p>首先分析阶层，我们需要编译两个项目，其中是<code>React</code>另一个是<code>Go</code>，并且<code>Go</code>的编译需要依赖于<code>React</code>。因此很容易得出，以下顺序</p>
+<ol>
+<li>编译React</li>
+<li>编译Go</li>
+<li>运行</li>
+</ol>
+<p>为了让编译出来的容器尽可能的小，我们在选取构建容器时也尽量选择小的容器来进行编译例如我最喜欢的<code>alpine</code>。因此在<a href="https://hub.docker.com">Docker Hub</a>中寻找关于<code>nodejs</code>和<code>golang</code>的<code>alpine</code>版本，由于原版<code>golang</code>的<code>alpine</code>版本不附带<code>gcc</code>因此我选择了第三方的容器<code>tetafro/golang-gcc</code>。而提供运行环境的容器我也选择了<code>alpine:3.14</code></p>
+<ul>
+<li>NodeJS: node:14.17.5-alpine(117MB)</li>
+<li>Golang: tetafro/golang-gcc:1.16-alpine(425MB)</li>
+<li>Runtime: alpine:3.14(5.6MB)</li>
+</ul>
+<p>在选择完构建容器后就可以正式构建自己的程序了，首先是React的打包，注意的是如果将<code>node_modules</code>文件一并Add的话将不会再拉取一遍不符合我们的要求，因此需要提请编写一个类似于<code>.gitignore</code>文件的<code>.dockerignore</code>文件，例如我使用的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">cat ./dockerignore
+
+release
+data
+web/node_modules
+web/dist
+.git
+.cache
+</code></pre></div><p>这样就可以安心写<code>Dockerfile</code>了</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="c"># build react</span><span class="err">
+</span><span class="err"></span><span class="c"># 使用下载的node容器，并将该阶段命名为node</span><span class="err">
+</span><span class="err"></span><span class="k">FROM</span><span class="s"> node:14.17.5-alpine as node</span><span class="err">
+</span><span class="err"></span><span class="c"># 将所有源代码放入容器的/yuki文件夹中</span><span class="err">
+</span><span class="err"></span><span class="k">ADD</span> . /yuki<span class="err">
+</span><span class="err"></span><span class="c"># 切换当前工作路径到/yuki/web中，该目录是React工程根目录</span><span class="err">
+</span><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /yuki/web</span><span class="err">
+</span><span class="err"></span><span class="c"># 拉取依赖并打包，/yuki/web/dist</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> yarn <span class="o">&amp;&amp;</span> yarn build<span class="err">
+</span></code></pre></div><p>在构建完前端后就可以来编译后端项目了，这时就要使用多级构建中的<code>COPY</code>命令了</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="c"># build golang</span><span class="err">
+</span><span class="err"></span><span class="c"># 使用下载的go容器，并将该阶段命名为golang</span><span class="err">
+</span><span class="err"></span><span class="k">FROM</span><span class="s"> tetafro/golang-gcc:1.16-alpine as golang</span><span class="err">
+</span><span class="err"></span><span class="c"># 从node层中复制源代码到本层的/yuki中，此时文件夹中已经包含了node层打包好的前端项目</span><span class="err">
+</span><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>node /yuki /yuki<span class="err">
+</span><span class="err"></span><span class="c"># 切换工作路径</span><span class="err">
+</span><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /yuki</span><span class="err">
+</span><span class="err"></span><span class="c"># 静态编译</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> <span class="nv">CGO_ENABLE</span><span class="o">=</span><span class="m">0</span> <span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build -mod<span class="o">=</span>vendor -a -ldflags <span class="se">\
+</span><span class="se"></span>	<span class="s1">&#39; -extldflags &#34;-static&#34;&#39;</span> <span class="se">\
+</span><span class="se"></span>	-o yuki_linux_amd64<span class="err">
+</span></code></pre></div><p>构建完二进制文件后，就需要将二进制文件和一些必要的静态文件放入到最终的运行容器中运行了</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="k">FROM</span><span class="s"> alpine:3.14</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># 从golang层复制所需要的文件</span><span class="err">
+</span><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>golang /yuki/yuki_linux_amd64 /yuki_linux_amd64<span class="err">
+</span><span class="err"></span><span class="k">COPY</span> --from<span class="o">=</span>golang /yuki/docs /docs<span class="err">
+</span><span class="err"></span><span class="c"># 切换工作路径</span><span class="err">
+</span><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /</span><span class="err">
+</span><span class="err"></span><span class="c"># 运行</span><span class="err">
+</span><span class="err"></span><span class="k">CMD</span> <span class="p">[</span> <span class="s2">&#34;sh&#34;</span><span class="p">,</span> <span class="s2">&#34;-c&#34;</span><span class="p">,</span> <span class="s2">&#34;/yuki_linux_amd64&#34;</span> <span class="p">]</span><span class="err">
+</span></code></pre></div><p>可以看到，我们最后只复制了必要的二进制文件和所需要的静态文件到最后的容器之中，并没有其他任何东西，因此最终的容器大小理论上是默认大小加上二进制文件大小，事实是这样吗。事实上也确实如此，查看本地静态编译文件大小和打包后的镜像大小发现两者相差几乎等于镜像的大小</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">zsh&gt; <span class="nb">cd</span> release <span class="o">&amp;&amp;</span> ll
+-rwxrwxr-x <span class="m">1</span> kamir kamir  26M Aug <span class="m">25</span> 09:39 yuki_linux_amd64
+zsh&gt; docker images <span class="p">|</span> grep yuki
+yuki                  latest                  eb2e260d4701   <span class="m">5</span> hours ago    32.8MB
+zsh&gt; docker images <span class="p">|</span> grep alpine
+alpine                3.14                    021b3423115f   <span class="m">2</span> weeks ago    5.6MB
+</code></pre></div><p>这样一个完美的小容器就诞生了~</p>
+]]></content></item><item><title>Ubuntu Server 20.04 设置IP和网关地址</title><link>https://blog.zxykm.xyz/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</link><pubDate>Thu, 19 Aug 2021 15:36:40 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</guid><description>Ubuntu从20.04版本开始使用netplan对网络进行管理，百度上使用的/etc/network/interfaces文件已不再适用，需要修改netplan配置文件进行更新
 修改配置文件 netplan的配置文件存放在/etc/netplan中，其中有诸如00-installer-config.yaml的配置文件，打开可以发现
 # This is the network config written by &amp;#39;subiquity&amp;#39;network:ethernets:# 网卡名称，我这是虚拟机ens33ens33:# 是否开启dhcp服务，设置为true后后续的ip和网关可以不用设置dhcp4:no# IP地址，一般设置一个就行# 后面的24是子网掩码数目，代表255.255.255.0(11111111.11111111.11111111.00000000)addresses:[192.168.1.106/24]optional:true# 网关地址gateway4:192.168.1.253# dns地址nameservers:addresses:[233.5.5.5,192.168.1.253]version:2当然，这只是最为基础的网络配置，对于多张网卡还可以进行其他的配置，详情可以参考Netplan官方文档
 在修改完文件之后，终端输入以下命令应用配置，Ping外网测试连通性
