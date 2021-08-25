@@ -1,5 +1,5 @@
 ---
-title: "Ubuntu Server 20"
+title: "Ubuntu Server 20.04 设置IP和网关地址"
 date: 2021-08-19T15:36:40+08:00
 draft: false 
 toc: false
