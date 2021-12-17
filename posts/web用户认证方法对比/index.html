@@ -122,7 +122,7 @@
 <p>有了上述的解释，让我们来看一看验证用户的不同方法吧</p>
 <h1 id=http基本认证http-basic-authentication>HTTP基本认证(HTTP Basic Authentication)<a href=#http基本认证http-basic-authentication class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h1>
 <p>基本认证是一种建立在HTTP协议上的最基础的验证方式。在基本认证中，每一个请求<code>Header</code>都要携带登录凭证信息</p>
-<pre><code>&quot;Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=&quot; your-website.com
+<pre tabindex=0><code>&quot;Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=&quot; your-website.com
 </code></pre><p>用户名和密码都没有被加密，并且用户名和密码通过<code>:</code>组合在一起<code>username:password</code>。这个字符串通常需要通过<code>Base64</code>编码生成</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=o>&gt;&gt;&gt;</span> <span class=kn>import</span> <span class=nn>base64</span>
 <span class=o>&gt;&gt;&gt;</span>
@@ -499,7 +499,7 @@
     <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Verify OTP: </span><span class=si>{</span><span class=n>otp</span><span class=o>.</span><span class=n>verify</span><span class=p>(</span><span class=n>code</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
     <span class=n>sleep</span><span class=p>(</span><span class=mi>30</span><span class=p>)</span>
     <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Verify after 30s: </span><span class=si>{</span><span class=n>otp</span><span class=o>.</span><span class=n>verify</span><span class=p>(</span><span class=n>code</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
-</code></pre></div><pre><code>OTP generated: 474771
+</code></pre></div><pre tabindex=0><code>OTP generated: 474771
 Verify OTP: True
 Verify after 30s: False
 </code></pre><h2 id=资料-4>资料<a href=#资料-4 class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h2>
