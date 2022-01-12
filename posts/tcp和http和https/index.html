@@ -46,7 +46,7 @@ HTTPS的加密解密同时使用了对称加密和非对称加密，由于非对
 服务端向客户端发送Server Hello消息，该消息会从Client Hello中确定一份加密套件，该套件决定了后续加密和生成摘要所需使用的集体算法，除此之外还会生成一个随机数Random2 Certificate
 服务端下发证书给客户端，让客户端验证自己的身份，客户端验证通过后取出公钥 Certificate Verify 客户端收到服务端的证书后先从CA验证证书合法性，提取证书中的公钥并生成随机数Random3，再用刚刚提取的公钥对随机数加密生成PreMasterKey发送给服务端 Client Key Exchange 服务端通过私钥解密得到Random3，此时客户端服务端均包含三个随机数，双方根据之前协定的算法生成一份密钥，在握手结束后的数据传输均使用该密钥进行对称加密 EncryptedHandshakeMessage 客户端将前面的握手消息生成摘要再用协商好的密钥加密发送给服务端，服务端用密钥解密如果能够解出则说明密钥一致 Change Cipher Spec 服务端通知客户端后续消息均使用加密 Encrypted Handshake Message 服务端将握手消息生成摘要加密发送给客户端，客户端接受后解密，成功则说明一致 Application data 此时双方已安全协商密钥，至此后续所有应用层数据都将使用该密钥进行加密后通过TCP进行传输  TLS版本区别  在1.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.zxykm.xyz/posts/tcp%E5%92%8Chttp%E5%92%8Chttps/"><meta property="article:section" content="posts">
+<meta property="og:url" content="https://blog.thinkmoe.icu/posts/tcp%E5%92%8Chttp%E5%92%8Chttps/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2021-02-24T21:49:01+08:00">
 <meta property="article:modified_time" content="2021-02-24T21:49:01+08:00">
 <meta name=twitter:card content="summary">
@@ -76,19 +76,19 @@ HTTPS的加密解密同时使用了对称加密和非对称加密，由于非对
 <link rel=mask-icon href=/safari-pinned-tab.svg color>
 <link rel="shortcut icon" href=/favicon.ico>
 <title>TCP和HTTP和HTTPS</title>
-<link rel=stylesheet href=https://blog.zxykm.xyz/css/style.min.179f5bcfd696f9b21c87e629fd979ce57c09ac5ab20b22524bee5e9d356694d9.css integrity="sha256-F59bz9aW+bIch+Yp/Zec5XwJrFqyCyJSS+5enTVmlNk=" crossorigin=anonymous>
+<link rel=stylesheet href=https://blog.thinkmoe.icu/css/style.min.179f5bcfd696f9b21c87e629fd979ce57c09ac5ab20b22524bee5e9d356694d9.css integrity="sha256-F59bz9aW+bIch+Yp/Zec5XwJrFqyCyJSS+5enTVmlNk=" crossorigin=anonymous>
 </head>
 <body id=page>
 <header id=site-header class="animated slideInUp">
 <div class="hdr-wrapper section-inner">
 <div class=hdr-left>
 <div class=site-branding>
-<a href=https://blog.zxykm.xyz>狸猫窝</a>
+<a href=https://blog.thinkmoe.icu>狸猫窝</a>
 </div>
 <nav class="site-nav hide-in-mobile">
-<a href=https://blog.zxykm.xyz/posts/>Posts</a>
-<a href=https://blog.zxykm.xyz/tags/>Tags</a>
-<a href=https://blog.zxykm.xyz/about-me/>About</a>
+<a href=https://blog.thinkmoe.icu/posts/>Posts</a>
+<a href=https://blog.thinkmoe.icu/tags/>Tags</a>
+<a href=https://blog.thinkmoe.icu/about-me/>About</a>
 </nav>
 </div>
 <div class="hdr-right hdr-icons">
@@ -98,9 +98,9 @@ HTTPS的加密解密同时使用了对称加密和非对称加密，由于非对
 </header>
 <div id=mobile-menu class="animated fast">
 <ul>
-<li><a href=https://blog.zxykm.xyz/posts/>Posts</a></li>
-<li><a href=https://blog.zxykm.xyz/tags/>Tags</a></li>
-<li><a href=https://blog.zxykm.xyz/about-me/>About</a></li>
+<li><a href=https://blog.thinkmoe.icu/posts/>Posts</a></li>
+<li><a href=https://blog.thinkmoe.icu/tags/>Tags</a></li>
+<li><a href=https://blog.thinkmoe.icu/about-me/>About</a></li>
 </ul>
 </div>
 <main class="site-main section-inner animated fadeIn faster">
@@ -189,17 +189,17 @@ Session id在负载均衡会出现问题，而Ticket的方法则不会因为他�
 <hr class=post-end>
 <footer class=post-info>
 <p>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=tag><a href=https://blog.zxykm.xyz/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C>计算机网络</a></span>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=tag><a href=https://blog.thinkmoe.icu/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C>计算机网络</a></span>
 </p>
 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>82 Words</p>
 <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2021-02-24 13:49 +0000</p>
 </footer>
 </article>
 <div class="post-nav thin">
-<a class=next-post href=https://blog.zxykm.xyz/posts/hugo+github-action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/>
+<a class=next-post href=https://blog.thinkmoe.icu/posts/hugo+github-action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/>
 <span class=post-nav-label><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>&nbsp;Newer</span><br><span>Hugo+Github Action自动部署静态页面</span>
 </a>
-<a class=prev-post href=https://blog.zxykm.xyz/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/>
+<a class=prev-post href=https://blog.thinkmoe.icu/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/>
 <span class=post-nav-label>Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span><br><span>Web用户认证方法对比</span>
 </a>
 </div>
@@ -207,11 +207,11 @@ Session id在负载均衡会出现问题，而Ticket的方法则不会因为他�
 </div>
 </main>
 <footer id=site-footer class="section-inner thin animated fadeIn faster">
-<p>&copy; 2022 <a href=https://blog.zxykm.xyz>miRemid</a> &#183; <a href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank rel=noopener>CC BY-NC 4.0</a></p>
+<p>&copy; 2022 <a href=https://blog.thinkmoe.icu>miRemid</a> &#183; <a href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank rel=noopener>CC BY-NC 4.0</a></p>
 <p>
-Made with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> &#183; Theme <a href=https://github.com/Track3/hermit target=_blank rel=noopener>Hermit</a> &#183; <a href=https://blog.zxykm.xyz/posts/index.xml target=_blank title=rss><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+Made with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> &#183; Theme <a href=https://github.com/Track3/hermit target=_blank rel=noopener>Hermit</a> &#183; <a href=https://blog.thinkmoe.icu/posts/index.xml target=_blank title=rss><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a>
 </p>
 </footer>
-<script src=https://blog.zxykm.xyz/js/bundle.min.7d8545daa55d62427355498dd8da13f98ff79a7938ce7d2a5e2ae1ec0de3beb8.js integrity="sha256-fYVF2qVdYkJzVUmN2NoT+Y/3mnk4zn0qXirh7A3jvrg=" crossorigin=anonymous></script>
+<script src=https://blog.thinkmoe.icu/js/bundle.min.7d8545daa55d62427355498dd8da13f98ff79a7938ce7d2a5e2ae1ec0de3beb8.js integrity="sha256-fYVF2qVdYkJzVUmN2NoT+Y/3mnk4zn0qXirh7A3jvrg=" crossorigin=anonymous></script>
 </body>
 </html>

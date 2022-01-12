@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.zxykm.xyz/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 17 Dec 2021 17:52:42 +0800</lastBuildDate><atom:link href="https://blog.zxykm.xyz/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>使用Pytorch预训练网络获取图片特征</title><link>https://blog.zxykm.xyz/posts/%E4%BD%BF%E7%94%A8pytorch%E9%A2%84%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E7%89%B9%E5%BE%81/</link><pubDate>Fri, 17 Dec 2021 17:52:42 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/%E4%BD%BF%E7%94%A8pytorch%E9%A2%84%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E7%89%B9%E5%BE%81/</guid><description>由于Carla训练过程中需要使用到图像数据，而通常深度强化学习(DRL)算法中，输入的数据都为一个 向量(Vector)，如果需要使用图像这种二维数据，通常的做法是使用一个CNN网络，提取图像的特征， 将二维数据转化为一维向量数据，这样就能够直接使用现有的DRL算法
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.thinkmoe.icu/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 17 Dec 2021 17:52:42 +0800</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>使用Pytorch预训练网络获取图片特征</title><link>https://blog.thinkmoe.icu/posts/%E4%BD%BF%E7%94%A8pytorch%E9%A2%84%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E7%89%B9%E5%BE%81/</link><pubDate>Fri, 17 Dec 2021 17:52:42 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/%E4%BD%BF%E7%94%A8pytorch%E9%A2%84%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E7%89%B9%E5%BE%81/</guid><description>由于Carla训练过程中需要使用到图像数据，而通常深度强化学习(DRL)算法中，输入的数据都为一个 向量(Vector)，如果需要使用图像这种二维数据，通常的做法是使用一个CNN网络，提取图像的特征， 将二维数据转化为一维向量数据，这样就能够直接使用现有的DRL算法
 例如在stable_baseline3中，支持MLP、CNN和 多种不同类型观测对象混合输入。对于图像数据，都使用了一个基于CNN深度卷积网络来提取特征。
 在pytorch中已经有了很多优秀的CNN特征提取网络，在这里我将会使用到MobileNetV3这个网络用 于提取Carla的摄像头图片特征。
 读取模型 首先需要安装torchvision这个包，里面包含了现有非常流行的图像处理网络
@@ -330,7 +330,7 @@ mobilenet.eval()
 <span class="n">features</span> <span class="o">=</span> <span class="n">mobilenet</span><span class="p">(</span><span class="n">batch_t</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># torch.Size([1000])</span>
 </code></pre></div><p>这样，就有了大小为1000的特征向量，可以作为环境的状态进行DRL训练了</p>
-]]></content></item><item><title>Docker多级构建指南</title><link>https://blog.zxykm.xyz/posts/docker%E5%A4%9A%E7%BA%A7%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Wed, 25 Aug 2021 09:01:12 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/docker%E5%A4%9A%E7%BA%A7%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>多级构建让你的容器更小巧~
+]]></content></item><item><title>Docker多级构建指南</title><link>https://blog.thinkmoe.icu/posts/docker%E5%A4%9A%E7%BA%A7%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/</link><pubDate>Wed, 25 Aug 2021 09:01:12 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/docker%E5%A4%9A%E7%BA%A7%E6%9E%84%E5%BB%BA%E6%8C%87%E5%8D%97/</guid><description>多级构建让你的容器更小巧~
 在构建Docker镜像的时候经常发现构建出来的容器大小非常的大，而我本地编译出来的二进制文件也不过26MB左右而Docker容器居然有120MB！ 问题出现在哪里了呢？我们一步一步从最起始的地方开始看起
 构建方式 Docker容器的构建方法我个人常用以下几种
 本地打包二进制后直接放入Docker中运行 容器内打包直接运行 第一种的方式就是在本地编译好要执行的文件之后放入容器之中运行，这种方式无疑是最简单的方法也是最容易理解的方法。 但这种方法仔细一想就会发现有很多问题，假设我们需要在Windows机器编译Linux版本的容器内运行要怎么办呢？ 除此之外，假设我们换了一台机器也需要编译一份Docker镜像时，本地没有对应的编译工具要如何解决呢？ 为了应对上述问题，也就有了第二种方法。
@@ -441,7 +441,7 @@ yuki                  latest                  eb2e260d4701   <span class="m">5</
 zsh&gt; docker images <span class="p">|</span> grep alpine
 alpine                3.14                    021b3423115f   <span class="m">2</span> weeks ago    5.6MB
 </code></pre></div><p>这样一个完美的小容器就诞生了~</p>
-]]></content></item><item><title>Ubuntu Server 20.04 设置IP和网关地址</title><link>https://blog.zxykm.xyz/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</link><pubDate>Thu, 19 Aug 2021 15:36:40 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</guid><description>Ubuntu从20.04版本开始使用netplan对网络进行管理，百度上使用的/etc/network/interfaces文件已不再适用，需要修改netplan配置文件进行更新
+]]></content></item><item><title>Ubuntu Server 20.04 设置IP和网关地址</title><link>https://blog.thinkmoe.icu/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</link><pubDate>Thu, 19 Aug 2021 15:36:40 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</guid><description>Ubuntu从20.04版本开始使用netplan对网络进行管理，百度上使用的/etc/network/interfaces文件已不再适用，需要修改netplan配置文件进行更新
 修改配置文件 netplan的配置文件存放在/etc/netplan中，其中有诸如00-installer-config.yaml的配置文件，打开可以发现
 # This is the network config written by &amp;#39;subiquity&amp;#39;network:ethernets:# 网卡名称，我这是虚拟机ens33ens33:# 是否开启dhcp服务，设置为true后后续的ip和网关可以不用设置dhcp4:no# IP地址，一般设置一个就行# 后面的24是子网掩码数目，代表255.255.255.0(11111111.11111111.11111111.00000000)addresses:[192.168.1.106/24]optional:true# 网关地址gateway4:192.168.1.253# dns地址nameservers:addresses:[233.5.5.5,192.168.1.253]version:2当然，这只是最为基础的网络配置，对于多张网卡还可以进行其他的配置，详情可以参考Netplan官方文档
 在修改完文件之后，终端输入以下命令应用配置，Ping外网测试连通性
@@ -469,7 +469,7 @@ sudo netplay apply ping 8.8.8.8</description><content type="html"><![CDATA[<p>Ub
 <p>在修改完文件之后，终端输入以下命令应用配置，Ping外网测试连通性</p>
 <pre><code>sudo netplay apply
 ping 8.8.8.8</code></pre>
-]]></content></item><item><title>Websocket关闭错误代码含义</title><link>https://blog.zxykm.xyz/posts/websocket%E5%85%B3%E9%97%AD%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E5%90%AB%E4%B9%89/</link><pubDate>Sat, 07 Aug 2021 15:00:19 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/websocket%E5%85%B3%E9%97%AD%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E5%90%AB%E4%B9%89/</guid><description>前情 在处理B站直播的Websocket源时，经常发生连接关闭的错误，最常见的就是close 1006 (abnormal closure): unexpected EOF错误，你说http的状态码还知道，这websocet的状态码还真不知道，于是去查了查记录一下
+]]></content></item><item><title>Websocket关闭错误代码含义</title><link>https://blog.thinkmoe.icu/posts/websocket%E5%85%B3%E9%97%AD%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E5%90%AB%E4%B9%89/</link><pubDate>Sat, 07 Aug 2021 15:00:19 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/websocket%E5%85%B3%E9%97%AD%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81%E5%90%AB%E4%B9%89/</guid><description>前情 在处理B站直播的Websocket源时，经常发生连接关闭的错误，最常见的就是close 1006 (abnormal closure): unexpected EOF错误，你说http的状态码还知道，这websocet的状态码还真不知道，于是去查了查记录一下
 RFC 6455 根据RFC 6455定义的内容，Websocket在处理关闭时设置了一系列的代码提示。当对一个已经建立的连接进行关闭时，在终端处可能提供一个关闭的解释说明，客户端可以根据这个代码来推测终端关闭连接的原因从而更新客户端连接的代码。当然，终端在关闭时也可以忽视代码直接进行关闭
 1000 Normal Closure 1000表明这是一个正常的关闭，表明要传输的数据已经全部完成可以退出
 1001 Going Away 1001说明终端可能已经找不到该连接，例如服务可能宕机或浏览器重定向至其他页面
@@ -544,7 +544,7 @@ RFC 6455 根据RFC 6455定义的内容，Websocket在处理关闭时设置了一
     <span class="k">continue</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>]]></content></item><item><title>Leetcode 每日一题</title><link>https://blog.zxykm.xyz/posts/leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/</link><pubDate>Fri, 23 Jul 2021 11:50:27 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/</guid><description>2021/7/23 1893 Check if All the Integers in a Range Are Covered (EASY) You are given a 2D integer array ranges and two integers left and right. Each ranges[i] = [starti, endi] represents an inclusive interval between starti and endi.
+</code></pre></div>]]></content></item><item><title>Leetcode 每日一题</title><link>https://blog.thinkmoe.icu/posts/leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/</link><pubDate>Fri, 23 Jul 2021 11:50:27 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/</guid><description>2021/7/23 1893 Check if All the Integers in a Range Are Covered (EASY) You are given a 2D integer array ranges and two integers left and right. Each ranges[i] = [starti, endi] represents an inclusive interval between starti and endi.
 Return true if each integer in the inclusive range [left, right] is covered by at least one interval in ranges. Return false otherwise.
 An integer x is covered by an interval ranges[i] = [starti, endi] if starti &amp;lt;= x &amp;lt;= endi.</description><content type="html"><![CDATA[<h2 id="2021723-1893-check-if-all-the-integers-in-a-range-are-covered-easy">2021/7/23 1893 Check if All the Integers in a Range Are Covered (EASY)</h2>
 <p>You are given a 2D integer array <code>ranges</code> and two integers <code>left</code> and <code>right</code>. Each <code>ranges[i] = [starti, endi]</code> represents an inclusive interval between <code>starti</code> and <code>endi</code>.</p>
@@ -766,7 +766,7 @@ Expect:
 <p>Given a string <code>s</code>, find the longest palindromic subsequence&rsquo;s length in s.</p>
 <p>A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.</p>
 <h4 id="heading"></h4>
-]]></content></item><item><title>Windows11是如何运行安卓应用的</title><link>https://blog.zxykm.xyz/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</link><pubDate>Thu, 01 Jul 2021 15:25:32 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</guid><description>本文翻译自arstechnica
+]]></content></item><item><title>Windows11是如何运行安卓应用的</title><link>https://blog.thinkmoe.icu/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</link><pubDate>Thu, 01 Jul 2021 15:25:32 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/</guid><description>本文翻译自arstechnica
 微软在发布Windows11时公布了一个令人惊喜的东西，Windows11将支持Win应用和安卓应用同时运行。但是，并没有在关键的地方留下太多的信息。这些应用是否是通过模拟器运行的呢？现存与Windows的Linux子系统将会被放弃吗？我们将在这篇文章得到答案，同时感谢以下开发者探讨这些细节。
 微软官方将这个功能称之为“为安卓而生的Windows子系统”，这也向你说明了许多关于它如何工作的信息。Windows目前拥有一个Linux子系统（WSL），它使用Windows下的Hyper-V虚拟机的功能让Windows能在一个独立的环境下使用一个真正意义上的Linux系统来运行Linux应用。（Hyper-V让次系统能够访问宿主机的硬件而不是通过在原生资源上套用一个顶层的管理操作系统从而只能使用少数宿主机资源）。一个现实中的安卓手机运行的是Linux内核，而微软正在为Windows的安卓子系统建立一个基于WSL的安卓框架。这看上去非常类似于在Hyper-V虚拟机中运行x86架构的安卓系统。
 在Windows下运行安卓应用就如同在原生机器上运行Windwos原生应用一样，顶层有窗口栏，任务图标，并且可以“钉”在开始菜单中。在发布会中，微软说：“在屏幕背后，我们还创建栏一个代理应用用于处理安卓运行和Windows引用之间的交互”。这大概可以推测，系统将会提供类似于启动快捷键、图标和卸载入口，并且其窗口化的模式让应用看起来像原生应用一样。
@@ -796,7 +796,7 @@ Expect:
 <p>由于多年的默认和推动加上额外的架构支持，X86应用程序普遍存在于Google商店中。但是亚马逊App商店X86普遍存在吗？你可以在任何安卓设备上侧载亚马逊应用商店，但专门使用Amazon的Echo File设备的都是ARM。许多应用程序都已经开发完成并在所有架构上运行，所以&hellip;&hellip;也许。</p>
 <p>如果微软撤回了Surface Duo并与Google一起使用的Windows 11中的实际Play商店会很好。在Play商店外使用Android的问题是您丢失对Google Play服务API的访问和推送通知。亚马逊一直在为Fire操作系统构建自己的替代API和云服务，如果你不能拥有Google Play，这是下一个最好的事情。</p>
 <p>这就是我们现在在Windows 11 Android兼容性上所拥有的一切。但放心，我们会在一些实际代码出来时更深入的探究。</p>
-]]></content></item><item><title>React钩子对比Redux，谁能在状态管理更胜一筹?</title><link>https://blog.zxykm.xyz/posts/react%E9%92%A9%E5%AD%90%E5%AF%B9%E6%AF%94redux%E8%B0%81%E8%83%BD%E5%9C%A8%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%9B%B4%E8%83%9C%E4%B8%80%E7%AD%B9/</link><pubDate>Mon, 21 Jun 2021 14:47:25 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/react%E9%92%A9%E5%AD%90%E5%AF%B9%E6%AF%94redux%E8%B0%81%E8%83%BD%E5%9C%A8%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%9B%B4%E8%83%9C%E4%B8%80%E7%AD%B9/</guid><description>本文翻译自Nicola Grujicic
+]]></content></item><item><title>React钩子对比Redux，谁能在状态管理更胜一筹?</title><link>https://blog.thinkmoe.icu/posts/react%E9%92%A9%E5%AD%90%E5%AF%B9%E6%AF%94redux%E8%B0%81%E8%83%BD%E5%9C%A8%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%9B%B4%E8%83%9C%E4%B8%80%E7%AD%B9/</link><pubDate>Mon, 21 Jun 2021 14:47:25 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/react%E9%92%A9%E5%AD%90%E5%AF%B9%E6%AF%94redux%E8%B0%81%E8%83%BD%E5%9C%A8%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%9B%B4%E8%83%9C%E4%B8%80%E7%AD%B9/</guid><description>本文翻译自Nicola Grujicic
 React状态管理：Hook和Redux，两者有何不同？ 世界上很多包括我在内的开发者都有一个疑惑，在听到人们使用Hook代替Redux时，为什么要将一个多级别工作非常完美的组件用一个新的还未完成的东西替代
 许多人在疑惑useContext和useReducer是否能代替Redux
 今天，我将会尝试去回答这个问题。我将会解释React的钩子(useContext,useReducer)和Redux的不同之处以及使用场景
@@ -840,7 +840,7 @@ Reack钩子则是用另一种全新的方式在组件的生命周期中来管理
 <h2 id="总结">总结</h2>
 <p>Redux和其他React状态管理解决方案之所以被提出是因为在React组件中管理一个全局状态是一个非常愚蠢的想法。如果这么做会导致一系列问题，如多源数据和使用虚拟模型代替原始模型展示等等</p>
 <p>如果钩子能够让状态管理更清晰，我认为在小型应用中可以尝试不使用Redux。但对于大型的复杂的应用程序，全局状态管理仍然不能被忽略</p>
-]]></content></item><item><title>利用fusuma为Linux添加触控板手势</title><link>https://blog.zxykm.xyz/posts/%E5%88%A9%E7%94%A8fusuma%E4%B8%BAlinux%E6%B7%BB%E5%8A%A0%E8%A7%A6%E6%8E%A7%E6%9D%BF%E6%89%8B%E5%8A%BF/</link><pubDate>Sat, 19 Jun 2021 21:07:52 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/%E5%88%A9%E7%94%A8fusuma%E4%B8%BAlinux%E6%B7%BB%E5%8A%A0%E8%A7%A6%E6%8E%A7%E6%9D%BF%E6%89%8B%E5%8A%BF/</guid><description>之前一直在新笔记本上用虚拟机开Linux编写毕设，现在毕业答辩已经完成，所以就直接将Win10更换到Linux系统。但是众所周知，Linux并没有自带触控板手势驱动，但我早已习惯于win上的一些手势，所以我开始寻找一个合适的触控板手势驱动。
+]]></content></item><item><title>利用fusuma为Linux添加触控板手势</title><link>https://blog.thinkmoe.icu/posts/%E5%88%A9%E7%94%A8fusuma%E4%B8%BAlinux%E6%B7%BB%E5%8A%A0%E8%A7%A6%E6%8E%A7%E6%9D%BF%E6%89%8B%E5%8A%BF/</link><pubDate>Sat, 19 Jun 2021 21:07:52 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/%E5%88%A9%E7%94%A8fusuma%E4%B8%BAlinux%E6%B7%BB%E5%8A%A0%E8%A7%A6%E6%8E%A7%E6%9D%BF%E6%89%8B%E5%8A%BF/</guid><description>之前一直在新笔记本上用虚拟机开Linux编写毕设，现在毕业答辩已经完成，所以就直接将Win10更换到Linux系统。但是众所周知，Linux并没有自带触控板手势驱动，但我早已习惯于win上的一些手势，所以我开始寻找一个合适的触控板手势驱动。
 在最初，我发现了一个名为libinput-gesture的库，其Github上有3k赞，于是我立马就尝试了这个库。安装过程一切畅通，但最后运行的阶段却出了问题。在启动该库时提示我启动失败，但并没有给其他错误信息。我检查了xinput和libinput对触控板的驱动，并没有任何问题。谷歌了一下发现这玩意对arch用户非常良好，但对我这使用的ubuntu来说会出现这种情况。于是我把目光转向另一个库，fusuma。
 fusuma这个包非常完美的解决了Ubuntu触控板手势的问题，并且安装过程极其简单，配置也十分简洁明了。
 安装 配置用户权限 首先需要配置一下用户状态组，将用户添加到input组中
@@ -977,7 +977,7 @@ systemctl --user start fusuma
 systemctl --user status fusuma
 </code></pre>
 <p>最后就可以通过手势来操控桌面了~</p>
-]]></content></item><item><title>NFT基本原理</title><link>https://blog.zxykm.xyz/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 14 Jun 2021 19:18:03 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</guid><description>本文节选翻译自Github Ethereum EIPs Eip-721#rationale
+]]></content></item><item><title>NFT基本原理</title><link>https://blog.thinkmoe.icu/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 14 Jun 2021 19:18:03 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</guid><description>本文节选翻译自Github Ethereum EIPs Eip-721#rationale
 现在有很多旨在追踪可区分资产的基于以太坊智能合约的提议。例如Decentraland现有或计划中的的NFT、CryptoPunks中的eponymouse和游戏中如DMarket或EnjinCoin的物品系统。在未来，可以用于追踪现实生活中的资产例如房产（如ubiquity和Propy等公司的想法）。当这些物品在分类账单中没有集中在一起时显得至关重要，每个资产必须单独并能够独立追踪其所有权信息。
 为什么选择NFT这个词 NFT这个词让几乎每个人都能够满意的接受，并且广泛适用于可区分数字资产的领域。我们认识到契约在对于一个本标准的某些应用时又确切的描述（特别是物理性质）。
 除了NFT这个词还考虑了别的单词，例如：Alternatives considered, Distinguishable asset, Title, Token, Asset, Equity, Ticket
@@ -1040,7 +1040,7 @@ Disallow transfers if the contract is paused — prior art, CryptoKitties deploy
 <li>CryptoPunks &ndash; Partially ERC-20 compatible, but not easily generalizable because it includes auction functionality directly in the contract and uses function names that explicitly refer to the assets as &ldquo;punks&rdquo;.</li>
 <li>Auctionhouse Asset Interface &ndash; The author needed a generic interface for the Auctionhouse ÐApp (currently ice-boxed). His &ldquo;Asset&rdquo; contract is very simple, but is missing ERC-20 compatibility, approve() functionality, and metadata. This effort is referenced in the discussion for EIP-173.</li>
 </ul>
-]]></content></item><item><title>NFT让互联网更属于自己</title><link>https://blog.zxykm.xyz/posts/nft%E6%A6%82%E8%A6%81/</link><pubDate>Sun, 13 Jun 2021 13:24:49 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/nft%E6%A6%82%E8%A6%81/</guid><description>本文翻译自NFTs make the internet ownable
+]]></content></item><item><title>NFT让互联网更属于自己</title><link>https://blog.thinkmoe.icu/posts/nft%E6%A6%82%E8%A6%81/</link><pubDate>Sun, 13 Jun 2021 13:24:49 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/nft%E6%A6%82%E8%A6%81/</guid><description>本文翻译自NFTs make the internet ownable
 为什么加密变成数字媒体的港湾  在成为技术人员之前，我是一名音乐艺术管理员。当我开始创业，我坚信在艺术行业中有一件定理：拥有权决定能力。例如，音乐标签对音乐掌握所有权，从而掌握创作者。
  我们的目标是通过技术手段让艺术家更能贴近粉丝，帮助艺术家保持对于他们的作品的所有权，并独立的进行商业活动。今天，我们都是在线创作者，并且继续拥有相当规模的所有权。然而，所有权对技术平台的作用往往被忽视。
  每天都有数亿的图片、视频、音乐盒其他媒体在社交平台上分享。当这些文件被上传时，都会将文件从创作者设备中拷贝一分保存在服务器平台上，Facebook、Twitter、Youtube、TikTok等都是如此。
@@ -1092,7 +1092,7 @@ NFT是如何工作的  在实践中，NFT知识一个简单的用于标识数�
 <p>  我认为NFTS将成为所有互联网媒体的进入港口，因为所涉及的每个人都可以从他们启用的市场中赚更多资金：创造者通过直接销售给粉丝并通过每次NFTS转售时收集特许权使用费，创造者赚更多的资金。 这是一个完全是新的收入流，只有可能是可以在媒体本身中编码版税逻辑的真正数字所有权。</p>
 <p>  对于消费者来说，NFT是一个更好的模型，因为它们将惠顾人数的社会和功利福利结合起来的可能性来转动利润或实现复合效用。 在今天的网络上，消费者租用大多数商品和服务，包括他们光顾的创造者。 新的所有权经济平台的一个关键宗旨是游戏中患上肌肤的激励对齐。 关于支持创造者，我称之为“pitronage +”，其中“加号”是与您支持的创造者一起获得价值的可能性。 这是一个强大的，探讨的激励，成为第一名的赞助人 - 我认为它可能在创造性的工作中推动更多的市场中的市场需求。</p>
 <p>  开发人员可以通过建筑物赚钱以启用这些新市场。 Wheras主要平台扼杀开发人员API并限制自由市场开发，开发商在申请方面的基础设施方面展望，在许多方面，在许多方面，函数更像是物质世界的运作。</p>
-]]></content></item><item><title>Innodb事物隔离级别及其锁 美团技术学习</title><link>https://blog.zxykm.xyz/posts/innodb%E4%BA%8B%E7%89%A9%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E5%85%B6%E9%94%81-%E7%BE%8E%E5%9B%A2%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/</link><pubDate>Sun, 13 Jun 2021 12:40:53 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/innodb%E4%BA%8B%E7%89%A9%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E5%85%B6%E9%94%81-%E7%BE%8E%E5%9B%A2%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/</guid><description>&lt;blockquote>
+]]></content></item><item><title>Innodb事物隔离级别及其锁 美团技术学习</title><link>https://blog.thinkmoe.icu/posts/innodb%E4%BA%8B%E7%89%A9%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E5%85%B6%E9%94%81-%E7%BE%8E%E5%9B%A2%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/</link><pubDate>Sun, 13 Jun 2021 12:40:53 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/innodb%E4%BA%8B%E7%89%A9%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E5%85%B6%E9%94%81-%E7%BE%8E%E5%9B%A2%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/</guid><description>&lt;blockquote>
 &lt;p>本文是阅读&lt;a href="https://tech.meituan.com/2014/08/20/innodb-lock.html">美团技术团队&lt;/a>的记录形文章，更详细内容请访问美团技术团队官方网站&lt;/p>
 &lt;/blockquote></description><content type="html"><![CDATA[<blockquote>
 <p>本文是阅读<a href="https://tech.meituan.com/2014/08/20/innodb-lock.html">美团技术团队</a>的记录形文章，更详细内容请访问美团技术团队官方网站</p>
@@ -1211,7 +1211,7 @@ NFT是如何工作的  在实践中，NFT知识一个简单的用于标识数�
 <p>Next-Key锁是行锁和GAP的合并</p>
 <h1 id="串行化">串行化</h1>
 <p>在串行化读写互斥并一并加锁，并使用悲观锁作为机制因此实现简单且更为安全，但是严重影响并发性能造成严重的性能问题</p>
-<p>如果业务并发特别少且要求数据可靠，可以考虑该隔离级别</p>]]></content></item><item><title>用官方的方式安装Archlinux</title><link>https://blog.zxykm.xyz/posts/%E7%94%A8%E5%AE%98%E6%96%B9%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85archlinux/</link><pubDate>Sun, 23 May 2021 22:47:09 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/%E7%94%A8%E5%AE%98%E6%96%B9%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85archlinux/</guid><description>Archlinux是一个非常干净的Linux发行版，干净到以致于图形化界面都没有，本文将按照官方wiki，逐步安装Archlinux
+<p>如果业务并发特别少且要求数据可靠，可以考虑该隔离级别</p>]]></content></item><item><title>用官方的方式安装Archlinux</title><link>https://blog.thinkmoe.icu/posts/%E7%94%A8%E5%AE%98%E6%96%B9%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85archlinux/</link><pubDate>Sun, 23 May 2021 22:47:09 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/%E7%94%A8%E5%AE%98%E6%96%B9%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85archlinux/</guid><description>Archlinux是一个非常干净的Linux发行版，干净到以致于图形化界面都没有，本文将按照官方wiki，逐步安装Archlinux
 由于国内网络问题，可以到一些镜像网站中来下载iso镜像，这里选择清华镜像，下载最新的5.15版本
 关于启动盘，可以使用USBWriter或者Rufus来制作，这里就不多加赘述
 准备过程 检查引导模式 要安装Arch，首先要确认自己电脑的引导模式，可以通过以下指令来检查
@@ -1469,7 +1469,7 @@ sudo pacman-key --populate archlinux
 <p>即可修改<code>sway</code>桌面的字体和大小了</p>
 <p>如果想在登录后自动启动桌面，则可以在终端配置文件中如bash终端的<code>.bash_profile</code>或zsh的<code>.zshrc</code>中，添加下述内容即可</p>
 <pre><code>[[ $(fgconsole 2&gt;/dev/null)==1 ]] &amp;&amp; exec startx --vt1</code></pre>
-]]></content></item><item><title>Hugo+Github Action自动部署静态页面</title><link>https://blog.zxykm.xyz/posts/hugo+github-action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/</link><pubDate>Sat, 22 May 2021 17:37:27 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/hugo+github-action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/</guid><description>Hugo Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again.
+]]></content></item><item><title>Hugo+Github Action自动部署静态页面</title><link>https://blog.thinkmoe.icu/posts/hugo+github-action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/</link><pubDate>Sat, 22 May 2021 17:37:27 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/hugo+github-action%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/</guid><description>Hugo Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again.
 安装 如果你是Windows用户，可以直接从Github Release页面下载对应的版本即可
 如果你是Linux用户则有三种方式来安装Hugo
 从Github Release下载 从包管理器下载 自行编译 在这介绍下自行编译，最新的Hugo使用到了go1.16的io/fs包，因此如果想自行编译最新版本的Hugo则要安装或更新系统go版本至1.16+。安装完语言编译环境后按以下步骤进行
@@ -1564,7 +1564,7 @@ git push -u origin master
 <p>完成编译之后，还不能立刻通过网址来访问，需要在项目的<code>Settings\Pages</code>中，选择Github Page的来源，在这选择<code>gh-pages</code></p>
 <p>设置成功后访问<code>https://{username}.github.com/{project_name}</code>即可，如果配置了<code>CNAME</code>则通过<code>https://{CUSTOM_DOMAIN}/{project_name}</code>即可</p>
 <p><img src="https://i.loli.net/2021/05/22/Z6gRYaLcfUbpByx.png" alt="结果"></p>
-]]></content></item><item><title>TCP和HTTP和HTTPS</title><link>https://blog.zxykm.xyz/posts/tcp%E5%92%8Chttp%E5%92%8Chttps/</link><pubDate>Wed, 24 Feb 2021 21:49:01 +0800</pubDate><guid>https://blog.zxykm.xyz/posts/tcp%E5%92%8Chttp%E5%92%8Chttps/</guid><description>本文主要介绍一下TCP和HTTP&amp;amp;HTTPS之间的关系
+]]></content></item><item><title>TCP和HTTP和HTTPS</title><link>https://blog.thinkmoe.icu/posts/tcp%E5%92%8Chttp%E5%92%8Chttps/</link><pubDate>Wed, 24 Feb 2021 21:49:01 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/tcp%E5%92%8Chttp%E5%92%8Chttps/</guid><description>本文主要介绍一下TCP和HTTP&amp;amp;HTTPS之间的关系
 TCP TCP是传输层上的面向连接的可靠传输协议
 三次握手 TCP的连接通过三次握手来完成，第一次握手由客户端发起，客户端设置数据包中SYN字段为1，ACK字段为1并随机选取一个值x作为该数据包的seq发送给服务器并调整当前状态为SYN_SEND 服务器在接受到来自客户端的SYN=1的数据包后知道要开始建立连接，于是服务器设置SYN字段为1，ACK为1，随机选取一个值y作为该包的seq并设置下一个希望得到的数据包序列号为x+1最后发送给客户端并调整当前转台为SYN_RECIVE 客户端在收到第二个握手包后可以确定服务端与自己的连接是互通的，于是设置数据包的ACK字段为1，seq为x+1并设置希望下一个来自服务端的数据包的序列号为y+1发送给服务端服务端在接受到第三个握手包后可以确定客户端与自己的连接是互通的，由此可以确保数据的传输 四次挥手 TCP的断开连接可以由客户端或服务端发起，设发起的一方为客户端
 客户端设置数据包的FIN字段为1，假设当前seq为u发送该包之后客户端调整状态为FIN_WAIT1 服务端在收到FIN的数据包后调整状态为CLOSE_WAIT并设置数据包的ACK为1，ack为u+1,seq为w 客户端在收到服务端的ACK包后进入FIN_WAIT2状态，持续等待；服务端在发送完ACK包后不会立刻断开连接，而是会等待服务端所有数据全部传输完成之后在向客户端发起第三次挥手，其FIN为1，ACK为1，seq为v，ack为u+1 客户端在收到该FIN后进入TIME_WAIT状态并向服务端发送ACK=1，seq为u+1，ack=v+1的数据包通知服务端关闭连接，服务端在收到后会立刻关闭连接而客户端则会等待2 如果客户端出现故障会如何 服务端会在与客户端连接之后设置一个计时器，当客户端出现故障，服务端不可能一直等待下去，计时器会在建立时开始及时，通常为2个消失，每一次收到客户端连接之后都会重置计时器。当计时器结束之后服务端可以认为客户端出现故障或不再需要数据，此时就关闭连接
@@ -1656,7 +1656,7 @@ Session id在负载均衡会出现问题，而Ticket的方法则不会因为他�
 </ol>
 <h2 id="certificate-chain">Certificate Chain</h2>
 <p>TLS的身份认证是通过证书信任链完成的，浏览器从站点证书开始递归校验父证书，直至出现根证书</p>
-]]></content></item><item><title>Web用户认证方法对比</title><link>https://blog.zxykm.xyz/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</link><pubDate>Fri, 08 Jan 2021 21:33:13 +0000</pubDate><guid>https://blog.zxykm.xyz/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</guid><description>&lt;blockquote>
+]]></content></item><item><title>Web用户认证方法对比</title><link>https://blog.thinkmoe.icu/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</link><pubDate>Fri, 08 Jan 2021 21:33:13 +0000</pubDate><guid>https://blog.thinkmoe.icu/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</guid><description>&lt;blockquote>
 &lt;p>本文翻译自&lt;a href="https://testdriven.io/blog/web-authentication-methods/#authentication-vs-authorization">testdriven.io&lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;p>在这篇文章，我们将从一名Python开发者的视角来观察目前最常见的几种处理Web认证的方式&lt;/p>
