@@ -1,4 +1,36 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.thinkmoe.icu/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 17 Dec 2021 17:52:42 +0800</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>使用Pytorch预训练网络获取图片特征</title><link>https://blog.thinkmoe.icu/posts/%E4%BD%BF%E7%94%A8pytorch%E9%A2%84%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E7%89%B9%E5%BE%81/</link><pubDate>Fri, 17 Dec 2021 17:52:42 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/%E4%BD%BF%E7%94%A8pytorch%E9%A2%84%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E7%89%B9%E5%BE%81/</guid><description>由于Carla训练过程中需要使用到图像数据，而通常深度强化学习(DRL)算法中，输入的数据都为一个 向量(Vector)，如果需要使用图像这种二维数据，通常的做法是使用一个CNN网络，提取图像的特征， 将二维数据转化为一维向量数据，这样就能够直接使用现有的DRL算法
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.thinkmoe.icu/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 22 Feb 2022 14:35:57 +0800</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>ROS2虚拟环境配置指南</title><link>https://blog.thinkmoe.icu/posts/ros2%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97/</link><pubDate>Tue, 22 Feb 2022 14:35:57 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/ros2%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%8C%87%E5%8D%97/</guid><description>在使用CARLA的ROS2包的过程中，需要导入torch对图像进行处理，按照正常情况下，激活conda环境之后应该就能够直接使用虚拟环境中安装的第三方包，但是在ROS2启动的过程中却提示torch not found的错误
+开始怀疑是conda环境导致的，于是更换为官方的venv，但是在安装完依赖后编译启动显示还是同样的错误。
+在Github搜索后发现，原来通过colcon编译的ROS2节点在启动的时候默认使用系统环境的Python环境运行，并不会加载编译时使用的虚拟环境，因此在虚拟环境中安装的第三方依赖也不会正常使用了。根据rotu的说法，由于ROS2节点的运行文件是由colcon编译生成，而在colcon编译过程中解释器的选择是写死为系统环境的Python的，那是不是ROS2就用不了虚拟环境运行呢？
+当然不是，根据上个链接的说法，可以通过修改ROS2的配置文件来间接的让系统使用虚拟环境中的Python解释器，按照theunkn0wn1的描述，总共分为4步
+修改setup.cfg文件，添加如下配置 # src/{node}/setup.cfg [build_scripts] executable = /usr/bin/env python3 创建虚拟环境 在创建虚拟环境时，需要将系统环境中的ROS2包链接到虚拟环境中 python3 -m venv venv --system-site-packages --symlinks 这时在目录中会生成venv文件
+激活ros2环境配置和虚拟环境配置 source /opt/ros/foxy/setup.zsh source ./venv/bin/activate colcon build并运行 colcon build ros2 run package_name node_name 这时就可以使用到虚拟环境中的第三方包了</description><content type="html"><![CDATA[<p>在使用CARLA的ROS2包的过程中，需要导入torch对图像进行处理，按照正常情况下，激活conda环境之后应该就能够直接使用虚拟环境中安装的第三方包，但是在ROS2启动的过程中却提示<code>torch not found</code>的错误</p>
+<p>开始怀疑是conda环境导致的，于是更换为官方的venv，但是在安装完依赖后编译启动显示还是同样的错误。</p>
+<p>在Github搜索后发现，原来通过colcon编译的ROS2节点在启动的时候默认使用系统环境的Python环境运行，并不会加载编译时使用的虚拟环境，因此在虚拟环境中安装的第三方依赖也不会正常使用了。根据<a href="https://github.com/colcon/colcon-core/pull/183">rotu</a>的说法，由于ROS2节点的运行文件是由colcon编译生成，而在colcon编译过程中解释器的选择是写死为系统环境的Python的，那是不是ROS2就用不了虚拟环境运行呢？</p>
+<p>当然不是，根据上个链接的说法，可以通过修改ROS2的配置文件来间接的让系统使用虚拟环境中的Python解释器，按照<a href="https://github.com/ros2/ros2/issues/1094#issuecomment-927179578">theunkn0wn1</a>的描述，总共分为4步</p>
+<ol>
+<li>修改setup.cfg文件，添加如下配置</li>
+</ol>
+<pre tabindex="0"><code># src/{node}/setup.cfg
+[build_scripts]
+executable = /usr/bin/env python3
+</code></pre><ol start="2">
+<li>创建虚拟环境
+在创建虚拟环境时，需要将系统环境中的ROS2包链接到虚拟环境中</li>
+</ol>
+<pre tabindex="0"><code>python3 -m venv venv --system-site-packages --symlinks
+</code></pre><p>这时在目录中会生成venv文件</p>
+<ol start="3">
+<li>激活ros2环境配置和虚拟环境配置</li>
+</ol>
+<pre tabindex="0"><code>source /opt/ros/foxy/setup.zsh
+source ./venv/bin/activate
+</code></pre><ol start="4">
+<li>colcon build并运行</li>
+</ol>
+<pre tabindex="0"><code>colcon build
+ros2 run package_name node_name
+</code></pre><p>这时就可以使用到虚拟环境中的第三方包了</p>
+]]></content></item><item><title>使用Pytorch预训练网络获取图片特征</title><link>https://blog.thinkmoe.icu/posts/%E4%BD%BF%E7%94%A8pytorch%E9%A2%84%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E7%89%B9%E5%BE%81/</link><pubDate>Fri, 17 Dec 2021 17:52:42 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/%E4%BD%BF%E7%94%A8pytorch%E9%A2%84%E8%AE%AD%E7%BB%83%E7%BD%91%E7%BB%9C%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E7%89%B9%E5%BE%81/</guid><description>由于Carla训练过程中需要使用到图像数据，而通常深度强化学习(DRL)算法中，输入的数据都为一个 向量(Vector)，如果需要使用图像这种二维数据，通常的做法是使用一个CNN网络，提取图像的特征， 将二维数据转化为一维向量数据，这样就能够直接使用现有的DRL算法
 例如在stable_baseline3中，支持MLP、CNN和 多种不同类型观测对象混合输入。对于图像数据，都使用了一个基于CNN深度卷积网络来提取特征。
 在pytorch中已经有了很多优秀的CNN特征提取网络，在这里我将会使用到MobileNetV3这个网络用 于提取Carla的摄像头图片特征。
 读取模型 首先需要安装torchvision这个包，里面包含了现有非常流行的图像处理网络
