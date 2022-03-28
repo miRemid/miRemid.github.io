@@ -1,12 +1,4 @@
-<!doctype html><html lang=en-us>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta http-equiv=x-ua-compatible content="ie=edge">
-<meta name=theme-color content="#494f5c">
-<meta name=msapplication-TileColor content="#494f5c">
-<meta itemprop=name content="Windows11是如何运行安卓应用的">
-<meta itemprop=description content="本文翻译自arstechnica
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=theme-color content="#494f5c"><meta name=msapplication-TileColor content="#494f5c"><meta itemprop=name content="Windows11是如何运行安卓应用的"><meta itemprop=description content="本文翻译自arstechnica
  微软在发布Windows11时公布了一个令人惊喜的东西，Windows11将支持Win应用和安卓应用同时运行。但是，并没有在关键的地方留下太多的信息。这些应用是否是通过模拟器运行的呢？现存与Windows的Linux子系统将会被放弃吗？我们将在这篇文章得到答案，同时感谢以下开发者探讨这些细节。
 微软官方将这个功能称之为“为安卓而生的Windows子系统”，这也向你说明了许多关于它如何工作的信息。Windows目前拥有一个Linux子系统（WSL），它使用Windows下的Hyper-V虚拟机的功能让Windows能在一个独立的环境下使用一个真正意义上的Linux系统来运行Linux应用。（Hyper-V让次系统能够访问宿主机的硬件而不是通过在原生资源上套用一个顶层的管理操作系统从而只能使用少数宿主机资源）。一个现实中的安卓手机运行的是Linux内核，而微软正在为Windows的安卓子系统建立一个基于WSL的安卓框架。这看上去非常类似于在Hyper-V虚拟机中运行x86架构的安卓系统。
 在Windows下运行安卓应用就如同在原生机器上运行Windwos原生应用一样，顶层有窗口栏，任务图标，并且可以“钉”在开始菜单中。在发布会中，微软说：“在屏幕背后，我们还创建栏一个代理应用用于处理安卓运行和Windows引用之间的交互”。这大概可以推测，系统将会提供类似于启动快捷键、图标和卸载入口，并且其窗口化的模式让应用看起来像原生应用一样。
@@ -19,11 +11,7 @@
 微软工程师Miguel de Icaza确认，Windows11将会通过sideloading技术来支持那些我们不需要的亚马逊功能。您应该立即为F-Droid等开源商店提供选项，以及在APKMIRROR应用上加载的能力。 在有人获得整个Google Play商店工作之前，这可能只是时间问题。
 由于多年的默认和推动加上额外的架构支持，X86应用程序普遍存在于Google商店中。但是亚马逊App商店X86普遍存在吗？你可以在任何安卓设备上侧载亚马逊应用商店，但专门使用Amazon的Echo File设备的都是ARM。许多应用程序都已经开发完成并在所有架构上运行，所以&mldr;&mldr;也许。
 如果微软撤回了Surface Duo并与Google一起使用的Windows 11中的实际Play商店会很好。在Play商店外使用Android的问题是您丢失对Google Play服务API的访问和推送通知。亚马逊一直在为Fire操作系统构建自己的替代API和云服务，如果你不能拥有Google Play，这是下一个最好的事情。
-这就是我们现在在Windows 11 Android兼容性上所拥有的一切。但放心，我们会在一些实际代码出来时更深入的探究。"><meta itemprop=datePublished content="2021-07-01T15:25:32+08:00">
-<meta itemprop=dateModified content="2021-07-01T15:25:32+08:00">
-<meta itemprop=wordCount content="28">
-<meta itemprop=keywords content="杂谈,翻译,"><meta property="og:title" content="Windows11是如何运行安卓应用的">
-<meta property="og:description" content="本文翻译自arstechnica
+这就是我们现在在Windows 11 Android兼容性上所拥有的一切。但放心，我们会在一些实际代码出来时更深入的探究。"><meta itemprop=datePublished content="2021-07-01T15:25:32+08:00"><meta itemprop=dateModified content="2021-07-01T15:25:32+08:00"><meta itemprop=wordCount content="28"><meta itemprop=keywords content="杂谈,翻译,"><meta property="og:title" content="Windows11是如何运行安卓应用的"><meta property="og:description" content="本文翻译自arstechnica
  微软在发布Windows11时公布了一个令人惊喜的东西，Windows11将支持Win应用和安卓应用同时运行。但是，并没有在关键的地方留下太多的信息。这些应用是否是通过模拟器运行的呢？现存与Windows的Linux子系统将会被放弃吗？我们将在这篇文章得到答案，同时感谢以下开发者探讨这些细节。
 微软官方将这个功能称之为“为安卓而生的Windows子系统”，这也向你说明了许多关于它如何工作的信息。Windows目前拥有一个Linux子系统（WSL），它使用Windows下的Hyper-V虚拟机的功能让Windows能在一个独立的环境下使用一个真正意义上的Linux系统来运行Linux应用。（Hyper-V让次系统能够访问宿主机的硬件而不是通过在原生资源上套用一个顶层的管理操作系统从而只能使用少数宿主机资源）。一个现实中的安卓手机运行的是Linux内核，而微软正在为Windows的安卓子系统建立一个基于WSL的安卓框架。这看上去非常类似于在Hyper-V虚拟机中运行x86架构的安卓系统。
 在Windows下运行安卓应用就如同在原生机器上运行Windwos原生应用一样，顶层有窗口栏，任务图标，并且可以“钉”在开始菜单中。在发布会中，微软说：“在屏幕背后，我们还创建栏一个代理应用用于处理安卓运行和Windows引用之间的交互”。这大概可以推测，系统将会提供类似于启动快捷键、图标和卸载入口，并且其窗口化的模式让应用看起来像原生应用一样。
@@ -36,14 +24,7 @@
 微软工程师Miguel de Icaza确认，Windows11将会通过sideloading技术来支持那些我们不需要的亚马逊功能。您应该立即为F-Droid等开源商店提供选项，以及在APKMIRROR应用上加载的能力。 在有人获得整个Google Play商店工作之前，这可能只是时间问题。
 由于多年的默认和推动加上额外的架构支持，X86应用程序普遍存在于Google商店中。但是亚马逊App商店X86普遍存在吗？你可以在任何安卓设备上侧载亚马逊应用商店，但专门使用Amazon的Echo File设备的都是ARM。许多应用程序都已经开发完成并在所有架构上运行，所以&mldr;&mldr;也许。
 如果微软撤回了Surface Duo并与Google一起使用的Windows 11中的实际Play商店会很好。在Play商店外使用Android的问题是您丢失对Google Play服务API的访问和推送通知。亚马逊一直在为Fire操作系统构建自己的替代API和云服务，如果你不能拥有Google Play，这是下一个最好的事情。
-这就是我们现在在Windows 11 Android兼容性上所拥有的一切。但放心，我们会在一些实际代码出来时更深入的探究。">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://blog.thinkmoe.icu/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2021-07-01T15:25:32+08:00">
-<meta property="article:modified_time" content="2021-07-01T15:25:32+08:00">
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="Windows11是如何运行安卓应用的">
-<meta name=twitter:description content="本文翻译自arstechnica
+这就是我们现在在Windows 11 Android兼容性上所拥有的一切。但放心，我们会在一些实际代码出来时更深入的探究。"><meta property="og:type" content="article"><meta property="og:url" content="https://blog.thinkmoe.icu/posts/windows11%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E5%AE%89%E5%8D%93%E5%BA%94%E7%94%A8%E7%9A%84/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-07-01T15:25:32+08:00"><meta property="article:modified_time" content="2021-07-01T15:25:32+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Windows11是如何运行安卓应用的"><meta name=twitter:description content="本文翻译自arstechnica
  微软在发布Windows11时公布了一个令人惊喜的东西，Windows11将支持Win应用和安卓应用同时运行。但是，并没有在关键的地方留下太多的信息。这些应用是否是通过模拟器运行的呢？现存与Windows的Linux子系统将会被放弃吗？我们将在这篇文章得到答案，同时感谢以下开发者探讨这些细节。
 微软官方将这个功能称之为“为安卓而生的Windows子系统”，这也向你说明了许多关于它如何工作的信息。Windows目前拥有一个Linux子系统（WSL），它使用Windows下的Hyper-V虚拟机的功能让Windows能在一个独立的环境下使用一个真正意义上的Linux系统来运行Linux应用。（Hyper-V让次系统能够访问宿主机的硬件而不是通过在原生资源上套用一个顶层的管理操作系统从而只能使用少数宿主机资源）。一个现实中的安卓手机运行的是Linux内核，而微软正在为Windows的安卓子系统建立一个基于WSL的安卓框架。这看上去非常类似于在Hyper-V虚拟机中运行x86架构的安卓系统。
 在Windows下运行安卓应用就如同在原生机器上运行Windwos原生应用一样，顶层有窗口栏，任务图标，并且可以“钉”在开始菜单中。在发布会中，微软说：“在屏幕背后，我们还创建栏一个代理应用用于处理安卓运行和Windows引用之间的交互”。这大概可以推测，系统将会提供类似于启动快捷键、图标和卸载入口，并且其窗口化的模式让应用看起来像原生应用一样。
@@ -56,92 +37,7 @@
 微软工程师Miguel de Icaza确认，Windows11将会通过sideloading技术来支持那些我们不需要的亚马逊功能。您应该立即为F-Droid等开源商店提供选项，以及在APKMIRROR应用上加载的能力。 在有人获得整个Google Play商店工作之前，这可能只是时间问题。
 由于多年的默认和推动加上额外的架构支持，X86应用程序普遍存在于Google商店中。但是亚马逊App商店X86普遍存在吗？你可以在任何安卓设备上侧载亚马逊应用商店，但专门使用Amazon的Echo File设备的都是ARM。许多应用程序都已经开发完成并在所有架构上运行，所以&mldr;&mldr;也许。
 如果微软撤回了Surface Duo并与Google一起使用的Windows 11中的实际Play商店会很好。在Play商店外使用Android的问题是您丢失对Google Play服务API的访问和推送通知。亚马逊一直在为Fire操作系统构建自己的替代API和云服务，如果你不能拥有Google Play，这是下一个最好的事情。
-这就是我们现在在Windows 11 Android兼容性上所拥有的一切。但放心，我们会在一些实际代码出来时更深入的探究。">
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/site.webmanifest>
-<link rel=mask-icon href=/safari-pinned-tab.svg color>
-<link rel="shortcut icon" href=/favicon.ico>
-<title>Windows11是如何运行安卓应用的</title>
-<link rel=stylesheet href=https://blog.thinkmoe.icu/css/style.min.179f5bcfd696f9b21c87e629fd979ce57c09ac5ab20b22524bee5e9d356694d9.css integrity="sha256-F59bz9aW+bIch+Yp/Zec5XwJrFqyCyJSS+5enTVmlNk=" crossorigin=anonymous>
-</head>
-<body id=page>
-<header id=site-header class="animated slideInUp">
-<div class="hdr-wrapper section-inner">
-<div class=hdr-left>
-<div class=site-branding>
-<a href=https://blog.thinkmoe.icu>狸猫窝</a>
-</div>
-<nav class="site-nav hide-in-mobile">
-<a href=https://blog.thinkmoe.icu/posts/>Posts</a>
+这就是我们现在在Windows 11 Android兼容性上所拥有的一切。但放心，我们会在一些实际代码出来时更深入的探究。"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color><link rel="shortcut icon" href=/favicon.ico><title>Windows11是如何运行安卓应用的</title><link rel=stylesheet href=https://blog.thinkmoe.icu/css/style.min.179f5bcfd696f9b21c87e629fd979ce57c09ac5ab20b22524bee5e9d356694d9.css integrity="sha256-F59bz9aW+bIch+Yp/Zec5XwJrFqyCyJSS+5enTVmlNk=" crossorigin=anonymous></head><body id=page><header id=site-header class="animated slideInUp"><div class="hdr-wrapper section-inner"><div class=hdr-left><div class=site-branding><a href=https://blog.thinkmoe.icu>狸猫窝</a></div><nav class="site-nav hide-in-mobile"><a href=https://blog.thinkmoe.icu/posts/>Posts</a>
 <a href=https://blog.thinkmoe.icu/tags/>Tags</a>
-<a href=https://blog.thinkmoe.icu/about-me/>About</a>
-</nav>
-</div>
-<div class="hdr-right hdr-icons">
-<span class="hdr-social hide-in-mobile"><a href=https://github.com/miRemid target=_blank rel="noopener me" title=Github><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></span><button id=menu-btn class=hdr-btn title=Menu><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-</div>
-</div>
-</header>
-<div id=mobile-menu class="animated fast">
-<ul>
-<li><a href=https://blog.thinkmoe.icu/posts/>Posts</a></li>
-<li><a href=https://blog.thinkmoe.icu/tags/>Tags</a></li>
-<li><a href=https://blog.thinkmoe.icu/about-me/>About</a></li>
-</ul>
-</div>
-<main class="site-main section-inner animated fadeIn faster">
-<article class=thin>
-<header class=post-header>
-<div class=post-meta><span>Jul 1, 2021</span></div>
-<h1>Windows11是如何运行安卓应用的</h1>
-</header>
-<div class=content>
-<blockquote>
-<p>本文翻译自<a href=https://arstechnica.com/gadgets/2021/06/microsofts-windows-subsystem-for-android-sounds-a-lot-like-chrome-os/>arstechnica</a></p>
-</blockquote>
-<p>微软在发布Windows11时公布了一个令人惊喜的东西，Windows11将支持Win应用和安卓应用同时运行。但是，并没有在关键的地方留下太多的信息。这些应用是否是通过模拟器运行的呢？现存与Windows的Linux子系统将会被放弃吗？我们将在这篇文章得到答案，同时感谢以下<a href="https://www.youtube.com/watch?v=egZ82QGshX8">开发者</a>探讨这些细节。</p>
-<p>微软官方将这个功能称之为“为安卓而生的Windows子系统”，这也向你说明了许多关于它如何工作的信息。Windows目前拥有一个Linux子系统（WSL），它使用Windows下的Hyper-V虚拟机的功能让Windows能在一个独立的环境下使用一个真正意义上的Linux系统来运行Linux应用。（Hyper-V让次系统能够访问宿主机的硬件而不是通过在原生资源上套用一个顶层的管理操作系统从而只能使用少数宿主机资源）。一个现实中的安卓手机运行的是Linux内核，而微软正在为Windows的安卓子系统建立一个基于WSL的安卓框架。这看上去非常类似于在Hyper-V虚拟机中运行x86架构的安卓系统。</p>
-<p>在Windows下运行安卓应用就如同在原生机器上运行Windwos原生应用一样，顶层有窗口栏，任务图标，并且可以“钉”在开始菜单中。在发布会中，微软说：“在屏幕背后，我们还创建栏一个代理应用用于处理安卓运行和Windows引用之间的交互”。这大概可以推测，系统将会提供类似于启动快捷键、图标和卸载入口，并且其窗口化的模式让应用看起来像原生应用一样。</p>
-<p>微软正在尝试通过类似于小型模拟器或不基于模拟器的形式来实现这个功能，而这一切取决于你的电脑和应用兼容性。Windows系统和安卓系统都能在x86架构和arm架构下运行，但安卓更倾向于Arm而Windows倾向于x86.如果你正在使用Arm架构的Windows并想在Windows上运行安卓应用，一切都可能非常顺利。但如果你使用的是x86的Windows，微软在像方法让你能够使用到x86类型的安卓应用。Arm的应用只需要支持一件东西，那就是"Intel Bridge Technology"，该技术的目的就是能让arm架构的代码转化为x86架构能够运行的代码。微软正在寻求在AMD处理器上能够实现相同功能的方法。</p>
-<p>微软的方法类似于其他一些操作系统如何启动和运行Android应用程序。ChromeOS的安卓支持可能是最适合的例子了。ChromeOS运行在Linux内核之中，并且它存储了一个容器化的安卓框架来运行应用。如果你有一个x86架构的ChromeBook，ChromeOS会使用安卓的Arm-to-x86编译版本。如果你使用的是Linux桌面系统，有一个名为Anbox的应用将会帮你完成上述一样的事情，在Linux系统之上加载一个安卓框架。你甚至能在WSL中运行Anbox。</p>
-<p>许多人上一次体验x86的安卓还是在2012年时，intel推行的Atom-powered的x86架构手机。X86已经走了一段很久的历史了，直到2016年安卓ChromeOS开始，才让其缓了一口气。甚至在2016年启动之前，谷歌还在减少推送x86架构的app支持，并且谷歌开发者工具也将arm和x86分离。回到2016年，谷歌希望25%的商城应用不再需要去支持x86架构而是转向arm应用。现如今，众多的x86用户需要感谢chromeos来让其能够运行安卓应用。</p>
-<h3 id=亚马逊区别于谷歌商店的市场系统>亚马逊，区别于谷歌商店的市场系统<a href=#亚马逊区别于谷歌商店的市场系统 class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h3>
-<p>微软并不会在Windows上使用谷歌市场，同时，微软也并不会尝试自己来建立经济市场而是通过合作伙伴亚马逊，用在FireOs设备上的亚马逊市场来进行安卓应用下载。亚马逊已经推出来一个预览版本，但并没有提供一个准确的稳定性版本开放日期。</p>
-<p>我们并没有看到一个安卓应用是如何在Windows上启动和关闭的，所以并不清楚它们是如何在Windows上工作地。微软放出了很多截图，展示来微软商店在推送亚马逊App商店的安卓应用。从这些放出的消息来看，亚马逊App已经内置于Windows之中，但并没有看到微软商店能够直接安装安装应用。关键点就是安装按钮，对于Windows应用，安装按钮显示的是"Get"来表明安装一个应用。对于安卓应用来说，则显示的是"从亚马逊商店中获得"，并且使用来一个小盒子和箭头图标来表示，这代表你将会通过另一个额外的应用来获取该安卓应用。</p>
-<p>华尔街提供了一个额外的细节来展示其是如何工作的。这听起来就像是亚马逊在给Windows提供了一个亚马逊商城客户端。你只需要登录你的亚马逊帐号，就可以下载应用了。微软上面只提供了搜索的功能。确切来说，这表明你将会在Windows上同时运行两个应用商店，使用两份空间来检查更新。这看上去并不稳定。</p>
-<p>微软工程师<a href=https://twitter.com/migueldeicaza/status/1408222245265330178>Miguel de Icaza</a>确认，Windows11将会通过sideloading技术来支持那些我们不需要的亚马逊功能。您应该立即为F-Droid等开源商店提供选项，以及在APKMIRROR应用上加载的能力。 在有人获得整个Google Play商店工作之前，这可能只是时间问题。</p>
-<p>由于多年的默认和推动加上额外的架构支持，X86应用程序普遍存在于Google商店中。但是亚马逊App商店X86普遍存在吗？你可以在任何安卓设备上侧载亚马逊应用商店，但专门使用Amazon的Echo File设备的都是ARM。许多应用程序都已经开发完成并在所有架构上运行，所以&mldr;&mldr;也许。</p>
-<p>如果微软撤回了Surface Duo并与Google一起使用的Windows 11中的实际Play商店会很好。在Play商店外使用Android的问题是您丢失对Google Play服务API的访问和推送通知。亚马逊一直在为Fire操作系统构建自己的替代API和云服务，如果你不能拥有Google Play，这是下一个最好的事情。</p>
-<p>这就是我们现在在Windows 11 Android兼容性上所拥有的一切。但放心，我们会在一些实际代码出来时更深入的探究。</p>
-</div>
-<hr class=post-end>
-<footer class=post-info>
-<p>
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=tag><a href=https://blog.thinkmoe.icu/tags/%E6%9D%82%E8%B0%88>杂谈</a></span><span class=tag><a href=https://blog.thinkmoe.icu/tags/%E7%BF%BB%E8%AF%91>翻译</a></span>
-</p>
-<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>28 Words</p>
-<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2021-07-01 07:25 +0000</p>
-</footer>
-</article>
-<div class="post-nav thin">
-<a class=next-post href=https://blog.thinkmoe.icu/posts/leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/>
-<span class=post-nav-label><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>&nbsp;Newer</span><br><span>Leetcode 每日一题</span>
-</a>
-<a class=prev-post href=https://blog.thinkmoe.icu/posts/react%E9%92%A9%E5%AD%90%E5%AF%B9%E6%AF%94redux%E8%B0%81%E8%83%BD%E5%9C%A8%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%9B%B4%E8%83%9C%E4%B8%80%E7%AD%B9/>
-<span class=post-nav-label>Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span><br><span>React钩子对比Redux，谁能在状态管理更胜一筹?</span>
-</a>
-</div>
-<div id=comments class=thin>
-</div>
-</main>
-<footer id=site-footer class="section-inner thin animated fadeIn faster">
-<p>&copy; 2022 <a href=https://blog.thinkmoe.icu>miRemid</a> &#183; <a href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank rel=noopener>CC BY-NC 4.0</a></p>
-<p>
-Made with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> &#183; Theme <a href=https://github.com/Track3/hermit target=_blank rel=noopener>Hermit</a> &#183; <a href=https://blog.thinkmoe.icu/posts/index.xml target=_blank title=rss><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a>
-</p>
-</footer>
-<script src=https://blog.thinkmoe.icu/js/bundle.min.7d8545daa55d62427355498dd8da13f98ff79a7938ce7d2a5e2ae1ec0de3beb8.js integrity="sha256-fYVF2qVdYkJzVUmN2NoT+Y/3mnk4zn0qXirh7A3jvrg=" crossorigin=anonymous></script>
-</body>
-</html>
+<a href=https://blog.thinkmoe.icu/about-me/>About</a></nav></div><div class="hdr-right hdr-icons"><span class="hdr-social hide-in-mobile"><a href=https://github.com/miRemid target=_blank rel="noopener me" title=Github><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></span><button id=menu-btn class=hdr-btn title=Menu><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></div></header><div id=mobile-menu class="animated fast"><ul><li><a href=https://blog.thinkmoe.icu/posts/>Posts</a></li><li><a href=https://blog.thinkmoe.icu/tags/>Tags</a></li><li><a href=https://blog.thinkmoe.icu/about-me/>About</a></li></ul></div><main class="site-main section-inner animated fadeIn faster"><article class=thin><header class=post-header><div class=post-meta><span>Jul 1, 2021</span></div><h1>Windows11是如何运行安卓应用的</h1></header><div class=content><blockquote><p>本文翻译自<a href=https://arstechnica.com/gadgets/2021/06/microsofts-windows-subsystem-for-android-sounds-a-lot-like-chrome-os/>arstechnica</a></p></blockquote><p>微软在发布Windows11时公布了一个令人惊喜的东西，Windows11将支持Win应用和安卓应用同时运行。但是，并没有在关键的地方留下太多的信息。这些应用是否是通过模拟器运行的呢？现存与Windows的Linux子系统将会被放弃吗？我们将在这篇文章得到答案，同时感谢以下<a href="https://www.youtube.com/watch?v=egZ82QGshX8">开发者</a>探讨这些细节。</p><p>微软官方将这个功能称之为“为安卓而生的Windows子系统”，这也向你说明了许多关于它如何工作的信息。Windows目前拥有一个Linux子系统（WSL），它使用Windows下的Hyper-V虚拟机的功能让Windows能在一个独立的环境下使用一个真正意义上的Linux系统来运行Linux应用。（Hyper-V让次系统能够访问宿主机的硬件而不是通过在原生资源上套用一个顶层的管理操作系统从而只能使用少数宿主机资源）。一个现实中的安卓手机运行的是Linux内核，而微软正在为Windows的安卓子系统建立一个基于WSL的安卓框架。这看上去非常类似于在Hyper-V虚拟机中运行x86架构的安卓系统。</p><p>在Windows下运行安卓应用就如同在原生机器上运行Windwos原生应用一样，顶层有窗口栏，任务图标，并且可以“钉”在开始菜单中。在发布会中，微软说：“在屏幕背后，我们还创建栏一个代理应用用于处理安卓运行和Windows引用之间的交互”。这大概可以推测，系统将会提供类似于启动快捷键、图标和卸载入口，并且其窗口化的模式让应用看起来像原生应用一样。</p><p>微软正在尝试通过类似于小型模拟器或不基于模拟器的形式来实现这个功能，而这一切取决于你的电脑和应用兼容性。Windows系统和安卓系统都能在x86架构和arm架构下运行，但安卓更倾向于Arm而Windows倾向于x86.如果你正在使用Arm架构的Windows并想在Windows上运行安卓应用，一切都可能非常顺利。但如果你使用的是x86的Windows，微软在像方法让你能够使用到x86类型的安卓应用。Arm的应用只需要支持一件东西，那就是"Intel Bridge Technology"，该技术的目的就是能让arm架构的代码转化为x86架构能够运行的代码。微软正在寻求在AMD处理器上能够实现相同功能的方法。</p><p>微软的方法类似于其他一些操作系统如何启动和运行Android应用程序。ChromeOS的安卓支持可能是最适合的例子了。ChromeOS运行在Linux内核之中，并且它存储了一个容器化的安卓框架来运行应用。如果你有一个x86架构的ChromeBook，ChromeOS会使用安卓的Arm-to-x86编译版本。如果你使用的是Linux桌面系统，有一个名为Anbox的应用将会帮你完成上述一样的事情，在Linux系统之上加载一个安卓框架。你甚至能在WSL中运行Anbox。</p><p>许多人上一次体验x86的安卓还是在2012年时，intel推行的Atom-powered的x86架构手机。X86已经走了一段很久的历史了，直到2016年安卓ChromeOS开始，才让其缓了一口气。甚至在2016年启动之前，谷歌还在减少推送x86架构的app支持，并且谷歌开发者工具也将arm和x86分离。回到2016年，谷歌希望25%的商城应用不再需要去支持x86架构而是转向arm应用。现如今，众多的x86用户需要感谢chromeos来让其能够运行安卓应用。</p><h3 id=亚马逊区别于谷歌商店的市场系统>亚马逊，区别于谷歌商店的市场系统<a href=#亚马逊区别于谷歌商店的市场系统 class=anchor aria-hidden=true><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 015 5 5 5 0 01-5 5h-3m-6 0H6a5 5 0 01-5-5 5 5 0 015-5h3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></a></h3><p>微软并不会在Windows上使用谷歌市场，同时，微软也并不会尝试自己来建立经济市场而是通过合作伙伴亚马逊，用在FireOs设备上的亚马逊市场来进行安卓应用下载。亚马逊已经推出来一个预览版本，但并没有提供一个准确的稳定性版本开放日期。</p><p>我们并没有看到一个安卓应用是如何在Windows上启动和关闭的，所以并不清楚它们是如何在Windows上工作地。微软放出了很多截图，展示来微软商店在推送亚马逊App商店的安卓应用。从这些放出的消息来看，亚马逊App已经内置于Windows之中，但并没有看到微软商店能够直接安装安装应用。关键点就是安装按钮，对于Windows应用，安装按钮显示的是"Get"来表明安装一个应用。对于安卓应用来说，则显示的是"从亚马逊商店中获得"，并且使用来一个小盒子和箭头图标来表示，这代表你将会通过另一个额外的应用来获取该安卓应用。</p><p>华尔街提供了一个额外的细节来展示其是如何工作的。这听起来就像是亚马逊在给Windows提供了一个亚马逊商城客户端。你只需要登录你的亚马逊帐号，就可以下载应用了。微软上面只提供了搜索的功能。确切来说，这表明你将会在Windows上同时运行两个应用商店，使用两份空间来检查更新。这看上去并不稳定。</p><p>微软工程师<a href=https://twitter.com/migueldeicaza/status/1408222245265330178>Miguel de Icaza</a>确认，Windows11将会通过sideloading技术来支持那些我们不需要的亚马逊功能。您应该立即为F-Droid等开源商店提供选项，以及在APKMIRROR应用上加载的能力。 在有人获得整个Google Play商店工作之前，这可能只是时间问题。</p><p>由于多年的默认和推动加上额外的架构支持，X86应用程序普遍存在于Google商店中。但是亚马逊App商店X86普遍存在吗？你可以在任何安卓设备上侧载亚马逊应用商店，但专门使用Amazon的Echo File设备的都是ARM。许多应用程序都已经开发完成并在所有架构上运行，所以&mldr;&mldr;也许。</p><p>如果微软撤回了Surface Duo并与Google一起使用的Windows 11中的实际Play商店会很好。在Play商店外使用Android的问题是您丢失对Google Play服务API的访问和推送通知。亚马逊一直在为Fire操作系统构建自己的替代API和云服务，如果你不能拥有Google Play，这是下一个最好的事情。</p><p>这就是我们现在在Windows 11 Android兼容性上所拥有的一切。但放心，我们会在一些实际代码出来时更深入的探究。</p></div><hr class=post-end><footer class=post-info><p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=tag><a href=https://blog.thinkmoe.icu/tags/%E6%9D%82%E8%B0%88>杂谈</a></span><span class=tag><a href=https://blog.thinkmoe.icu/tags/%E7%BF%BB%E8%AF%91>翻译</a></span></p><p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6A2 2 0 004 4v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>28 Words</p><p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2021-07-01 07:25 +0000</p></footer></article><div class="post-nav thin"><a class=next-post href=https://blog.thinkmoe.icu/posts/leetcode-%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/><span class=post-nav-label><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>&nbsp;Newer</span><br><span>Leetcode 每日一题</span></a>
+<a class=prev-post href=https://blog.thinkmoe.icu/posts/react%E9%92%A9%E5%AD%90%E5%AF%B9%E6%AF%94redux%E8%B0%81%E8%83%BD%E5%9C%A8%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%9B%B4%E8%83%9C%E4%B8%80%E7%AD%B9/><span class=post-nav-label>Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span><br><span>React钩子对比Redux，谁能在状态管理更胜一筹?</span></a></div><div id=comments class=thin></div></main><footer id=site-footer class="section-inner thin animated fadeIn faster"><p>&copy; 2022 <a href=https://blog.thinkmoe.icu>miRemid</a> &#183; <a href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank rel=noopener>CC BY-NC 4.0</a></p><p>Made with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> &#183; Theme <a href=https://github.com/Track3/hermit target=_blank rel=noopener>Hermit</a> &#183; <a href=https://blog.thinkmoe.icu/posts/index.xml target=_blank title=rss><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a></p></footer><script src=https://blog.thinkmoe.icu/js/bundle.min.8256b8724b9578bbdf6d6f04c894255bc760e78e8a2d60ec0a91ea993acd3b77.js integrity="sha256-gla4ckuVeLvfbW8EyJQlW8dg546KLWDsCpHqmTrNO3c=" crossorigin=anonymous></script></body></html>
