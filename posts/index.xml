@@ -1,4 +1,42 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.thinkmoe.icu/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 28 Mar 2022 16:40:37 +0800</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu20.04 Install Opencv3.1.0 With Python3</title><link>https://blog.thinkmoe.icu/posts/ubuntu20.04-install-opencv3.1.0-with-python3/</link><pubDate>Mon, 28 Mar 2022 16:40:37 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/ubuntu20.04-install-opencv3.1.0-with-python3/</guid><description>安装依赖 Ubuntu20.04需要安装以下依赖
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.thinkmoe.icu/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 05 May 2022 13:34:24 +0800</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>WSL2更改桥接网络</title><link>https://blog.thinkmoe.icu/posts/wsl2%E6%9B%B4%E6%94%B9%E6%A1%A5%E6%8E%A5%E7%BD%91%E7%BB%9C/</link><pubDate>Thu, 05 May 2022 13:34:24 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/wsl2%E6%9B%B4%E6%94%B9%E6%A1%A5%E6%8E%A5%E7%BD%91%E7%BB%9C/</guid><description>WSL2默认情况下网络是处于NAT模式之下，在正常情况下联网是没有问题的，但是遇到一些特殊情况下时NAT网络就非常的鸡肋。 例如，NAT的WSL2并不能直接使用宿主机的代理服务器，需要手动获取本机IP和宿主机在WSL2中的IP地址才能进行局域网连接。 在例如本人需要在WSL2中远程连接实验室车辆上的ROS2节点，由于NAT的存在导致小车上ROS2节点发布的Topic并不能在WSL2中接收到，因此我需要将WSL2默认的NAT网络 更改为桥接网络，这样在不影响宿主机上网的同时也能分配给WSL2一个局域网地址
+本方法需要通过Hyper-V虚拟网卡进行，因此首先需要安装并开启Windows的Hyper-V功能
+修改桥接网络步骤如下(以下步骤均在管理员模式的Powershell中进行)：
+从Powershell中开启wsl，生成网卡 wsl.exe 如果只是开机自启的wsl会出现找不到WSL网卡的错误 2. 获取网卡信息
+Get-NetAdapter 运行之后可以查看当前Windows中的网卡设备，例如WLAN 3. 桥接网卡 选择WSL2需要桥接的网卡设备，以WLAN为例
+Set-VMSwitch WSL -NetAdapterName WLAN 配置WSL2地址 这时，已经将WSL2的网卡桥接到物理网卡之上，需要手动配置WSL2的静态地址，假设路由器的网关为192.168.8.1，需要配置静态地址为192.168.8.123，则可以按照以下步骤进行配置(在WSL2中进行) sudo ip addr flush dev eth0 sudo ip addr add 192.168.8.123/24 dev eth0 sudo ip route add 0.0.0.0/0 via 192.168.8.1 dev eth0 更改过后还需手动更改DNS地址
+# /etc/resolv.conf nameserver 192.168.8.1 保存并退出
+以上就完成了WSL2的桥接网络配置，需要注意的是，每次都需要手动更新DNS文件，如果连接到别的路由器之下还需要手动更新静态地址和网关地址</description><content type="html"><![CDATA[<p>WSL2默认情况下网络是处于NAT模式之下，在正常情况下联网是没有问题的，但是遇到一些特殊情况下时NAT网络就非常的鸡肋。
+例如，NAT的WSL2并不能直接使用宿主机的代理服务器，需要手动获取本机IP和宿主机在WSL2中的IP地址才能进行局域网连接。
+在例如本人需要在WSL2中远程连接实验室车辆上的ROS2节点，由于NAT的存在导致小车上ROS2节点发布的Topic并不能在WSL2中接收到，因此我需要将WSL2默认的NAT网络
+更改为桥接网络，这样在不影响宿主机上网的同时也能分配给WSL2一个局域网地址</p>
+<blockquote>
+<p>本方法需要通过Hyper-V虚拟网卡进行，因此首先需要安装并开启Windows的Hyper-V功能</p>
+</blockquote>
+<p>修改桥接网络步骤如下(以下步骤均在管理员模式的Powershell中进行)：</p>
+<ol>
+<li>从Powershell中开启wsl，生成网卡</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">wsl</span><span class="p">.</span><span class="n">exe</span>
+</span></span></code></pre></div><p>如果只是开机自启的wsl会出现找不到WSL网卡的错误
+2. 获取网卡信息</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-NetAdapter</span>
+</span></span></code></pre></div><p>运行之后可以查看当前Windows中的网卡设备，例如WLAN
+3. 桥接网卡
+选择WSL2需要桥接的网卡设备，以WLAN为例</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Set-VMSwitch</span> <span class="n">WSL</span> <span class="n">-NetAdapterName</span> <span class="n">WLAN</span>
+</span></span></code></pre></div><ol start="4">
+<li>配置WSL2地址
+这时，已经将WSL2的网卡桥接到物理网卡之上，需要手动配置WSL2的静态地址，假设路由器的网关为<code>192.168.8.1</code>，需要配置静态地址为<code>192.168.8.123</code>，则可以按照以下步骤进行配置(在WSL2中进行)</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo ip addr flush dev eth0
+</span></span><span class="line"><span class="cl">sudo ip addr add 192.168.8.123/24 dev eth0
+</span></span><span class="line"><span class="cl">sudo ip route add 0.0.0.0/0 via 192.168.8.1 dev eth0
+</span></span></code></pre></div><p>更改过后还需手动更改DNS地址</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># /etc/resolv.conf</span>
+</span></span><span class="line"><span class="cl">nameserver 192.168.8.1
+</span></span></code></pre></div><p>保存并退出</p>
+<p>以上就完成了WSL2的桥接网络配置，需要注意的是，每次都需要手动更新DNS文件，如果连接到别的路由器之下还需要手动更新静态地址和网关地址</p>
+]]></content></item><item><title>Ubuntu20.04 Install Opencv3.1.0 With Python3</title><link>https://blog.thinkmoe.icu/posts/ubuntu20.04-install-opencv3.1.0-with-python3/</link><pubDate>Mon, 28 Mar 2022 16:40:37 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/ubuntu20.04-install-opencv3.1.0-with-python3/</guid><description>安装依赖 Ubuntu20.04需要安装以下依赖
 sudo apt install -y --no-install-recommends \ build-essential \ git \ wget \ unzip \ yasm \ pkg-config \ libswscale-dev \ libtbb2 \ libtbb-dev \ libjpeg-dev \ libpng-dev \ libtiff-dev \ libopenjp2-7-dev \ libavformat-dev \ libpq-dev \ libgtk2.0-dev libgtk-3-dev \ libgphoto2-dev \ libtiff5-dev libjpeg8-dev libpng-dev cmake make \ libavformat-dev libavcodec-dev libswscale-dev libdc1394-22-dev libavresample-dev \ libxine2-dev libv4l-dev \ libatlas-base-dev \ libfaac-dev libmp3lame-dev libtheora-dev \ libvorbis-dev libxvidcore-dev \ libeigen3-dev \ libgstreamer1.</description><content type="html"><![CDATA[<h1 id="安装依赖">安装依赖</h1>
 <p>Ubuntu20.04需要安装以下依赖</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y --no-install-recommends <span class="se">\ </span>
