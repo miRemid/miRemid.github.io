@@ -10,4 +10,5 @@ COPY --from=stage source dest 其中from就是用于表明从哪个stage中复�
 # builder stage FROM x as builder # final stage FROM x as final COPY --from=builder /abc /abc COPY --from=0 /abc/abc 实战 以我的Yuki为例，该项目由React和Go组成，其中Go将会提供服务器提供前端接口。
 首先分析阶层，我们需要编译两个项目，其中是React另一个是Go，并且Go的编译需要依赖于React。因此很容易得出，以下顺序
 编译React 编译Go 运行 为了让编译出来的容器尽可能的小，我们在选取构建容器时也尽量选择小的容器来进行编译例如我最喜欢的alpine。因此在Docker Hub中寻找关于nodejs和golang的alpine版本，由于原版golang的alpine版本不附带gcc因此我选择了第三方的容器tetafro/golang-gcc。而提供运行环境的容器我也选择了alpine:3.14
-NodeJS: node:14.17.5-alpine(117MB) Golang: tetafro/golang-gcc:1.16-alpine(425MB) Runtime: alpine:3.</description></item></channel></rss>
+NodeJS: node:14.17.5-alpine(117MB) Golang: tetafro/golang-gcc:1.16-alpine(425MB) Runtime: alpine:3.14(5.6MB) 在选择完构建容器后就可以正式构建自己的程序了，首先是React的打包，注意的是如果将node_modules文件一并Add的话将不会再拉取一遍不符合我们的要求，因此需要提请编写一个类似于.gitignore文件的.dockerignore文件，例如我使用的
+cat ./dockerignore release data web/node_modules web/dist .</description></item></channel></rss>

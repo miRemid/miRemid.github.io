@@ -1,4 +1,128 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.thinkmoe.icu/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 05 May 2022 13:34:24 +0800</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>WSL2更改桥接网络</title><link>https://blog.thinkmoe.icu/posts/wsl2%E6%9B%B4%E6%94%B9%E6%A1%A5%E6%8E%A5%E7%BD%91%E7%BB%9C/</link><pubDate>Thu, 05 May 2022 13:34:24 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/wsl2%E6%9B%B4%E6%94%B9%E6%A1%A5%E6%8E%A5%E7%BD%91%E7%BB%9C/</guid><description>WSL2默认情况下网络是处于NAT模式之下，在正常情况下联网是没有问题的，但是遇到一些特殊情况下时NAT网络就非常的鸡肋。 例如，NAT的WSL2并不能直接使用宿主机的代理服务器，需要手动获取本机IP和宿主机在WSL2中的IP地址才能进行局域网连接。 在例如本人需要在WSL2中远程连接实验室车辆上的ROS2节点，由于NAT的存在导致小车上ROS2节点发布的Topic并不能在WSL2中接收到，因此我需要将WSL2默认的NAT网络 更改为桥接网络，这样在不影响宿主机上网的同时也能分配给WSL2一个局域网地址
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.thinkmoe.icu/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 16 Aug 2022 17:13:03 +0800</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>记一次Python引入第三方源码包的解决方式</title><link>https://blog.thinkmoe.icu/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1python%E5%BC%95%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E6%BA%90%E7%A0%81%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/</link><pubDate>Tue, 16 Aug 2022 17:13:03 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1python%E5%BC%95%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E6%BA%90%E7%A0%81%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/</guid><description>Python虽然挺好用的，但也挺难用的
+众所周知，Python由于其“先进”的包管理功能，让你几乎可以通过一条命令安装所有打包好的第三方包。但是当我们想从第三方的项目里面引入少许函数时，这种方式就行不得通了.
+例如我想从一个Pytorch项目中将模型定义的函数引入（说的就是你Yolo）到我自己的函数中，项目目录结构如下：
+. ├── main.py ├── src │ └── module │ ├── a.py │ ├── __init__.py │ └── __pycache__ │ ├── a.cpython-38.pyc │ └── __init__.cpython-38.pyc └── thirdparty └── codes ├── modules │ ├── b.py │ ├── __init__.py │ ├── __pycache__ │ │ ├── b.cpython-38.pyc │ │ ├── c.cpython-38.pyc │ │ └── __init__.cpython-38.pyc │ └── submodule │ ├── c.py │ └── __pycache__ │ └── c.cpython-38.pyc ├── __pycache__ │ └── b.</description><content type="html"><![CDATA[<blockquote>
+<p>Python虽然挺好用的，但也挺难用的</p>
+</blockquote>
+<p>众所周知，Python由于其“先进”的包管理功能，让你几乎可以通过一条命令安装所有打包好的第三方包。但是当我们想从第三方的项目里面引入少许函数时，这种方式就行不得通了.</p>
+<p>例如我想从一个Pytorch项目中将模型定义的函数引入（说的就是你Yolo）到我自己的函数中，项目目录结构如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── main.py
+</span></span><span class="line"><span class="cl">├── src
+</span></span><span class="line"><span class="cl">│   └── module
+</span></span><span class="line"><span class="cl">│       ├── a.py
+</span></span><span class="line"><span class="cl">│       ├── __init__.py
+</span></span><span class="line"><span class="cl">│       └── __pycache__
+</span></span><span class="line"><span class="cl">│           ├── a.cpython-38.pyc
+</span></span><span class="line"><span class="cl">│           └── __init__.cpython-38.pyc
+</span></span><span class="line"><span class="cl">└── thirdparty
+</span></span><span class="line"><span class="cl">    └── codes
+</span></span><span class="line"><span class="cl">        ├── modules
+</span></span><span class="line"><span class="cl">        │   ├── b.py
+</span></span><span class="line"><span class="cl">        │   ├── __init__.py
+</span></span><span class="line"><span class="cl">        │   ├── __pycache__
+</span></span><span class="line"><span class="cl">        │   │   ├── b.cpython-38.pyc
+</span></span><span class="line"><span class="cl">        │   │   ├── c.cpython-38.pyc
+</span></span><span class="line"><span class="cl">        │   │   └── __init__.cpython-38.pyc
+</span></span><span class="line"><span class="cl">        │   └── submodule
+</span></span><span class="line"><span class="cl">        │       ├── c.py
+</span></span><span class="line"><span class="cl">        │       └── __pycache__
+</span></span><span class="line"><span class="cl">        │           └── c.cpython-38.pyc
+</span></span><span class="line"><span class="cl">        ├── __pycache__
+</span></span><span class="line"><span class="cl">        │   └── b.cpython-38.pyc
+</span></span><span class="line"><span class="cl">        └── run
+</span></span><span class="line"><span class="cl">            └── run.py
+</span></span></code></pre></div><p>其中<code>a.py</code>和<code>b.py</code>的代码如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># src/module/a.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">thirdparty.codes.modules</span> <span class="kn">import</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_a</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;this is a&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">b</span><span class="o">.</span><span class="n">print_b</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print_a</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># thirdparty/codes/modules/b.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">codes.modules.submodule</span> <span class="kn">import</span> <span class="n">c</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_b</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;this is b&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c</span><span class="o">.</span><span class="n">print_c</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># thirdparty/codes/modules/submodule/c.py</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_c</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;this is c&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>此时，如果我们分别在主目录和<code>module</code>目录测试<code>a.py</code>文件时会出现如下错误</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">  File <span class="s2">&#34;main.py&#34;</span>, line 1, in &lt;module&gt;
+</span></span><span class="line"><span class="cl">    from src.module import a
+</span></span><span class="line"><span class="cl">  File <span class="s2">&#34;/home/hakureisk/Workspace/tmp/src/module/a.py&#34;</span>, line 1, in &lt;module&gt;
+</span></span><span class="line"><span class="cl">    from thirdparty.codes.modules import b
+</span></span><span class="line"><span class="cl">  File <span class="s2">&#34;/home/hakureisk/Workspace/tmp/thirdparty/codes/modules/b.py&#34;</span>, line 1, in &lt;module&gt;
+</span></span><span class="line"><span class="cl">    from codes.modules.submodule import c
+</span></span><span class="line"><span class="cl">ModuleNotFoundError: No module named <span class="s1">&#39;codes&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">  File <span class="s2">&#34;a.py&#34;</span>, line 1, in &lt;module&gt;
+</span></span><span class="line"><span class="cl">    from thirdparty.codes.modules import b
+</span></span><span class="line"><span class="cl">ModuleNotFoundError: No module named <span class="s1">&#39;thirdparty&#39;</span>
+</span></span></code></pre></div><p>这种错误在遇到使用<code>git submodule</code>的方式引入第三方项目时非常常见，解决方式呢也有很多种</p>
+<p>对于<code>main.py</code>这种处于最外层的入口文件，解决方式非常简单，只需要将<code>thirdparty</code>目录加入到当前执行的系统路径中即可</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;thirdparty&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;thirdparty/codes&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">src.module</span> <span class="kn">import</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">a</span><span class="o">.</span><span class="n">print_a</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># output</span>
+</span></span><span class="line"><span class="cl"><span class="n">this</span> <span class="ow">is</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="n">this</span> <span class="ow">is</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl"><span class="n">this</span> <span class="ow">is</span> <span class="n">c</span>
+</span></span></code></pre></div><p>而对于<code>a.py</code>这种单独测试文件呢就比较麻烦了，你需要将第三方包的绝对路径添加到系统路径之中</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># src/module/a.py</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/path/of/the/project/tmp&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/path/of/the/project/tmp/thirdparty&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">thirdparty.codes.modules</span> <span class="kn">import</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_a</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;this is a&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">b</span><span class="o">.</span><span class="n">print_b</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print_a</span><span class="p">()</span>
+</span></span></code></pre></div><p>需要注意的是，这里的demo非常简单，并不能覆盖到全部情况，例如将<code>b.py</code>文件中引入部分改为<code>from modules.submodule import c</code>则上述方法就失效了（<code>main.py</code>除外）</p>
+<p>为了解决这种情况，最简单的方式就是将第三方包以<code>pth</code>文件的形式导入到系统路径之中，使其变为<code>pip</code>安装包的引入方式，具体操作如下</p>
+<ol>
+<li>找到目前环境下<code>site-packages</code>文件目录</li>
+</ol>
+<p>我们需要将<code>pth</code>文件保存在和第三方包一样的路径之中，通过下面的脚本即可获取当前环境的第三方包路径</p>
+<pre><code>python -m site
+</code></pre>
+<ol start="2">
+<li>创建<code>pth</code>文件</li>
+</ol>
+<p>在对应的目录中，创建对应的<code>pth</code>文件，文件名自定义取一个有辨识度但和已经安装的包不冲突的名字，例如我这使用的<code>thirdparty.pth</code></p>
+<pre><code>cd /path/to/site-packages
+touch thirdparty.pth
+</code></pre>
+<p>创建完成后，将需要引入的第三方包路径添加至文件之中</p>
+<pre><code># /path/to/site-packages/thirdparty.pth
+/path/to/third/party/module
+
+# example
+/home/xxx/tmp/
+/home/xxx/tmp/thirdparty
+</code></pre>
+<p>注意，需要将对应的包明确写入文件之中，这是为了方便寻找其子包的存在</p>
+<p>最后运行脚本就可以成功引入了: )</p>
+]]></content></item><item><title>WSL2更改桥接网络</title><link>https://blog.thinkmoe.icu/posts/wsl2%E6%9B%B4%E6%94%B9%E6%A1%A5%E6%8E%A5%E7%BD%91%E7%BB%9C/</link><pubDate>Thu, 05 May 2022 13:34:24 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/wsl2%E6%9B%B4%E6%94%B9%E6%A1%A5%E6%8E%A5%E7%BD%91%E7%BB%9C/</guid><description>WSL2默认情况下网络是处于NAT模式之下，在正常情况下联网是没有问题的，但是遇到一些特殊情况下时NAT网络就非常的鸡肋。 例如，NAT的WSL2并不能直接使用宿主机的代理服务器，需要手动获取本机IP和宿主机在WSL2中的IP地址才能进行局域网连接。 在例如本人需要在WSL2中远程连接实验室车辆上的ROS2节点，由于NAT的存在导致小车上ROS2节点发布的Topic并不能在WSL2中接收到，因此我需要将WSL2默认的NAT网络 更改为桥接网络，这样在不影响宿主机上网的同时也能分配给WSL2一个局域网地址
 本方法需要通过Hyper-V虚拟网卡进行，因此首先需要安装并开启Windows的Hyper-V功能
 修改桥接网络步骤如下(以下步骤均在管理员模式的Powershell中进行)：
 从Powershell中开启wsl，生成网卡 wsl.exe 如果只是开机自启的wsl会出现找不到WSL网卡的错误 2. 获取网卡信息
@@ -37,7 +161,7 @@ Set-VMSwitch WSL -NetAdapterName WLAN 配置WSL2地址 这时，已经将WSL2的
 </span></span></code></pre></div><p>保存并退出</p>
 <p>以上就完成了WSL2的桥接网络配置，需要注意的是，每次都需要手动更新DNS文件，如果连接到别的路由器之下还需要手动更新静态地址和网关地址</p>
 ]]></content></item><item><title>Ubuntu20.04 Install Opencv3.1.0 With Python3</title><link>https://blog.thinkmoe.icu/posts/ubuntu20.04-install-opencv3.1.0-with-python3/</link><pubDate>Mon, 28 Mar 2022 16:40:37 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/ubuntu20.04-install-opencv3.1.0-with-python3/</guid><description>安装依赖 Ubuntu20.04需要安装以下依赖
-sudo apt install -y --no-install-recommends \ build-essential \ git \ wget \ unzip \ yasm \ pkg-config \ libswscale-dev \ libtbb2 \ libtbb-dev \ libjpeg-dev \ libpng-dev \ libtiff-dev \ libopenjp2-7-dev \ libavformat-dev \ libpq-dev \ libgtk2.0-dev libgtk-3-dev \ libgphoto2-dev \ libtiff5-dev libjpeg8-dev libpng-dev cmake make \ libavformat-dev libavcodec-dev libswscale-dev libdc1394-22-dev libavresample-dev \ libxine2-dev libv4l-dev \ libatlas-base-dev \ libfaac-dev libmp3lame-dev libtheora-dev \ libvorbis-dev libxvidcore-dev \ libeigen3-dev \ libgstreamer1.</description><content type="html"><![CDATA[<h1 id="安装依赖">安装依赖</h1>
+sudo apt install -y --no-install-recommends \ build-essential \ git \ wget \ unzip \ yasm \ pkg-config \ libswscale-dev \ libtbb2 \ libtbb-dev \ libjpeg-dev \ libpng-dev \ libtiff-dev \ libopenjp2-7-dev \ libavformat-dev \ libpq-dev \ libgtk2.0-dev libgtk-3-dev \ libgphoto2-dev \ libtiff5-dev libjpeg8-dev libpng-dev cmake make \ libavformat-dev libavcodec-dev libswscale-dev libdc1394-22-dev libavresample-dev \ libxine2-dev libv4l-dev \ libatlas-base-dev \ libfaac-dev libmp3lame-dev libtheora-dev \ libvorbis-dev libxvidcore-dev \ libeigen3-dev \ libgstreamer1.0-0 gstreamer1.</description><content type="html"><![CDATA[<h1 id="安装依赖">安装依赖</h1>
 <p>Ubuntu20.04需要安装以下依赖</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install -y --no-install-recommends <span class="se">\ </span>
 </span></span><span class="line"><span class="cl">    build-essential <span class="se">\
@@ -493,7 +617,8 @@ COPY --from=stage source dest 其中from就是用于表明从哪个stage中复�
 # builder stage FROM x as builder # final stage FROM x as final COPY --from=builder /abc /abc COPY --from=0 /abc/abc 实战 以我的Yuki为例，该项目由React和Go组成，其中Go将会提供服务器提供前端接口。
 首先分析阶层，我们需要编译两个项目，其中是React另一个是Go，并且Go的编译需要依赖于React。因此很容易得出，以下顺序
 编译React 编译Go 运行 为了让编译出来的容器尽可能的小，我们在选取构建容器时也尽量选择小的容器来进行编译例如我最喜欢的alpine。因此在Docker Hub中寻找关于nodejs和golang的alpine版本，由于原版golang的alpine版本不附带gcc因此我选择了第三方的容器tetafro/golang-gcc。而提供运行环境的容器我也选择了alpine:3.14
-NodeJS: node:14.17.5-alpine(117MB) Golang: tetafro/golang-gcc:1.16-alpine(425MB) Runtime: alpine:3.</description><content type="html"><![CDATA[<blockquote>
+NodeJS: node:14.17.5-alpine(117MB) Golang: tetafro/golang-gcc:1.16-alpine(425MB) Runtime: alpine:3.14(5.6MB) 在选择完构建容器后就可以正式构建自己的程序了，首先是React的打包，注意的是如果将node_modules文件一并Add的话将不会再拉取一遍不符合我们的要求，因此需要提请编写一个类似于.gitignore文件的.dockerignore文件，例如我使用的
+cat ./dockerignore release data web/node_modules web/dist .</description><content type="html"><![CDATA[<blockquote>
 <p>多级构建让你的容器更小巧~</p>
 </blockquote>
 <p>在构建Docker镜像的时候经常发现构建出来的容器大小非常的大，而我本地编译出来的二进制文件也不过26MB左右而Docker容器居然有120MB！
@@ -594,7 +719,7 @@ COPY --from=0 /abc/abc
 </span></span></code></pre></div><p>这样一个完美的小容器就诞生了~</p>
 ]]></content></item><item><title>Ubuntu Server 20.04 设置IP和网关地址</title><link>https://blog.thinkmoe.icu/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</link><pubDate>Thu, 19 Aug 2021 15:36:40 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/ubuntu-server-20.04-%E8%AE%BE%E7%BD%AEip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%BD%91%E5%85%B3%E5%9C%B0%E5%9D%80/</guid><description>Ubuntu从20.04版本开始使用netplan对网络进行管理，百度上使用的/etc/network/interfaces文件已不再适用，需要修改netplan配置文件进行更新
 修改配置文件 netplan的配置文件存放在/etc/netplan中，其中有诸如00-installer-config.yaml的配置文件，打开可以发现
-# This is the network config written by &amp;#39;subiquity&amp;#39;network:ethernets:# 网卡名称，我这是虚拟机ens33ens33:# 是否开启dhcp服务，设置为true后后续的ip和网关可以不用设置dhcp4:no# IP地址，一般设置一个就行# 后面的24是子网掩码数目，代表255.255.255.0(11111111.11111111.11111111.00000000)addresses:[192.168.1.106/24]optional:true# 网关地址gateway4:192.168.1.253# dns地址nameservers:addresses:[233.5.5.5,192.168.1.253]version:2当然，这只是最为基础的网络配置，对于多张网卡还可以进行其他的配置，详情可以参考Netplan官方文档
+# This is the network config written by &amp;#39;subiquity&amp;#39; network: ethernets: # 网卡名称，我这是虚拟机ens33 ens33: # 是否开启dhcp服务，设置为true后后续的ip和网关可以不用设置 dhcp4: no # IP地址，一般设置一个就行 # 后面的24是子网掩码数目，代表255.255.255.0(11111111.11111111.11111111.00000000) addresses: [192.168.1.106/24] optional: true # 网关地址 gateway4: 192.168.1.253 # dns地址 nameservers: addresses: [233.5.5.5, 192.168.1.253] version: 2 当然，这只是最为基础的网络配置，对于多张网卡还可以进行其他的配置，详情可以参考Netplan官方文档
 在修改完文件之后，终端输入以下命令应用配置，Ping外网测试连通性
 sudo netplay apply ping 8.8.8.8</description><content type="html"><![CDATA[<p>Ubuntu从20.04版本开始使用<code>netplan</code>对网络进行管理，百度上使用的<code>/etc/network/interfaces</code>文件已不再适用，需要修改<code>netplan</code>配置文件进行更新</p>
 <h2 id="修改配置文件">修改配置文件</h2>
@@ -628,7 +753,10 @@ RFC 6455 根据RFC 6455定义的内容，Websocket在处理关闭时设置了一
 1003 Unsupported Data 1003说明终端接受到一个无法处理的数据而进行强制性退出(例如，服务器可能只能够处理文本数据但接受到了二进制数据)
 1004 &amp;mdash;Reserved&amp;mdash; 1004字段保留，未来可能用得到
 1005 No Status Rcvd 1005是一个保留数据，绝对不允许终端将其设置为关闭时的状态码。It is designated for use in applications expecting a status code to indicate the no stats code was actually present.
-1006 Abnormal Closure 1006是一个保留数据，绝对不允许终端将其设置为关闭时的状态码。它是用来指定需要状态码标志连接异常关闭的程序，例如没有发送或接受控制数据</description><content type="html"><![CDATA[<h2 id="前情">前情</h2>
+1006 Abnormal Closure 1006是一个保留数据，绝对不允许终端将其设置为关闭时的状态码。它是用来指定需要状态码标志连接异常关闭的程序，例如没有发送或接受控制数据
+1007 Invalid frame payload data 1007说明终端收到了一个不符合规定的格式数据而关闭连接(例如，non-UTF-8格式的数据包括了一段text消息)
+1008 Policy Violation 1008说明终端收到了一个违反服务规则的消息而关闭连接，这是一个多功能状态码，它可以用于没有其他合适的状态码时发送出去例如(1003或1009)或者在有必要隐藏自己的规则信息时发送出去
+1009 Message Too Big 1009说明终端收到了一个过大的数据而关闭连接</description><content type="html"><![CDATA[<h2 id="前情">前情</h2>
 <p>在处理B站直播的Websocket源时，经常发生连接关闭的错误，最常见的就是<code>close 1006 (abnormal closure): unexpected EOF</code>错误，你说http的状态码还知道，这websocet的状态码还真不知道，于是去查了查记录一下</p>
 <h2 id="rfc-6455">RFC 6455</h2>
 <p>根据<a href="https://tools.ietf.org/pdf/rfc6455.pdf">RFC 6455</a>定义的内容，Websocket在处理关闭时设置了一系列的代码提示。当对一个已经建立的连接进行关闭时，在终端处可能提供一个关闭的解释说明，客户端可以根据这个代码来推测终端关闭连接的原因从而更新客户端连接的代码。当然，终端在关闭时也可以忽视代码直接进行关闭</p>
@@ -998,7 +1126,7 @@ fusuma这个包非常完美的解决了Ubuntu触控板手势的问题，并且�
 sudo gpasswd -a $USER input newgrp input // 立刻刷新 对于Debian系用户(Ubuntu,Debian,Mint,Pop!OS) 安装libinput sudo apt install libinput-tools 安装Ruby 由于fusuma需要在ruby上运行，因此需要安装ruby。
 sudo apt install ruby 安装Fusuma sudo gem install fusuma 安装xdotool(可选，但是对后续非常有用建议安装) sudo apt install xdotool 对于Arch用户 sudo pacman -S libinput ruby xdotool sudo gem install fusuma 启动 fusuma 配置 Fusuma的配置非常简单，首先需要在用户目录下创建配置文件~/.config/fusuma/config.yml
 mkdir -p $HOME/.config/fusuma touch $HOME/.config/fusuma/config.yml 这里简单贴出我使用的配置，可以在配置中发现，其实手势是通过xdotool工具间接调用系统的快捷键来实现手势控制的
-swipe:3:left:command:&amp;#34;xdotool key alt+Right&amp;#34;# History forwardright:command:&amp;#34;xdotool key alt+Left&amp;#34;# History back#up:#command: &amp;#34;xdotool key super&amp;#34; # Activity#down:#command: &amp;#34;xdotool key super&amp;#34; # Activity4:left:command:&amp;#34;xdotool key alt+u&amp;#34;# Switch to next workspaceright:command:&amp;#34;xdotool key alt+d&amp;#34;# Switch to previous workspaceup:command:&amp;#34;xdotool key alt+u&amp;#34;# Switch to next workspacedown:command:&amp;#34;xdotool key alt+d&amp;#34;# Switch to previous workspacepinch:in:command:&amp;#34;xdotool keydown ctrl click 4 keyup ctrl&amp;#34;# Zoom inout:command:&amp;#34;xdotool keydown ctrl click 5 keyup ctrl&amp;#34;# Zoom out在添加完配置文件后，重新启动fusuma即可使用手势动作了</description><content type="html"><![CDATA[<p>之前一直在新笔记本上用虚拟机开Linux编写毕设，现在毕业答辩已经完成，所以就直接将Win10更换到Linux系统。但是众所周知，Linux并没有自带触控板手势驱动，但我早已习惯于win上的一些手势，所以我开始寻找一个合适的触控板手势驱动。</p>
+swipe: 3: left: command: &amp;#34;xdotool key alt+Right&amp;#34; # History forward right: command: &amp;#34;xdotool key alt+Left&amp;#34; # History back #up: #command: &amp;#34;xdotool key super&amp;#34; # Activity #down: #command: &amp;#34;xdotool key super&amp;#34; # Activity 4: left: command: &amp;#34;xdotool key alt+u&amp;#34; # Switch to next workspace right: command: &amp;#34;xdotool key alt+d&amp;#34; # Switch to previous workspace up: command: &amp;#34;xdotool key alt+u&amp;#34; # Switch to next workspace down: command: &amp;#34;xdotool key alt+d&amp;#34; # Switch to previous workspace pinch: in: command: &amp;#34;xdotool keydown ctrl click 4 keyup ctrl&amp;#34; # Zoom in out: command: &amp;#34;xdotool keydown ctrl click 5 keyup ctrl&amp;#34; # Zoom out 在添加完配置文件后，重新启动fusuma即可使用手势动作了</description><content type="html"><![CDATA[<p>之前一直在新笔记本上用虚拟机开Linux编写毕设，现在毕业答辩已经完成，所以就直接将Win10更换到Linux系统。但是众所周知，Linux并没有自带触控板手势驱动，但我早已习惯于win上的一些手势，所以我开始寻找一个合适的触控板手势驱动。</p>
 <p>在最初，我发现了一个名为<code>libinput-gesture</code>的库，其Github上有3k赞，于是我立马就尝试了这个库。安装过程一切畅通，但最后运行的阶段却出了问题。在启动该库时提示我启动失败，但并没有给其他错误信息。我检查了<code>xinput</code>和<code>libinput</code>对触控板的驱动，并没有任何问题。谷歌了一下发现这玩意对arch用户非常良好，但对我这使用的ubuntu来说会出现这种情况。于是我把目光转向另一个库，<code>fusuma</code>。</p>
 <p><code>fusuma</code>这个包非常完美的解决了Ubuntu触控板手势的问题，并且安装过程极其简单，配置也十分简洁明了。</p>
 <h2 id="安装">安装</h2>
@@ -1137,7 +1265,7 @@ NFT的标识 每一个NFT都由一个使用ERC-721智能合约生成的独一无
 转移机制 ETC-721定义了一个安全的转移函数safeTransferForm（不使用bytes参数进行重载）和一个不安全函数transferFrom。转移可能会在下述角色中进行初始化：
 NFT的所有者 接收NFT的地址 一个对于当前NFT拥有者可信任的操作员 另外，可信任的操作员可能会为NFT设置一个可接受的地址。这为钱包、代理人和实际应用提供一系列有力的工具来使用这些大量NFT。
 转移和接受函数文档只适用于交易必须抛出时的指定条件下。你自己的复现可能会在其他情况下同样被抛出。这让众多复现产生有趣的结果
-Disallow transfers if the contract is paused — prior art, CryptoKitties deployed contract, line 611 Blacklist certain address from receiving NFTs — prior art, CryptoKitties deployed contract, lines 565, 566 Disallow unsafe transfers — transferFrom throws unless _to equals msg.</description><content type="html"><![CDATA[<blockquote>
+Disallow transfers if the contract is paused — prior art, CryptoKitties deployed contract, line 611 Blacklist certain address from receiving NFTs — prior art, CryptoKitties deployed contract, lines 565, 566 Disallow unsafe transfers — transferFrom throws unless _to equals msg.sender or countOf(_to) is non-zero or was non-zero previously (because such cases are safe) Charge a fee to both parties of a transaction — require payment when calling approve with a non-zero _approved if it was previously the zero address, refund payment if calling approve with the zero address if it was previously a non-zero address, require payment when calling any transfer function, require transfer parameter _to to equal msg.</description><content type="html"><![CDATA[<blockquote>
 <p>本文节选翻译自<a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md#rationale">Github Ethereum EIPs Eip-721#rationale</a></p>
 </blockquote>
 <p>现在有很多旨在追踪可区分资产的基于以太坊智能合约的提议。例如Decentraland现有或计划中的的NFT、CryptoPunks中的eponymouse和游戏中如DMarket或EnjinCoin的物品系统。在未来，可以用于追踪现实生活中的资产例如房产（如ubiquity和Propy等公司的想法）。当这些物品在分类账单中没有集中在一起时显得至关重要，每个资产必须单独并能够独立追踪其所有权信息。</p>
@@ -1192,28 +1320,28 @@ Disallow transfers if the contract is paused — prior art, CryptoKitties deploy
 <li>Auctionhouse Asset Interface &ndash; The author needed a generic interface for the Auctionhouse ÐApp (currently ice-boxed). His &ldquo;Asset&rdquo; contract is very simple, but is missing ERC-20 compatibility, approve() functionality, and metadata. This effort is referenced in the discussion for EIP-173.</li>
 </ul>
 ]]></content></item><item><title>NFT让互联网更属于自己</title><link>https://blog.thinkmoe.icu/posts/nft%E6%A6%82%E8%A6%81/</link><pubDate>Sun, 13 Jun 2021 13:24:49 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/nft%E6%A6%82%E8%A6%81/</guid><description>本文翻译自NFTs make the internet ownable
-为什么加密变成数字媒体的港湾  在成为技术人员之前，我是一名音乐艺术管理员。当我开始创业，我坚信在艺术行业中有一件定理：拥有权决定能力。例如，音乐标签对音乐掌握所有权，从而掌握创作者。
- 我们的目标是通过技术手段让艺术家更能贴近粉丝，帮助艺术家保持对于他们的作品的所有权，并独立的进行商业活动。今天，我们都是在线创作者，并且继续拥有相当规模的所有权。然而，所有权对技术平台的作用往往被忽视。
- 每天都有数亿的图片、视频、音乐盒其他媒体在社交平台上分享。当这些文件被上传时，都会将文件从创作者设备中拷贝一分保存在服务器平台上，Facebook、Twitter、Youtube、TikTok等都是如此。
- 这看似只是一件细小的动作，但在上传时，创作者并不是简单的被复制文件，同时还被复制了该作品在平台上的所有权。
- 我在谈及明确规定了上传文件信息的服务条款时，它的所有权都将在平台上分享出去，并套现。这是有一些优点的，例如平台可以提供基于广告收入的分销。但是，在今日的货币化模型中，并不总是和创作者的最佳利益相持平。并且平台都是依此为生的。久而久之，平台会窃取大量的创作者信息。
- 而与此同时，加密是解锁不同的路径，我称之为Ownership Economy，一个讨论更广泛的、提供用户与用户之间直接建立、操作和持有的互联网平台。
- 在媒体领域，NFTs或者说Non-Fungible Tokens让这种为创作者保持其内容所有权的平台成为现实，并且他们的作品在互联网传播上不受任何限制。因此，NFTs拥有颠覆媒体创作者及其他们的作品的潜力，为他们提供了一种可行的平台驱动货币化的替代品。
- 一种对NFTs最简单的解释就是保存在区块链上的文件。这意味着，它们不可能被复制、修改、删除或其他操作。
- 这些保护机制源使加密货币有价值的相同技术，如比特币。NFTs同样也是数字货币，可以购买、卖出、交易，其所有权和出处都将通过区块链来追踪。非常明显你的就是你的，并且不需要任何第三方来保证你所拥有的所有权。
- NFTs让拥有数字资产变为可能，同样的也可以拥有数字货币例如比特币
- 对于许多人来说，NFTs就和新诞生的玩具一样，是一个很快就会破灭的泡沫。虽然正式的数字艺术品和加密收藏品所花费的钱一直很快是实事，但它们在雕刻创作者货币化的行为是非常有效的。
- 我相信我们在NFTs成为互联网中每一块媒体的港湾是正确的。这包括了2D音频/视频和文本工作，以及未来将包含的游戏和虚拟世界代理的3D工作。
- 我所相信的NFT将会把未来通过NFT带向让每个利益相关者更好的商业模式，创作者、官中和开发人员可以围绕真正的数字所有权市场中赚取更多的利益。
-NFT是如何工作的  在实践中，NFT知识一个简单的用于标识数字文件的唯一令牌。每一个NFT都有规范的标识信息，一个独一无二的ID。与之挂钩的ID是一随意的元信息，例如可以是创建人、这个NFT有关的信息或价格历史。当一个NFT被创作者生产(铸币)时，它的信息将会在区块链上永久保存并成为生产工作的数字护照。再进一步，随时在另一个平台上发布媒体时，该平台都可以通过检查护照查看该媒体的整个交易历史。这意味着，一个创新的成果可以通过在区块链上注册不可变记录来追溯原始信息。一张互联网上的图片或不再是二维数据。相反，它可以通过引入Z轴来宝尊其所有历史信息和可由第三方发现的上下文信息，用于增加其文化和财务价值。
-拥有数字艺术品有价值吗  对于NFT的一个共同疑惑是，由于数字艺术和数字收集品可以被复制，但并不会携带很多价值。但NFT创造了另一种可能，即在流动性的工作之中继续保持其真正的所有权。
- 一个文件在互联网上浏览的越多，其价值也越高，想想大规模生成的霍格图像和T恤。随着臭名昭着的增加，拥有规范作品的概念变得更加激动，更有一个社会地位的标志。 它还可以推动可以从转售工作中推出的值，应该在购买后的臭名令人闻名(实在不会翻译)。NFT让收藏夹能在现实中获取大多数好处，其中额外的奖金费用可以在互联网上自由共享而不是限制，从而通过更广泛的分布式网络来积累更多的价值。
- 这不仅针对于艺术品。加密收藏平将会在更多领域如游戏、数字时尚、皮肤以及艺术和编程之间的关系发生作用。
-为什么要立刻收集NFT  回到现实，和许多技术的炒作循环一样，投机价值通常受限于功能价值。由于这些资产是可编程的，任何开发者都可以在其中创建。并且因为NFT是用户便携式的，可编程资产可以触及整个数字世界中的所有程序。
- Tokens和智能合约被称之为金钱乐高，这是因为它们可以通过在[Remix]的DeFi程序中编程开发。同样，NFT是也是开发人员和创作者的媒体乐高，可以随意创建新的体验。因此，用户可以期待更为丰富的产品，并在所有物品中重复使用。
-长远来看，NFT将会走向何处  我认为NFTS将成为所有互联网媒体的进入港口，因为所涉及的每个人都可以从他们启用的市场中赚更多资金：创造者通过直接销售给粉丝并通过每次NFTS转售时收集特许权使用费，创造者赚更多的资金。 这是一个完全是新的收入流，只有可能是可以在媒体本身中编码版税逻辑的真正数字所有权。
- 对于消费者来说，NFT是一个更好的模型，因为它们将惠顾人数的社会和功利福利结合起来的可能性来转动利润或实现复合效用。 在今天的网络上，消费者租用大多数商品和服务，包括他们光顾的创造者。 新的所有权经济平台的一个关键宗旨是游戏中患上肌肤的激励对齐。 关于支持创造者，我称之为“pitronage +”，其中“加号”是与您支持的创造者一起获得价值的可能性。 这是一个强大的，探讨的激励，成为第一名的赞助人 - 我认为它可能在创造性的工作中推动更多的市场中的市场需求。
- 开发人员可以通过建筑物赚钱以启用这些新市场。 Wheras主要平台扼杀开发人员API并限制自由市场开发，开发商在申请方面的基础设施方面展望，在许多方面，在许多方面，函数更像是物质世界的运作。</description><content type="html"><![CDATA[<blockquote>
+为什么加密变成数字媒体的港湾 在成为技术人员之前，我是一名音乐艺术管理员。当我开始创业，我坚信在艺术行业中有一件定理：拥有权决定能力。例如，音乐标签对音乐掌握所有权，从而掌握创作者。
+我们的目标是通过技术手段让艺术家更能贴近粉丝，帮助艺术家保持对于他们的作品的所有权，并独立的进行商业活动。今天，我们都是在线创作者，并且继续拥有相当规模的所有权。然而，所有权对技术平台的作用往往被忽视。
+每天都有数亿的图片、视频、音乐盒其他媒体在社交平台上分享。当这些文件被上传时，都会将文件从创作者设备中拷贝一分保存在服务器平台上，Facebook、Twitter、Youtube、TikTok等都是如此。
+这看似只是一件细小的动作，但在上传时，创作者并不是简单的被复制文件，同时还被复制了该作品在平台上的所有权。
+我在谈及明确规定了上传文件信息的服务条款时，它的所有权都将在平台上分享出去，并套现。这是有一些优点的，例如平台可以提供基于广告收入的分销。但是，在今日的货币化模型中，并不总是和创作者的最佳利益相持平。并且平台都是依此为生的。久而久之，平台会窃取大量的创作者信息。
+而与此同时，加密是解锁不同的路径，我称之为Ownership Economy，一个讨论更广泛的、提供用户与用户之间直接建立、操作和持有的互联网平台。
+在媒体领域，NFTs或者说Non-Fungible Tokens让这种为创作者保持其内容所有权的平台成为现实，并且他们的作品在互联网传播上不受任何限制。因此，NFTs拥有颠覆媒体创作者及其他们的作品的潜力，为他们提供了一种可行的平台驱动货币化的替代品。
+一种对NFTs最简单的解释就是保存在区块链上的文件。这意味着，它们不可能被复制、修改、删除或其他操作。
+这些保护机制源使加密货币有价值的相同技术，如比特币。NFTs同样也是数字货币，可以购买、卖出、交易，其所有权和出处都将通过区块链来追踪。非常明显你的就是你的，并且不需要任何第三方来保证你所拥有的所有权。
+NFTs让拥有数字资产变为可能，同样的也可以拥有数字货币例如比特币
+对于许多人来说，NFTs就和新诞生的玩具一样，是一个很快就会破灭的泡沫。虽然正式的数字艺术品和加密收藏品所花费的钱一直很快是实事，但它们在雕刻创作者货币化的行为是非常有效的。
+我相信我们在NFTs成为互联网中每一块媒体的港湾是正确的。这包括了2D音频/视频和文本工作，以及未来将包含的游戏和虚拟世界代理的3D工作。
+我所相信的NFT将会把未来通过NFT带向让每个利益相关者更好的商业模式，创作者、官中和开发人员可以围绕真正的数字所有权市场中赚取更多的利益。
+NFT是如何工作的 在实践中，NFT知识一个简单的用于标识数字文件的唯一令牌。每一个NFT都有规范的标识信息，一个独一无二的ID。与之挂钩的ID是一随意的元信息，例如可以是创建人、这个NFT有关的信息或价格历史。当一个NFT被创作者生产(铸币)时，它的信息将会在区块链上永久保存并成为生产工作的数字护照。再进一步，随时在另一个平台上发布媒体时，该平台都可以通过检查护照查看该媒体的整个交易历史。这意味着，一个创新的成果可以通过在区块链上注册不可变记录来追溯原始信息。一张互联网上的图片或不再是二维数据。相反，它可以通过引入Z轴来宝尊其所有历史信息和可由第三方发现的上下文信息，用于增加其文化和财务价值。
+拥有数字艺术品有价值吗 对于NFT的一个共同疑惑是，由于数字艺术和数字收集品可以被复制，但并不会携带很多价值。但NFT创造了另一种可能，即在流动性的工作之中继续保持其真正的所有权。
+一个文件在互联网上浏览的越多，其价值也越高，想想大规模生成的霍格图像和T恤。随着臭名昭着的增加，拥有规范作品的概念变得更加激动，更有一个社会地位的标志。 它还可以推动可以从转售工作中推出的值，应该在购买后的臭名令人闻名(实在不会翻译)。NFT让收藏夹能在现实中获取大多数好处，其中额外的奖金费用可以在互联网上自由共享而不是限制，从而通过更广泛的分布式网络来积累更多的价值。
+这不仅针对于艺术品。加密收藏平将会在更多领域如游戏、数字时尚、皮肤以及艺术和编程之间的关系发生作用。
+为什么要立刻收集NFT 回到现实，和许多技术的炒作循环一样，投机价值通常受限于功能价值。由于这些资产是可编程的，任何开发者都可以在其中创建。并且因为NFT是用户便携式的，可编程资产可以触及整个数字世界中的所有程序。
+Tokens和智能合约被称之为金钱乐高，这是因为它们可以通过在[Remix]的DeFi程序中编程开发。同样，NFT是也是开发人员和创作者的媒体乐高，可以随意创建新的体验。因此，用户可以期待更为丰富的产品，并在所有物品中重复使用。
+长远来看，NFT将会走向何处 我认为NFTS将成为所有互联网媒体的进入港口，因为所涉及的每个人都可以从他们启用的市场中赚更多资金：创造者通过直接销售给粉丝并通过每次NFTS转售时收集特许权使用费，创造者赚更多的资金。 这是一个完全是新的收入流，只有可能是可以在媒体本身中编码版税逻辑的真正数字所有权。
+对于消费者来说，NFT是一个更好的模型，因为它们将惠顾人数的社会和功利福利结合起来的可能性来转动利润或实现复合效用。 在今天的网络上，消费者租用大多数商品和服务，包括他们光顾的创造者。 新的所有权经济平台的一个关键宗旨是游戏中患上肌肤的激励对齐。 关于支持创造者，我称之为“pitronage +”，其中“加号”是与您支持的创造者一起获得价值的可能性。 这是一个强大的，探讨的激励，成为第一名的赞助人 - 我认为它可能在创造性的工作中推动更多的市场中的市场需求。
+开发人员可以通过建筑物赚钱以启用这些新市场。 Wheras主要平台扼杀开发人员API并限制自由市场开发，开发商在申请方面的基础设施方面展望，在许多方面，在许多方面，函数更像是物质世界的运作。</description><content type="html"><![CDATA[<blockquote>
 <p>本文翻译自<a href="https://variant.mirror.xyz/T8kdtZRIgy_srXB5B06L8vBqFHYlEBcv6ae2zR6Y_eo">NFTs make the internet ownable</a></p>
 </blockquote>
 <h2 id="为什么加密变成数字媒体的港湾">为什么加密变成数字媒体的港湾</h2>
@@ -1627,7 +1755,8 @@ sudo pacman-key --populate archlinux
 mkdir $HOME/src cd $HOME/src git clone https://github.com/gohugoio/hugo.git cd hugo go install 如果你想让Hugo支持sass的话则需要编译另一个版本
 CGO_ENABLED=1 go install --tags extended 在终端中输入hugo version来检查是否编译成功
 创建站点 安装完Hugo后就可以来创建一个网站站点，假设名称为demo
-hugo new site demo cd demo git init 在初始化站点后，需要为站点选择一个主题，这里选择我使用的Hermit</description><content type="html"><![CDATA[<h2 id="hugohttpsgohugoio"><a href="https://gohugo.io/">Hugo</a></h2>
+hugo new site demo cd demo git init 在初始化站点后，需要为站点选择一个主题，这里选择我使用的Hermit
+git submodule add https://github.com/Track3/hermit.git themes/hermit cp themes/hermit/exampleSite/config.toml .</description><content type="html"><![CDATA[<h2 id="hugohttpsgohugoio"><a href="https://gohugo.io/">Hugo</a></h2>
 <blockquote>
 <p>Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again.</p>
 </blockquote>
@@ -1732,7 +1861,10 @@ HTTPS的加密解密同时使用了对称加密和非对称加密，由于非对
 工作流程 Client Hello
 客户端向服务端发送Client Hello消息，该消息包含客户端生成的随机数Random1、客户端支持的加密套件和SSL版本信息等 Server Hello
 服务端向客户端发送Server Hello消息，该消息会从Client Hello中确定一份加密套件，该套件决定了后续加密和生成摘要所需使用的集体算法，除此之外还会生成一个随机数Random2 Certificate
-服务端下发证书给客户端，让客户端验证自己的身份，客户端验证通过后取出公钥 Certificate Verify 客户端收到服务端的证书后先从CA验证证书合法性，提取证书中的公钥并生成随机数Random3，再用刚刚提取的公钥对随机数加密生成PreMasterKey发送给服务端 Client Key Exchange 服务端通过私钥解密得到Random3，此时客户端服务端均包含三个随机数，双方根据之前协定的算法生成一份密钥，在握手结束后的数据传输均使用该密钥进行对称加密 EncryptedHandshakeMessage 客户端将前面的握手消息生成摘要再用协商好的密钥加密发送给服务端，服务端用密钥解密如果能够解出则说明密钥一致 Change Cipher Spec 服务端通知客户端后续消息均使用加密 Encrypted Handshake Message 服务端将握手消息生成摘要加密发送给客户端，客户端接受后解密，成功则说明一致 Application data 此时双方已安全协商密钥，至此后续所有应用层数据都将使用该密钥进行加密后通过TCP进行传输 TLS版本区别 在1.</description><content type="html"><![CDATA[<blockquote>
+服务端下发证书给客户端，让客户端验证自己的身份，客户端验证通过后取出公钥 Certificate Verify 客户端收到服务端的证书后先从CA验证证书合法性，提取证书中的公钥并生成随机数Random3，再用刚刚提取的公钥对随机数加密生成PreMasterKey发送给服务端 Client Key Exchange 服务端通过私钥解密得到Random3，此时客户端服务端均包含三个随机数，双方根据之前协定的算法生成一份密钥，在握手结束后的数据传输均使用该密钥进行对称加密 EncryptedHandshakeMessage 客户端将前面的握手消息生成摘要再用协商好的密钥加密发送给服务端，服务端用密钥解密如果能够解出则说明密钥一致 Change Cipher Spec 服务端通知客户端后续消息均使用加密 Encrypted Handshake Message 服务端将握手消息生成摘要加密发送给客户端，客户端接受后解密，成功则说明一致 Application data 此时双方已安全协商密钥，至此后续所有应用层数据都将使用该密钥进行加密后通过TCP进行传输 TLS版本区别 在1.0和1.1计算Finish报文时，进行的是md5+sha1组合运行而1.2下变成了单次sha1 在证书校验中，1.0和1.1会对握手信息使用md5+sha1进行摘要运算(对于ECC证书只做SHA1计算)，在1.2下验证报文多出两个字节hash_alg和sign_alg，假如加密套件存在SHA384则使用SHA384进行加密 RTT问题 由于HTTPS是建立在HTTP之上的，而HTTP是通过TCP实现的，因此HTTPS的建立也需要经历TCP的3次握手但远远不够
+这是因为HTTPS除了需要交换连接信息还需要交换证书文件，保证数据完整性等等内容，这会需要增加连接的数量
+实际上HTTPS会比HTTP多7个RTT，首先3个握手RTT，然后跳转HTTPS1个RTT，再TCP连接443端口3个RTT，然后开始完成加密套件的协商和证书身份确认。在浏览器获取到证书后也会验证证书的有效性并获取CA域名，解析CA成功后与CA握手并进行OCSP请求确认证书状态
+握手优化 由于HTTPS会比HTTP多很多RTT，因此假如在同一时刻大量请求会导致服务端承受不住因此需要对握手进行优化</description><content type="html"><![CDATA[<blockquote>
 <p>本文主要介绍一下TCP和HTTP&amp;HTTPS之间的关系</p>
 </blockquote>
 <h1 id="tcp">TCP</h1>

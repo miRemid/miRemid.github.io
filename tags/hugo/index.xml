@@ -5,4 +5,5 @@
 mkdir $HOME/src cd $HOME/src git clone https://github.com/gohugoio/hugo.git cd hugo go install 如果你想让Hugo支持sass的话则需要编译另一个版本
 CGO_ENABLED=1 go install --tags extended 在终端中输入hugo version来检查是否编译成功
 创建站点 安装完Hugo后就可以来创建一个网站站点，假设名称为demo
-hugo new site demo cd demo git init 在初始化站点后，需要为站点选择一个主题，这里选择我使用的Hermit</description></item></channel></rss>
+hugo new site demo cd demo git init 在初始化站点后，需要为站点选择一个主题，这里选择我使用的Hermit
+git submodule add https://github.com/Track3/hermit.git themes/hermit cp themes/hermit/exampleSite/config.toml .</description></item></channel></rss>
