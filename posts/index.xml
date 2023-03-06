@@ -1,4 +1,143 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.thinkmoe.icu/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 16 Aug 2022 17:13:03 +0800</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>记一次Python引入第三方源码包的解决方式</title><link>https://blog.thinkmoe.icu/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1python%E5%BC%95%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E6%BA%90%E7%A0%81%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/</link><pubDate>Tue, 16 Aug 2022 17:13:03 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1python%E5%BC%95%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E6%BA%90%E7%A0%81%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/</guid><description>Python虽然挺好用的，但也挺难用的
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.thinkmoe.icu/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 05 Mar 2023 22:01:11 +0800</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Jetson TX2 NX 配置笔记</title><link>https://blog.thinkmoe.icu/posts/jetson-tx2-nx-%E9%85%8D%E7%BD%AE%E7%AC%94%E8%AE%B0/</link><pubDate>Sun, 05 Mar 2023 22:01:11 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/jetson-tx2-nx-%E9%85%8D%E7%BD%AE%E7%AC%94%E8%AE%B0/</guid><description>Jetson真的好贵啊&amp;gt; &amp;lt;
+tx2nx开发板
+由于科研的需要，需要在边缘设备上对深度学习模型进行量化测试。实验室内刚好有闲置的Nvidia Jetson TX2开发板，所以就直接拿来测试了
+原本以为在开发板上的配置会比较简单，无非就是从x86平台转换到arm上面，但实际上坑非常多例如前面提到的arm架构，其实在Jetson上面压根不是传统的arm架构，而是从armv8独立分支出来的aarch架构
+虽然坑非常多，但总体上配置流程也非常简洁，基本配置过程也和x86平台上面大致相同，只是在安装的时候需要注意。本文大纲如下
+烧录安装系统 安装conda虚拟环境 安装Pytorch和torchvision 安装torch2trt 安装系统 首先需要烧录镜像到开发板中，由于我这块板子在购买的时候代理商就已经烧录好了系统到固件中，因此直接开机即可
+如果是裸板安装，则可以参考知乎的教程进行烧录安装
+连接电源启动开发板，在安装界面中可以选择启用CPU核心的选项，默认是4核，对应的SWAP大小为2GB，可以按照自己的需求进行更改。当然，如果已经安装完了系统也可以在系统中进行修改。
+tx2自带的存储大小非常小只有16GB，按需求进行扩容，我这里是外接了一块128G的SSD硬盘
+安装conda虚拟环境 按照本人的习惯，需要一个虚拟环境用于区分不同项目的环境，在tx2也不例外。这里就出现了第一个坑，那就是官方的conda并不能在tx2上完美运行！ 就算你下载的是aarch架构的脚本，你在安装过程中也可能报错，又或者即使安装成功你在创建虚拟环境选择低版本的Python时也会出现错误
+为了解决这个问题，我们需要使用一个修改版的conda，那就是Mambaforge。从官方的Release中下载所需要的脚本文件(注意得是aarch架构的文件！)，安装方式则和普通版本的conda如出一辙，需要注意的是安装的位置需要选择一个容量更大的硬盘上面
+wget https://github.com/conda-forge/miniforge/releases/download/22.11.1-4/Mambaforge-22.11.1-4-Linux-aarch64.sh sh Mambaforge-22.11.1-4-Linux-aarch64.sh 随后创建你的第一个环境吧
+conda create -n hello python=3.6 conda activate hello 安装Pytorch和torchvision 在安装Pytorch前，你需要安装Jetson的CUDA环境，默认情况下是没有的，当然在Nvidia自家产品上安装CUDA环境非常简单，不像Linux那样惹人厌。安装只需要一条命令即可
+sudo apt install nvidia-jetpack 这时，查看/usr/local中应该就会出现对应的CUDA环境了，Jetpack会帮助你安装CUDA工具包、TensorRT和其他工具，你可以通过jetson_release来查看当前安装的CUDA版本
+(base) tx2-1@tx2-1-desktop:/usr/local$ jetson_release Software part of jetson-stats 4.1.5 - (c) 2023, Raffaello Bonghi Model: lanai-3636 - Jetpack 4.6.1 [L4T 32.7.1] NV Power Mode: MAXP_CORE_ARM - Type: 3 jtop: - Version: 4.</description><content type="html"><![CDATA[<blockquote>
+<p>Jetson真的好贵啊&gt; &lt;</p>
+</blockquote>
+<figure><img src="/images/jetsontx2nx.jpg"
+         alt="image"/><figcaption>
+            <p>tx2nx开发板</p>
+        </figcaption>
+</figure>
+
+<!-- raw HTML omitted -->
+<p>由于科研的需要，需要在边缘设备上对深度学习模型进行量化测试。实验室内刚好有闲置的Nvidia Jetson TX2开发板，所以就直接拿来测试了</p>
+<p>原本以为在开发板上的配置会比较简单，无非就是从x86平台转换到arm上面，但实际上坑非常多例如前面提到的arm架构，其实在Jetson上面压根不是传统的arm架构，而是从armv8独立分支出来的aarch架构</p>
+<p>虽然坑非常多，但总体上配置流程也非常简洁，基本配置过程也和x86平台上面大致相同，只是在安装的时候需要注意。本文大纲如下</p>
+<ul>
+<li>烧录安装系统</li>
+<li>安装conda虚拟环境</li>
+<li>安装Pytorch和torchvision</li>
+<li>安装torch2trt</li>
+</ul>
+<!-- raw HTML omitted -->
+<h2 id="安装系统">安装系统</h2>
+<p>首先需要烧录镜像到开发板中，由于我这块板子在购买的时候代理商就已经烧录好了系统到固件中，因此直接开机即可</p>
+<p>如果是裸板安装，则可以参考知乎的教程进行烧录安装</p>
+<p>连接电源启动开发板，在安装界面中可以选择启用CPU核心的选项，默认是4核，对应的SWAP大小为2GB，可以按照自己的需求进行更改。当然，如果已经安装完了系统也可以在系统中进行修改。</p>
+<p>tx2自带的存储大小非常小只有16GB，按需求进行扩容，我这里是外接了一块128G的SSD硬盘</p>
+<h2 id="安装conda虚拟环境">安装conda虚拟环境</h2>
+<p>按照本人的习惯，需要一个虚拟环境用于区分不同项目的环境，在tx2也不例外。这里就出现了第一个坑，那就是官方的conda并不能在tx2上完美运行！
+就算你下载的是aarch架构的脚本，你在安装过程中也可能报错，又或者即使安装成功你在创建虚拟环境选择低版本的Python时也会出现错误</p>
+<p>为了解决这个问题，我们需要使用一个修改版的conda，那就是<a href="https://github.com/conda-forge/miniforge">Mambaforge</a>。从官方的<a href="https://github.com/conda-forge/miniforge/releases">Release</a>中下载所需要的脚本文件(<strong>注意得是aarch架构的文件！</strong>)，安装方式则和普通版本的conda如出一辙，需要注意的是安装的位置需要选择一个容量更大的硬盘上面</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">wget https://github.com/conda-forge/miniforge/releases/download/22.11.1-4/Mambaforge-22.11.1-4-Linux-aarch64.sh
+</span></span><span class="line"><span class="cl">sh Mambaforge-22.11.1-4-Linux-aarch64.sh
+</span></span></code></pre></div><p>随后创建你的第一个环境吧</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">conda create -n hello <span class="nv">python</span><span class="o">=</span>3.6
+</span></span><span class="line"><span class="cl">conda activate hello
+</span></span></code></pre></div><h2 id="安装pytorch和torchvision">安装Pytorch和torchvision</h2>
+<p>在安装Pytorch前，你需要安装Jetson的CUDA环境，默认情况下是没有的，当然在Nvidia自家产品上安装CUDA环境非常简单，不像Linux那样惹人厌。安装只需要一条命令即可</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt install nvidia-jetpack
+</span></span></code></pre></div><p>这时，查看<code>/usr/local</code>中应该就会出现对应的CUDA环境了，Jetpack会帮助你安装CUDA工具包、TensorRT和其他工具，你可以通过<code>jetson_release</code>来查看当前安装的CUDA版本</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">(</span>base<span class="o">)</span> tx2-1@tx2-1-desktop:/usr/local$ jetson_release
+</span></span><span class="line"><span class="cl">Software part of jetson-stats 4.1.5 - <span class="o">(</span>c<span class="o">)</span> 2023, Raffaello Bonghi
+</span></span><span class="line"><span class="cl">Model: lanai-3636 - Jetpack 4.6.1 <span class="o">[</span>L4T 32.7.1<span class="o">]</span>
+</span></span><span class="line"><span class="cl">NV Power Mode: MAXP_CORE_ARM - Type: <span class="m">3</span>
+</span></span><span class="line"><span class="cl">jtop:
+</span></span><span class="line"><span class="cl"> - Version: 4.1.5
+</span></span><span class="line"><span class="cl"> - Service: Active
+</span></span><span class="line"><span class="cl">Libraries:
+</span></span><span class="line"><span class="cl"> - CUDA: 10.2.300
+</span></span><span class="line"><span class="cl"> - cuDNN: 8.2.1.32
+</span></span><span class="line"><span class="cl"> - TensorRT: 8.2
+</span></span><span class="line"><span class="cl"> - VPI: 1.2.3
+</span></span><span class="line"><span class="cl"> - OpenCV: 4.1.1 - with CUDA: NO
+</span></span></code></pre></div><p>此时，你也可以将CUDA的环境添加到终端中，为后续编译做准备</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># $HOME/.bashrc</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CUDA_HOME</span><span class="o">=</span>/usr/local/cuda
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$CUDA_HOME</span>/bin
+</span></span></code></pre></div><p>接下来就要开始安装Pytorch了，注意的是在Jetson设备上并不能像传统conda环境那样直接通过conda或pip安装，需要到Nvidia官方下载对应的安装包。而torchvision也需要自己手动编译安装或下载第三方编译好的包进行安装。以下流程均来自<a href="https://forums.developer.nvidia.com/t/pytorch-for-jetson/72048">官方教程</a></p>
+<ol>
+<li>安装Pytorch
+在这里，由于虚拟环境选择的Python版本为3.6，而最高支持3.6版本的Pytorch版本为1.8.0，所以这里安装1.8.0版本</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">wget https://nvidia.box.com/shared/static/p57jwntv436lfrd78inwl7iml6p13fzh.whl -O torch-1.8.0-cp36-cp36m-linux_aarch64.whl
+</span></span><span class="line"><span class="cl">sudo apt-get install python3-pip libopenblas-base libopenmpi-dev libomp-dev
+</span></span><span class="line"><span class="cl">conda activate hello
+</span></span><span class="line"><span class="cl">pip install cython <span class="nv">numpy</span><span class="o">==</span>1.19.4 torch-1.8.0-cp36-cp36m-linux_aarch64.whl
+</span></span></code></pre></div><p>注意，这里<code>numpy</code>选择安装<code>1.19.4</code>版本，默认的<code>1.19.5</code>版本会出现莫名其妙的bug</p>
+<ol start="2">
+<li>安装torchvision<br>
+安装torchvison需要注意所安装的torch版本，对应列表如下</li>
+</ol>
+<pre tabindex="0"><code>PyTorch v1.0 - torchvision v0.2.2
+PyTorch v1.1 - torchvision v0.3.0
+PyTorch v1.2 - torchvision v0.4.0
+PyTorch v1.3 - torchvision v0.4.2
+PyTorch v1.4 - torchvision v0.5.0
+PyTorch v1.5 - torchvision v0.6.0
+PyTorch v1.6 - torchvision v0.7.0
+PyTorch v1.7 - torchvision v0.8.1
+PyTorch v1.8 - torchvision v0.9.0
+PyTorch v1.9 - torchvision v0.10.0
+PyTorch v1.10 - torchvision v0.11.1
+PyTorch v1.11 - torchvision v0.12.0
+PyTorch v1.12 - torchvision v0.13.0
+</code></pre><p>我们先看看自行编译安装方式，首先确认所需要的版本，这里为<code>v0.9.0</code>，然后按照下述过程进行安装</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt-get install libjpeg-dev zlib1g-dev libpython3-dev libavcodec-dev libavformat-dev libswscale-dev
+</span></span><span class="line"><span class="cl">git clone --branch 0.9.0 https://github.com/pytorch/vision torchvision
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> torchvision
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">BUILD_VERSION</span><span class="o">=</span>0.9.0
+</span></span><span class="line"><span class="cl">python3 setup.py install --user
+</span></span></code></pre></div><p>如果你一切顺利的话，通过<code>pip list | grep torch</code>则可以看到对应的安装文件了，但是本人运气不咋行，在编译中遇到<code>nvcc</code>的错误，什么找不到目标文件之类的，但是也没有其他错误信息，让我非常头疼</p>
+<p>幸运的是，在谷歌上搜到别人为nano编译好了的torchvision。虽然是在nano编译的，但是都是aarch架构应该可以用吧，实际上也确实可以用，<a href="https://qengineering.eu/install-pytorch-on-jetson-nano.html">参考链接</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt-get install libjpeg-dev zlib1g-dev libpython3-dev
+</span></span><span class="line"><span class="cl">sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev
+</span></span><span class="line"><span class="cl">pip install pillow gdown
+</span></span><span class="line"><span class="cl">gdown https://drive.google.com/uc?id<span class="o">=</span>1BdvXkwUGGTTamM17Io4kkjIT6zgvf4BJ
+</span></span><span class="line"><span class="cl">pip install torchvision-0.9.0a0+01dfa8e-cp36-cp36m-linux_aarch64.whl
+</span></span><span class="line"><span class="cl">pip list <span class="p">|</span> grep torch
+</span></span><span class="line"><span class="cl">torch               1.8.0
+</span></span><span class="line"><span class="cl">torch2trt           0.4.0 <span class="c1"># 这个后面会进行安装</span>
+</span></span><span class="line"><span class="cl">torchvision         0.9.0a0+01dfa8e
+</span></span></code></pre></div><p>ok，这就安装完事了，非常简单</p>
+<p>最后打开终端测试是否安装成功</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torch</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">torchvision</span>
+</span></span><span class="line"><span class="cl"><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_avaliable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="kc">True</span>
+</span></span></code></pre></div><h2 id="安装torch2trt">安装torch2trt</h2>
+<p>安装torch2trt的过程非常简单，但也有两个点需要注意</p>
+<p>首先，我们可以发现在上面安装<code>jetpack</code>的时候可以发现已经安装好了<code>TensorRT</code>（甚至<code>docker</code>），但是安装包并不存在于虚拟环境中，而我们并不想要在重新安装一遍这玩意，因此需要对其进行复用，不然后续编译<code>torch2trt</code>时会直接报错（</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:/usr/lib/python3.6/dist-packages <span class="c1"># 目录按照实际情况更改</span>
+</span></span></code></pre></div><p>这时你再到虚拟环境的终端中测试python是否能正常导入tensorrt</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tensorrt</span>
+</span></span></code></pre></div><p>如果一切正常就可以进行下一步的安装了，首先需要clone所需要的仓库</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git clone https://github.com/NVIDIA-AI-IOT/torch2trt
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> torch2trt
+</span></span></code></pre></div><p>在这里我们直接选择最新版本，避免和tensorrt新api冲突</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git checkout v0.4.0
+</span></span></code></pre></div><p>随后就可以直接进行安装了，如果安装过程中碰到缺少包的情况直接pip安装即可</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">python setup.py install
+</span></span><span class="line"><span class="cl">pip list <span class="p">|</span> grep torch
+</span></span><span class="line"><span class="cl">torch               1.8.0
+</span></span><span class="line"><span class="cl">torch2trt           0.4.0 <span class="c1"># 这个后面会进行安装</span>
+</span></span><span class="line"><span class="cl">torchvision         0.9.0a0+01dfa8e
+</span></span></code></pre></div><!-- raw HTML omitted -->
+<h2 id="结语">结语</h2>
+<p>总的来说Tx2的配置没有我想象中的简单但也没有那么复杂，Nvidia社区中有大量的解决方案（虽然nano居多）仔细谷歌也都可以寻找到答案。我在测试了几个开源的项目后发现TX2的性能也还不错，不过CPU非常垃圾，后续也会写写关于开源项目如何在TX2上测试的例子，更好的理解和熟悉这块开发板</p>
+]]></content></item><item><title>记一次Python引入第三方源码包的解决方式</title><link>https://blog.thinkmoe.icu/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1python%E5%BC%95%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E6%BA%90%E7%A0%81%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/</link><pubDate>Tue, 16 Aug 2022 17:13:03 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/%E8%AE%B0%E4%B8%80%E6%AC%A1python%E5%BC%95%E5%85%A5%E7%AC%AC%E4%B8%89%E6%96%B9%E6%BA%90%E7%A0%81%E5%8C%85%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F/</guid><description>Python虽然挺好用的，但也挺难用的
 众所周知，Python由于其“先进”的包管理功能，让你几乎可以通过一条命令安装所有打包好的第三方包。但是当我们想从第三方的项目里面引入少许函数时，这种方式就行不得通了.
 例如我想从一个Pytorch项目中将模型定义的函数引入（说的就是你Yolo）到我自己的函数中，项目目录结构如下：
 . ├── main.py ├── src │ └── module │ ├── a.py │ ├── __init__.py │ └── __pycache__ │ ├── a.cpython-38.pyc │ └── __init__.cpython-38.pyc └── thirdparty └── codes ├── modules │ ├── b.py │ ├── __init__.py │ ├── __pycache__ │ │ ├── b.cpython-38.pyc │ │ ├── c.cpython-38.pyc │ │ └── __init__.cpython-38.pyc │ └── submodule │ ├── c.py │ └── __pycache__ │ └── c.cpython-38.pyc ├── __pycache__ │ └── b.</description><content type="html"><![CDATA[<blockquote>
