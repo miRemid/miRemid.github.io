@@ -1,6 +1,6 @@
 baseURL = "https://blog.thinkmoe.icu"
 languageCode = "en-us"
-defaultContentLanguage = "en"
+defaultContentLanguage = "zh"
 title = "狸猫窝"
 theme = "hermit"
 # enableGitInfo = true
