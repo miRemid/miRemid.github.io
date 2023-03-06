@@ -1,12 +1,12 @@
 ---
-title: "About Me"
-date: "2014-04-09"
+title: "😎"
+date: "2023-03-06"
 ---
 
-I'm a postgraduate from SZU, interested in blockchain and distributed system.
+{{< figure src="/images/avatar.jpg" title="HakureiSK" class="rounded avatar" >}}
 
-Go is my favorite programming language, and I'm learning Rust now.
+目前是某不知名大学的一名研究生，方向为自动驾驶图像处理😒
 
-My [GitHub](https://github.com/miRemid).
+但我对分布式网络和容器编排技术非常感兴趣😊
 
-My Steam ID is [[Wind]](https://steamcommunity.com/id/blursound/). If you want to play with me, plz send me a friend request:)
+Go是我目前使用最频繁的语言，除了科研需要使用Python之外我的首选语言就是Go💕
