@@ -1,7 +1,7 @@
 ---
 title: "NFT基本原理"
 date: 2021-06-14T19:18:03+08:00
-draft: false
+draft: true
 toc: false
 images:
 tags: 

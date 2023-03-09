@@ -1,7 +1,7 @@
 ---
 title: "NFT让互联网更属于自己"
 date: 2021-06-13T13:24:49+08:00
-draft: false
+draft: true
 toc: false
 images:
 tags: 
