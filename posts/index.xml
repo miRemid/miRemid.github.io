@@ -1,4 +1,165 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.thinkmoe.icu/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 05 Mar 2023 22:01:11 +0800</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Jetson TX2 NX 配置笔记</title><link>https://blog.thinkmoe.icu/posts/jetson-tx2-nx-%E9%85%8D%E7%BD%AE%E7%AC%94%E8%AE%B0/</link><pubDate>Sun, 05 Mar 2023 22:01:11 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/jetson-tx2-nx-%E9%85%8D%E7%BD%AE%E7%AC%94%E8%AE%B0/</guid><description>Jetson真的好贵啊&amp;gt; &amp;lt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 狸猫窝</title><link>https://blog.thinkmoe.icu/posts/</link><description>Recent content in Posts on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 09 Mar 2023 14:42:35 +0800</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>TopK面试题1</title><link>https://blog.thinkmoe.icu/posts/topk%E9%9D%A2%E8%AF%95%E9%A2%981/</link><pubDate>Thu, 09 Mar 2023 14:42:35 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/topk%E9%9D%A2%E8%AF%95%E9%A2%981/</guid><description>TopK来源
+使用递归及非递归两种方式实现快速排序 快排思想，选取一个哨兵节点，从左边寻找到第一个比哨兵大的节点，从右边寻找到第一个比哨兵小的节点，交换两者位置。 如果寻找过程中没有找到对应的元素，则说明排序已经完成
+首先是递归的方式
+func quick_sort(nums []int){ _quick_sort(nums, 0, len(nums)-1) } func _quick_sort(nums []int, left, right int) { if left &amp;gt;= right { return } k := nums[right] l, r := left, right - 1 for l &amp;lt; r { for l &amp;lt; r &amp;amp;&amp;amp; nums[i] &amp;lt; k { l++ } for r &amp;gt; l &amp;amp;&amp;amp; nums[r] &amp;gt; k { r-- } nums[l], nums[r] = nums[r], nums[l] } nums[right], nums[l] = nums[l], nums[right] _quick_sort(nums, left, l-1) _quick_sort(nums, l+1, right) } 非递归版本，其实就是用栈模拟递归</description><content type="html"><![CDATA[<blockquote>
+<p><a href="https://osjobs.net/topk/all/">TopK来源</a></p>
+</blockquote>
+<h2 id="使用递归及非递归两种方式实现快速排序">使用递归及非递归两种方式实现快速排序</h2>
+<p>快排思想，选取一个哨兵节点，从左边寻找到第一个比哨兵大的节点，从右边寻找到第一个比哨兵小的节点，交换两者位置。
+如果寻找过程中没有找到对应的元素，则说明排序已经完成</p>
+<p>首先是递归的方式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">quick_sort</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">_quick_sort</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">_quick_sort</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">left</span><span class="p">,</span> <span class="nx">right</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">left</span> <span class="o">&gt;=</span> <span class="nx">right</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">k</span> <span class="o">:=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">right</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">l</span><span class="p">,</span> <span class="nx">r</span> <span class="o">:=</span> <span class="nx">left</span><span class="p">,</span> <span class="nx">right</span> <span class="o">-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">l</span> <span class="p">&lt;</span> <span class="nx">r</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">l</span> <span class="p">&lt;</span> <span class="nx">r</span> <span class="o">&amp;&amp;</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">k</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">l</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">r</span> <span class="p">&gt;</span> <span class="nx">l</span> <span class="o">&amp;&amp;</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">k</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">r</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">r</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">r</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">nums</span><span class="p">[</span><span class="nx">right</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">l</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">right</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">_quick_sort</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">left</span><span class="p">,</span> <span class="nx">l</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">_quick_sort</span><span class="p">(</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">l</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>非递归版本，其实就是用栈模拟递归</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">quick_sort_with_stack</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">type</span> <span class="nx">pair</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">s</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">pair</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span> <span class="p">&lt;</span> <span class="mi">2</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">pair</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">p</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span> <span class="p">=</span> <span class="nx">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">left</span><span class="p">,</span> <span class="nx">right</span> <span class="o">:=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nx">y</span><span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">left</span> <span class="o">&gt;=</span> <span class="nx">right</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">k</span> <span class="o">:=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">p</span><span class="p">.</span><span class="nx">y</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">left</span> <span class="p">&lt;</span> <span class="nx">right</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="nx">left</span> <span class="p">&lt;</span> <span class="nx">right</span> <span class="o">&amp;&amp;</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">left</span><span class="p">]</span> <span class="p">&lt;</span> <span class="nx">k</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">left</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="nx">left</span> <span class="p">&lt;</span> <span class="nx">right</span> <span class="o">&amp;&amp;</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">right</span><span class="p">]</span> <span class="p">&gt;</span> <span class="nx">k</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">right</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">nums</span><span class="p">[</span><span class="nx">left</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">right</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">right</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">left</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">nums</span><span class="p">[</span><span class="nx">p</span><span class="p">.</span><span class="nx">y</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">left</span><span class="p">]</span> <span class="p">=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">left</span><span class="p">],</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">p</span><span class="p">.</span><span class="nx">y</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">pair</span><span class="p">{</span><span class="nx">p</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">left</span> <span class="o">-</span> <span class="mi">1</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">pair</span><span class="p">{</span><span class="nx">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">p</span><span class="p">.</span><span class="nx">y</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="环形链表">环形链表</h2>
+<blockquote>
+<p>给你一个链表的头节点 head ，判断链表中是否有环。
+如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。
+如果链表中存在环 ，则返回 true 。 否则，返回 false 。</p>
+</blockquote>
+<p>经典双指针问题，可以用hashmap但没必要</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">ListNode</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Val</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Next</span> <span class="o">*</span><span class="nx">ListNode</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">hasCycle</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">head</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">slow</span><span class="p">,</span> <span class="nx">fast</span> <span class="o">:=</span> <span class="nx">head</span><span class="p">,</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Next</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">fast</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">fast</span><span class="p">.</span><span class="nx">Next</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">slow</span> <span class="o">==</span> <span class="nx">fast</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">slow</span> <span class="p">=</span> <span class="nx">slow</span><span class="p">.</span><span class="nx">Next</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fast</span> <span class="p">=</span> <span class="nx">fast</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Next</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>但还是加一个HashMap的方法吧，万一面试官要求用呢</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">hasCycle</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">hashMap</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="o">*</span><span class="nx">ListNode</span><span class="p">]</span><span class="kd">struct</span><span class="p">{})</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">head</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">hashMap</span><span class="p">[</span><span class="nx">head</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">hashMap</span><span class="p">[</span><span class="nx">head</span><span class="p">]</span> <span class="p">=</span> <span class="kd">struct</span><span class="p">{}{}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">head</span> <span class="p">=</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="lru-缓存机制">LRU 缓存机制</h2>
+<p>经典LRU缓存机制，简单复习一下LRU</p>
+<p>LRU缓存简单来讲是一个栈入结构，保存着使用最为频繁的缓存数据，使得可以快速在内存中查询到数据而不需要进行一次额外的数据查询例如数据库查询以提高效率，在操作系统的页表中也有使用</p>
+<p>为了实现最热的缓存数据，我们首先想到的是用数组栈来模拟，但为了更方便我们选择双向链表来实现，当然在Leetcode官方题解中也使用了双向链表</p>
+<p>在这里，为了体验Golang的泛型并且充分了解双向链表的使用，决定从头编写双向链表而非使用官方的container包</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"></code></pre></div><h2 id="反转链表">反转链表</h2>
+<p>经典面试题，分递归和非递归版本，首先是递归版本</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">reverseLink</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">ListNode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">head</span> <span class="o">==</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">head</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">newHead</span> <span class="o">:=</span> <span class="nf">reverseLink</span><span class="p">(</span><span class="nx">head</span><span class="p">.</span><span class="nx">Next</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">head</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">head</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">newHead</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>然后是非递归版本</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">reverseLink</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">)</span> <span class="o">*</span><span class="nx">ListNode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">prev</span> <span class="o">*</span><span class="nx">ListNode</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">cur</span> <span class="o">:=</span> <span class="nx">head</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">cur</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">next</span> <span class="o">:=</span> <span class="nx">cur</span><span class="p">.</span><span class="nx">Next</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">cur</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">prev</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">prev</span> <span class="p">=</span> <span class="nx">cur</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">cur</span> <span class="p">=</span> <span class="nx">next</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">prev</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="删除链表的倒数第-n-个结点">删除链表的倒数第 N 个结点</h2>
+<p>经典双指针题目，先让快指针走N次，随后生成新的指针直到快指针走完，慢指针指向的节点就是第N个节点，删除即可</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">removeNthFromEnd</span><span class="p">(</span><span class="nx">head</span> <span class="o">*</span><span class="nx">ListNode</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="nx">ListNode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">dummyNode</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">ListNode</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Next</span><span class="p">:</span> <span class="nx">head</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fast</span> <span class="o">:=</span> <span class="nx">dummyNode</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span> <span class="o">&amp;&amp;</span> <span class="nx">fast</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fast</span> <span class="p">=</span> <span class="p">(</span><span class="nx">fast</span><span class="p">.</span><span class="nx">Next</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ptr</span> <span class="o">:=</span> <span class="nx">dummyNode</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">fast</span><span class="p">.</span><span class="nx">Next</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">ptr</span> <span class="p">=</span> <span class="nx">ptr</span><span class="p">.</span><span class="nx">Next</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fast</span> <span class="p">=</span> <span class="nx">fast</span><span class="p">.</span><span class="nx">Next</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ptr</span><span class="p">.</span><span class="nx">Next</span> <span class="p">=</span> <span class="nx">ptr</span><span class="p">.</span><span class="nx">Next</span><span class="p">.</span><span class="nx">Next</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">dummyNode</span><span class="p">.</span><span class="nx">Next</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="快速排序的空间复杂度是多少时间复杂度的最好最坏的情况是多少有哪些优化方案">快速排序的空间复杂度是多少？时间复杂度的最好最坏的情况是多少，有哪些优化方案？</h2>
+<ol>
+<li>快速排序的空间复杂度可以为$O(logn)$</li>
+<li>时间复杂度最好的情况下为O(nlogn)，最坏情况下为O(n^2)</li>
+<li>快速排序的优化点如下
+<ul>
+<li>采用随机哨兵策略，如[5,4,3,2,1]这种数据的影响。另外也可以选择三数的中位数（左、中、右，中间数据，如8, 0, 6，选择6作为哨兵）</li>
+<li>快排针对数据量小并且部分有序的数组效率并不高，可以在切分为一定大小后转换为插入排序</li>
+<li>将与哨兵相同的元素放在分割点附近，减少分割后的数组长度</li>
+</ul>
+</li>
+</ol>
+]]></content></item><item><title>Jetson TX2 NX 配置笔记</title><link>https://blog.thinkmoe.icu/posts/jetson-tx2-nx-%E9%85%8D%E7%BD%AE%E7%AC%94%E8%AE%B0/</link><pubDate>Sun, 05 Mar 2023 22:01:11 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/jetson-tx2-nx-%E9%85%8D%E7%BD%AE%E7%AC%94%E8%AE%B0/</guid><description>Jetson真的好贵啊&amp;gt; &amp;lt;
 tx2nx开发板
 由于科研的需要，需要在边缘设备上对深度学习模型进行量化测试。实验室内刚好有闲置的Nvidia Jetson TX2开发板，所以就直接拿来测试了
 原本以为在开发板上的配置会比较简单，无非就是从x86平台转换到arm上面，但实际上坑非常多例如前面提到的arm架构，其实在Jetson上面压根不是传统的arm架构，而是从armv8独立分支出来的aarch架构
@@ -1395,121 +1556,6 @@ systemctl --user start fusuma
 systemctl --user status fusuma
 </code></pre>
 <p>最后就可以通过手势来操控桌面了~</p>
-]]></content></item><item><title>NFT基本原理</title><link>https://blog.thinkmoe.icu/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 14 Jun 2021 19:18:03 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</guid><description>本文节选翻译自Github Ethereum EIPs Eip-721#rationale
-现在有很多旨在追踪可区分资产的基于以太坊智能合约的提议。例如Decentraland现有或计划中的的NFT、CryptoPunks中的eponymouse和游戏中如DMarket或EnjinCoin的物品系统。在未来，可以用于追踪现实生活中的资产例如房产（如ubiquity和Propy等公司的想法）。当这些物品在分类账单中没有集中在一起时显得至关重要，每个资产必须单独并能够独立追踪其所有权信息。
-为什么选择NFT这个词 NFT这个词让几乎每个人都能够满意的接受，并且广泛适用于可区分数字资产的领域。我们认识到契约在对于一个本标准的某些应用时又确切的描述（特别是物理性质）。
-除了NFT这个词还考虑了别的单词，例如：Alternatives considered, Distinguishable asset, Title, Token, Asset, Equity, Ticket
-NFT的标识 每一个NFT都由一个使用ERC-721智能合约生成的独一无二的uint256ID。这个验证数字在合约中将不会发生改变。这个配对信息（合约地址、uint256 ID）将会成为全球中独一无二且完全合格的以太坊链上的特定资产证明。尽管有些ETC-721智能合约可能发现从0开始依次递增的NFT ID非常方便，但是调用者并不能假设那个ID数字有对他们具有任何特定的模式，并把这些ID成为黑匣子。要注意的是，NFTs可能会变成无效Token或被摧毁。请参照支持的枚举界面中的枚举函数。
-使用uint256作为ID让广泛的应用得以运用，因为UUID和sha3哈希散列值可以直接转换为uint256。
-转移机制 ETC-721定义了一个安全的转移函数safeTransferForm（不使用bytes参数进行重载）和一个不安全函数transferFrom。转移可能会在下述角色中进行初始化：
-NFT的所有者 接收NFT的地址 一个对于当前NFT拥有者可信任的操作员 另外，可信任的操作员可能会为NFT设置一个可接受的地址。这为钱包、代理人和实际应用提供一系列有力的工具来使用这些大量NFT。
-转移和接受函数文档只适用于交易必须抛出时的指定条件下。你自己的复现可能会在其他情况下同样被抛出。这让众多复现产生有趣的结果
-Disallow transfers if the contract is paused — prior art, CryptoKitties deployed contract, line 611 Blacklist certain address from receiving NFTs — prior art, CryptoKitties deployed contract, lines 565, 566 Disallow unsafe transfers — transferFrom throws unless _to equals msg.sender or countOf(_to) is non-zero or was non-zero previously (because such cases are safe) Charge a fee to both parties of a transaction — require payment when calling approve with a non-zero _approved if it was previously the zero address, refund payment if calling approve with the zero address if it was previously a non-zero address, require payment when calling any transfer function, require transfer parameter _to to equal msg.</description><content type="html"><![CDATA[<blockquote>
-<p>本文节选翻译自<a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md#rationale">Github Ethereum EIPs Eip-721#rationale</a></p>
-</blockquote>
-<p>现在有很多旨在追踪可区分资产的基于以太坊智能合约的提议。例如Decentraland现有或计划中的的NFT、CryptoPunks中的eponymouse和游戏中如DMarket或EnjinCoin的物品系统。在未来，可以用于追踪现实生活中的资产例如房产（如ubiquity和Propy等公司的想法）。当这些物品在分类账单中没有集中在一起时显得至关重要，每个资产必须单独并能够独立追踪其所有权信息。</p>
-<h2 id="为什么选择nft这个词">为什么选择NFT这个词</h2>
-<p>NFT这个词让几乎每个人都能够满意的接受，并且广泛适用于可区分数字资产的领域。我们认识到契约在对于一个本标准的某些应用时又确切的描述（特别是物理性质）。</p>
-<p>除了NFT这个词还考虑了别的单词，例如：Alternatives considered, Distinguishable asset, Title, Token, Asset, Equity, Ticket</p>
-<h2 id="nft的标识">NFT的标识</h2>
-<p>每一个NFT都由一个使用ERC-721智能合约生成的独一无二的<code>uint256</code>ID。这个验证数字在合约中将不会发生改变。这个配对信息（合约地址、uint256 ID）将会成为全球中独一无二且完全合格的以太坊链上的特定资产证明。尽管有些ETC-721智能合约可能发现从0开始依次递增的NFT ID非常方便，但是调用者并不能假设那个ID数字有对他们具有任何特定的模式，并把这些ID成为黑匣子。要注意的是，NFTs可能会变成无效Token或被摧毁。请参照支持的枚举界面中的枚举函数。</p>
-<p>使用uint256作为ID让广泛的应用得以运用，因为UUID和sha3哈希散列值可以直接转换为uint256。</p>
-<h2 id="转移机制">转移机制</h2>
-<p>ETC-721定义了一个安全的转移函数<code>safeTransferForm</code>（不使用<code>bytes</code>参数进行重载）和一个不安全函数<code>transferFrom</code>。转移可能会在下述角色中进行初始化：</p>
-<ul>
-<li>NFT的所有者</li>
-<li>接收NFT的地址</li>
-<li>一个对于当前NFT拥有者可信任的操作员</li>
-</ul>
-<p>另外，可信任的操作员可能会为NFT设置一个可接受的地址。这为钱包、代理人和实际应用提供一系列有力的工具来使用这些大量NFT。</p>
-<p>转移和接受函数文档只适用于交易必须抛出时的指定条件下。你自己的复现可能会在其他情况下同样被抛出。这让众多复现产生有趣的结果</p>
-<ul>
-<li>Disallow transfers if the contract is paused — prior art, CryptoKitties deployed contract, line 611</li>
-<li>Blacklist certain address from receiving NFTs — prior art, CryptoKitties deployed contract, lines 565, 566</li>
-<li>Disallow unsafe transfers — transferFrom throws unless _to equals msg.sender or countOf(_to) is non-zero or was non-zero previously (because such cases are safe)</li>
-<li>Charge a fee to both parties of a transaction — require payment when calling approve with a non-zero _approved if it was previously the zero address, refund payment if calling approve with the zero address if it was previously a non-zero address, require payment when calling any transfer function, require transfer parameter _to to equal msg.sender, require transfer parameter _to to be the approved address for the NFT</li>
-<li>Read only NFT registry — always throw from unsafeTransfer, transferFrom, approve and setApprovalForAll</li>
-</ul>
-<p>在ETC-223、ERC-677、ERC-827和OpenZeppelin在<code>SafeERC20.sol</code>中对NFT的最佳实现中都定义了失败的交易将会被抛弃。ETC-20定义了一个成为<code>allowance</code>的特性，这将会导致当交易被唤起时，但在另一个状态下发生改变时发生错误，在OpenZeppelin的#438个讨论中有被提及。在ETC-721中并没有<code>allowance</code>，因为每个NFT都是独一无二的，数量为0或1.因此，我们可以吸收ETC-20&rsquo;初始设计的优点，而且不会产生后续的问题。</p>
-<p>制造NFT（铸币）和销毁NFT（燃烧）并不包含在规范中。在你可以通过其他方法来实现这些功能。当你负责创建或销毁NFT时，请参照<code>event</code>文档。</p>
-<p>我们在思考<code>onERC721Received</code>函数中的<code>operator</code>参数是否必要。我们可以想象，在所有的情况下，如果在交易中操作员的地位十分重要，操作员可以将token转给自己然后转回，然后他们将会成为交易中的所有者地址。这似乎让我们认为操作员是token的所有者（转移到自己账户的行为是多余的）。当操作员发送token时，它会按照操作员自己的协议行事，而不是代表token持有人行事的操作员。这也是为什么操作员和token的前任收件人拥有的重要意义。</p>
-<p><em>正在考虑中的替代方案：只允许ERC-20协议的两步验证交易，要求转移函数永远不会抛出，要求所有函数返回一个能够代表操作是否成功的布尔值。</em></p>
-<h2 id="etc-165接口">ETC-165接口</h2>
-<p>我们选择了可靠的ETC-165接口来暴露所有ETC-721智能合约支持的接口</p>
-<p>一个未来的EIP可能会创造一个全球性的河源登记册接口。我们强烈支持例如例如EIP这种接口，它允许你的ERC-721复现去实现<code>ETC721Enumerable</code>,<code>ETC721Metadata</code>或其他接口通过委派到单独的合约。</p>
-<h2 id="费用和复杂性">费用和复杂性</h2>
-<p>该规范考虑了管理少数大量NFT的实现。如果你的应用能够迭代，请在你的代码中避免使用for/while循环（参考CryptoKitties赏金问题#4）。这种循环可能让你的合约无法进行扩展，并且在无限制的情况下，合约产生的gas成本将会随时间的推移而上升。</p>
-<p>我们在测试网络中部署了一个XXXXERC721合约并追踪了340282366920938463463374607431768211456 不同行为。这足以将每隔IPv6地址分配给以太坊账户所有者，或追踪数量占地球大小一半的纳米机器人。</p>
-<p><em>考虑的替代方案：如果要使用for循环，删除资产枚举功能，从枚举函数中返回稳定的数组类型。</em></p>
-<h2 id="隐私">隐私</h2>
-<p>钱包、经纪人、拍卖行都在动机上都有强烈的证明NFT所有者的需求。</p>
-<p>想想使用NFT不可枚举的使用情况可能会分有意思，例如属性的所有权或部分私有注册表。但是，隐私不可能被实现，因为攻击者可以很轻松通过调用<code>ownerOf</code>对所有可能的<code>tokenId</code>进行信息检索。</p>
-<h2 id="元数据的选择">元数据的选择</h2>
-<p>我们已经要求了在metadata扩展中需要<code>name</code>和<code>symbl</code>函数。每一个我们看过的Token规划和蓝图中（ETC-20、ETC-223、ETC-677、ETC-777、ETC-827）都包含这些函数。</p>
-<p>我们提醒开发者，如果不想使用这个机制，即便是空的字符串也是合法的名称或符号。除此之外，我们提醒大家，任何只能合约都可以使用与合约相同的名称或符号。客户如何去确定哪些ETC-721智能合约是规范的超出了本标准的范围。</p>
-<p>有一种机制提供了在NFTs和URIs之间的关联。我们希望在许多实现中可以利用这一点来为每个NFT提供元数据。图像尺寸推荐取自Instagram，它们可能在图片的可用性方面有很多了解。URI是可变的（不定时更改），我们可以认为NFT代表了一幢房子的所有权，在这种情况下，关于房屋的元数据可以自然地发生改变。</p>
-<p>元数据将使用字符串的形式返回。目前，这仅是从Web3的调用中获取，而不是从其他合约中。这一点是可以接受的，因为我们还没有考虑在一个区块内申请查询此类信息的情况。</p>
-<p><em>考虑的替代方案：在区块链上保存每一个资产的元信息（非常昂贵），使用URL模板来查询元信息部分（URL模板并不适用所有URL协议，尤其是P2P），多地址网络</em></p>
-<h2 id="向下兼容性">向下兼容性</h2>
-<p>我们已经从ETC-20规范中接受了<code>balanceOf</code>,<code>totalSupply</code>,<code>name</code>和<code>symbol</code>这些定义。当然在实现中也可以包含用于支持ETC-20自己的协议的返回uint8的<code>decimals</code>函数。</p>
-<p>截止2018年，有很多NFT的实现例子</p>
-<ul>
-<li>CryptoKitties &ndash; Compatible with an earlier version of this standard.</li>
-<li>CryptoPunks &ndash; Partially ERC-20 compatible, but not easily generalizable because it includes auction functionality directly in the contract and uses function names that explicitly refer to the assets as &ldquo;punks&rdquo;.</li>
-<li>Auctionhouse Asset Interface &ndash; The author needed a generic interface for the Auctionhouse ÐApp (currently ice-boxed). His &ldquo;Asset&rdquo; contract is very simple, but is missing ERC-20 compatibility, approve() functionality, and metadata. This effort is referenced in the discussion for EIP-173.</li>
-</ul>
-]]></content></item><item><title>NFT让互联网更属于自己</title><link>https://blog.thinkmoe.icu/posts/nft%E6%A6%82%E8%A6%81/</link><pubDate>Sun, 13 Jun 2021 13:24:49 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/nft%E6%A6%82%E8%A6%81/</guid><description>本文翻译自NFTs make the internet ownable
-为什么加密变成数字媒体的港湾 在成为技术人员之前，我是一名音乐艺术管理员。当我开始创业，我坚信在艺术行业中有一件定理：拥有权决定能力。例如，音乐标签对音乐掌握所有权，从而掌握创作者。
-我们的目标是通过技术手段让艺术家更能贴近粉丝，帮助艺术家保持对于他们的作品的所有权，并独立的进行商业活动。今天，我们都是在线创作者，并且继续拥有相当规模的所有权。然而，所有权对技术平台的作用往往被忽视。
-每天都有数亿的图片、视频、音乐盒其他媒体在社交平台上分享。当这些文件被上传时，都会将文件从创作者设备中拷贝一分保存在服务器平台上，Facebook、Twitter、Youtube、TikTok等都是如此。
-这看似只是一件细小的动作，但在上传时，创作者并不是简单的被复制文件，同时还被复制了该作品在平台上的所有权。
-我在谈及明确规定了上传文件信息的服务条款时，它的所有权都将在平台上分享出去，并套现。这是有一些优点的，例如平台可以提供基于广告收入的分销。但是，在今日的货币化模型中，并不总是和创作者的最佳利益相持平。并且平台都是依此为生的。久而久之，平台会窃取大量的创作者信息。
-而与此同时，加密是解锁不同的路径，我称之为Ownership Economy，一个讨论更广泛的、提供用户与用户之间直接建立、操作和持有的互联网平台。
-在媒体领域，NFTs或者说Non-Fungible Tokens让这种为创作者保持其内容所有权的平台成为现实，并且他们的作品在互联网传播上不受任何限制。因此，NFTs拥有颠覆媒体创作者及其他们的作品的潜力，为他们提供了一种可行的平台驱动货币化的替代品。
-一种对NFTs最简单的解释就是保存在区块链上的文件。这意味着，它们不可能被复制、修改、删除或其他操作。
-这些保护机制源使加密货币有价值的相同技术，如比特币。NFTs同样也是数字货币，可以购买、卖出、交易，其所有权和出处都将通过区块链来追踪。非常明显你的就是你的，并且不需要任何第三方来保证你所拥有的所有权。
-NFTs让拥有数字资产变为可能，同样的也可以拥有数字货币例如比特币
-对于许多人来说，NFTs就和新诞生的玩具一样，是一个很快就会破灭的泡沫。虽然正式的数字艺术品和加密收藏品所花费的钱一直很快是实事，但它们在雕刻创作者货币化的行为是非常有效的。
-我相信我们在NFTs成为互联网中每一块媒体的港湾是正确的。这包括了2D音频/视频和文本工作，以及未来将包含的游戏和虚拟世界代理的3D工作。
-我所相信的NFT将会把未来通过NFT带向让每个利益相关者更好的商业模式，创作者、官中和开发人员可以围绕真正的数字所有权市场中赚取更多的利益。
-NFT是如何工作的 在实践中，NFT知识一个简单的用于标识数字文件的唯一令牌。每一个NFT都有规范的标识信息，一个独一无二的ID。与之挂钩的ID是一随意的元信息，例如可以是创建人、这个NFT有关的信息或价格历史。当一个NFT被创作者生产(铸币)时，它的信息将会在区块链上永久保存并成为生产工作的数字护照。再进一步，随时在另一个平台上发布媒体时，该平台都可以通过检查护照查看该媒体的整个交易历史。这意味着，一个创新的成果可以通过在区块链上注册不可变记录来追溯原始信息。一张互联网上的图片或不再是二维数据。相反，它可以通过引入Z轴来宝尊其所有历史信息和可由第三方发现的上下文信息，用于增加其文化和财务价值。
-拥有数字艺术品有价值吗 对于NFT的一个共同疑惑是，由于数字艺术和数字收集品可以被复制，但并不会携带很多价值。但NFT创造了另一种可能，即在流动性的工作之中继续保持其真正的所有权。
-一个文件在互联网上浏览的越多，其价值也越高，想想大规模生成的霍格图像和T恤。随着臭名昭着的增加，拥有规范作品的概念变得更加激动，更有一个社会地位的标志。 它还可以推动可以从转售工作中推出的值，应该在购买后的臭名令人闻名(实在不会翻译)。NFT让收藏夹能在现实中获取大多数好处，其中额外的奖金费用可以在互联网上自由共享而不是限制，从而通过更广泛的分布式网络来积累更多的价值。
-这不仅针对于艺术品。加密收藏平将会在更多领域如游戏、数字时尚、皮肤以及艺术和编程之间的关系发生作用。
-为什么要立刻收集NFT 回到现实，和许多技术的炒作循环一样，投机价值通常受限于功能价值。由于这些资产是可编程的，任何开发者都可以在其中创建。并且因为NFT是用户便携式的，可编程资产可以触及整个数字世界中的所有程序。
-Tokens和智能合约被称之为金钱乐高，这是因为它们可以通过在[Remix]的DeFi程序中编程开发。同样，NFT是也是开发人员和创作者的媒体乐高，可以随意创建新的体验。因此，用户可以期待更为丰富的产品，并在所有物品中重复使用。
-长远来看，NFT将会走向何处 我认为NFTS将成为所有互联网媒体的进入港口，因为所涉及的每个人都可以从他们启用的市场中赚更多资金：创造者通过直接销售给粉丝并通过每次NFTS转售时收集特许权使用费，创造者赚更多的资金。 这是一个完全是新的收入流，只有可能是可以在媒体本身中编码版税逻辑的真正数字所有权。
-对于消费者来说，NFT是一个更好的模型，因为它们将惠顾人数的社会和功利福利结合起来的可能性来转动利润或实现复合效用。 在今天的网络上，消费者租用大多数商品和服务，包括他们光顾的创造者。 新的所有权经济平台的一个关键宗旨是游戏中患上肌肤的激励对齐。 关于支持创造者，我称之为“pitronage +”，其中“加号”是与您支持的创造者一起获得价值的可能性。 这是一个强大的，探讨的激励，成为第一名的赞助人 - 我认为它可能在创造性的工作中推动更多的市场中的市场需求。
-开发人员可以通过建筑物赚钱以启用这些新市场。 Wheras主要平台扼杀开发人员API并限制自由市场开发，开发商在申请方面的基础设施方面展望，在许多方面，在许多方面，函数更像是物质世界的运作。</description><content type="html"><![CDATA[<blockquote>
-<p>本文翻译自<a href="https://variant.mirror.xyz/T8kdtZRIgy_srXB5B06L8vBqFHYlEBcv6ae2zR6Y_eo">NFTs make the internet ownable</a></p>
-</blockquote>
-<h2 id="为什么加密变成数字媒体的港湾">为什么加密变成数字媒体的港湾</h2>
-<p>  在成为技术人员之前，我是一名音乐艺术管理员。当我开始创业，我坚信在艺术行业中有一件定理：拥有权决定能力。例如，音乐标签对音乐掌握所有权，从而掌握创作者。</p>
-<p>  我们的目标是通过技术手段让艺术家更能贴近粉丝，帮助艺术家保持对于他们的作品的所有权，并独立的进行商业活动。今天，我们都是在线创作者，并且继续拥有相当规模的所有权。然而，所有权对技术平台的作用往往被忽视。</p>
-<p>  每天都有数亿的图片、视频、音乐盒其他媒体在社交平台上分享。当这些文件被上传时，都会将文件从创作者设备中拷贝一分保存在服务器平台上，Facebook、Twitter、Youtube、TikTok等都是如此。</p>
-<p>  这看似只是一件细小的动作，但在上传时，创作者并不是简单的被复制文件，<strong>同时还被复制了该作品在平台上的所有权。</strong></p>
-<p>  我在谈及明确规定了上传文件信息的服务条款时，它的所有权都将在平台上分享出去，并套现。这是有一些优点的，例如平台可以提供基于广告收入的分销。但是，在今日的货币化模型中，并不总是和创作者的最佳利益相持平。并且平台都是依此为生的。久而久之，平台会窃取大量的创作者信息。</p>
-<p>  而与此同时，加密是解锁不同的路径，我称之为<a href="https://variant.fund/the-ownership-economy-crypto-and-consumer-software/">Ownership Economy</a>，一个讨论更广泛的、提供用户与用户之间直接建立、操作和持有的互联网平台。</p>
-<p>  在媒体领域，NFTs或者说Non-Fungible Tokens让这种为创作者保持其内容所有权的平台成为现实，并且他们的作品在互联网传播上不受任何限制。因此，NFTs拥有颠覆媒体创作者及其他们的作品的潜力，为他们提供了一种可行的平台驱动货币化的替代品。</p>
-<p>  <strong>一种对NFTs最简单的解释就是保存在区块链上的文件</strong>。这意味着，它们不可能被复制、修改、删除或其他操作。</p>
-<p>  这些保护机制源使加密货币有价值的相同技术，如比特币。NFTs同样也是数字货币，可以购买、卖出、交易，其所有权和出处都将通过区块链来追踪。非常明显你的就是你的，并且不需要任何第三方来保证你所拥有的所有权。</p>
-<p>  <strong>NFTs让拥有数字资产变为可能，同样的也可以拥有数字货币例如比特币</strong></p>
-<p>  对于许多人来说，NFTs就和新诞生的玩具一样，是一个很快就会破灭的泡沫。虽然正式的数字艺术品和加密收藏品所花费的钱一直很快是实事，但它们在雕刻创作者货币化的行为是非常有效的。</p>
-<p>  我相信我们在NFTs成为互联网中每一块媒体的港湾是正确的。这包括了2D音频/视频和文本工作，以及未来将包含的游戏和虚拟世界代理的3D工作。</p>
-<p>  我所相信的NFT将会把未来通过NFT带向让每个利益相关者更好的商业模式，创作者、官中和开发人员可以围绕真正的数字所有权市场中赚取更多的利益。</p>
-<h2 id="nft是如何工作的">NFT是如何工作的</h2>
-<p>  在实践中，NFT知识一个简单的用于标识数字文件的唯一令牌。每一个NFT都有规范的标识信息，一个独一无二的ID。与之挂钩的ID是一随意的元信息，例如可以是创建人、这个NFT有关的信息或价格历史。当一个NFT被创作者生产(铸币)时，它的信息将会在区块链上永久保存并成为生产工作的数字护照。再进一步，随时在另一个平台上发布媒体时，该平台都可以通过检查护照查看该媒体的整个交易历史。这意味着，一个创新的成果可以通过在区块链上注册不可变记录来追溯原始信息。一张互联网上的图片或不再是二维数据。相反，它可以通过引入Z轴来宝尊其所有历史信息和可由第三方发现的上下文信息，用于增加其文化和财务价值。</p>
-<h2 id="拥有数字艺术品有价值吗">拥有数字艺术品有价值吗</h2>
-<p>  对于NFT的一个共同疑惑是，由于数字艺术和数字收集品可以被复制，但并不会携带很多价值。但NFT创造了另一种可能，即在流动性的工作之中继续保持其真正的所有权。</p>
-<p>  一个文件在互联网上浏览的越多，其价值也越高，想想大规模生成的霍格图像和T恤。随着臭名昭着的增加，拥有规范作品的概念变得更加激动，更有一个社会地位的标志。 它还可以推动可以从转售工作中推出的值，应该在购买后的臭名令人闻名(实在不会翻译)。NFT让收藏夹能在现实中获取大多数好处，其中额外的奖金费用可以在互联网上自由共享而不是限制，从而通过更广泛的分布式网络来积累更多的价值。</p>
-<p>  这不仅针对于艺术品。加密收藏平将会在更多领域如游戏、数字时尚、皮肤以及艺术和编程之间的关系发生作用。</p>
-<h2 id="为什么要立刻收集nft">为什么要立刻收集NFT</h2>
-<p>  回到现实，和许多技术的炒作循环一样，投机价值通常受限于功能价值。由于这些资产是可编程的，任何开发者都可以在其中创建。并且因为NFT是用户便携式的，可编程资产可以触及整个数字世界中的所有程序。</p>
-<p>  Tokens和智能合约被称之为<code>金钱乐高</code>，这是因为它们可以通过在[Remix]的DeFi程序中编程开发。同样，NFT是也是开发人员和创作者的<code>媒体乐高</code>，可以随意创建新的体验。因此，用户可以期待更为丰富的产品，并在所有物品中重复使用。</p>
-<h2 id="长远来看nft将会走向何处">长远来看，NFT将会走向何处</h2>
-<p>  我认为NFTS将成为所有互联网媒体的进入港口，因为所涉及的每个人都可以从他们启用的市场中赚更多资金：创造者通过直接销售给粉丝并通过每次NFTS转售时收集特许权使用费，创造者赚更多的资金。 这是一个完全是新的收入流，只有可能是可以在媒体本身中编码版税逻辑的真正数字所有权。</p>
-<p>  对于消费者来说，NFT是一个更好的模型，因为它们将惠顾人数的社会和功利福利结合起来的可能性来转动利润或实现复合效用。 在今天的网络上，消费者租用大多数商品和服务，包括他们光顾的创造者。 新的所有权经济平台的一个关键宗旨是游戏中患上肌肤的激励对齐。 关于支持创造者，我称之为“pitronage +”，其中“加号”是与您支持的创造者一起获得价值的可能性。 这是一个强大的，探讨的激励，成为第一名的赞助人 - 我认为它可能在创造性的工作中推动更多的市场中的市场需求。</p>
-<p>  开发人员可以通过建筑物赚钱以启用这些新市场。 Wheras主要平台扼杀开发人员API并限制自由市场开发，开发商在申请方面的基础设施方面展望，在许多方面，在许多方面，函数更像是物质世界的运作。</p>
 ]]></content></item><item><title>Innodb事物隔离级别及其锁 美团技术学习</title><link>https://blog.thinkmoe.icu/posts/innodb%E4%BA%8B%E7%89%A9%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E5%85%B6%E9%94%81-%E7%BE%8E%E5%9B%A2%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/</link><pubDate>Sun, 13 Jun 2021 12:40:53 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/innodb%E4%BA%8B%E7%89%A9%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E5%85%B6%E9%94%81-%E7%BE%8E%E5%9B%A2%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/</guid><description>&lt;blockquote>
 &lt;p>本文是阅读&lt;a href="https://tech.meituan.com/2014/08/20/innodb-lock.html">美团技术团队&lt;/a>的记录形文章，更详细内容请访问美团技术团队官方网站&lt;/p>
 &lt;/blockquote></description><content type="html"><![CDATA[<blockquote>

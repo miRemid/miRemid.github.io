@@ -27,38 +27,7 @@ Reack钩子则是用另一种全新的方式在组件的生命周期中来管理
 尽管看上去使用useReducer和Redux没什么区别，但它并不是Redux。useReducer函数和其reducer紧密联系在一起，使得能够使用它的dispatch函数。但我们仅仅向reducer传递dispatch的action对象而已
 你可以认为Redux是一个全局状态总线，它将承载任意一个事件(action)并且基于action提供的数据和状态进行处理
 总结 Redux和其他React状态管理解决方案之所以被提出是因为在React组件中管理一个全局状态是一个非常愚蠢的想法。如果这么做会导致一系列问题，如多源数据和使用虚拟模型代替原始模型展示等等
-如果钩子能够让状态管理更清晰，我认为在小型应用中可以尝试不使用Redux。但对于大型的复杂的应用程序，全局状态管理仍然不能被忽略</description></item><item><title>NFT基本原理</title><link>https://blog.thinkmoe.icu/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</link><pubDate>Mon, 14 Jun 2021 19:18:03 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/nft%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/</guid><description>本文节选翻译自Github Ethereum EIPs Eip-721#rationale
-现在有很多旨在追踪可区分资产的基于以太坊智能合约的提议。例如Decentraland现有或计划中的的NFT、CryptoPunks中的eponymouse和游戏中如DMarket或EnjinCoin的物品系统。在未来，可以用于追踪现实生活中的资产例如房产（如ubiquity和Propy等公司的想法）。当这些物品在分类账单中没有集中在一起时显得至关重要，每个资产必须单独并能够独立追踪其所有权信息。
-为什么选择NFT这个词 NFT这个词让几乎每个人都能够满意的接受，并且广泛适用于可区分数字资产的领域。我们认识到契约在对于一个本标准的某些应用时又确切的描述（特别是物理性质）。
-除了NFT这个词还考虑了别的单词，例如：Alternatives considered, Distinguishable asset, Title, Token, Asset, Equity, Ticket
-NFT的标识 每一个NFT都由一个使用ERC-721智能合约生成的独一无二的uint256ID。这个验证数字在合约中将不会发生改变。这个配对信息（合约地址、uint256 ID）将会成为全球中独一无二且完全合格的以太坊链上的特定资产证明。尽管有些ETC-721智能合约可能发现从0开始依次递增的NFT ID非常方便，但是调用者并不能假设那个ID数字有对他们具有任何特定的模式，并把这些ID成为黑匣子。要注意的是，NFTs可能会变成无效Token或被摧毁。请参照支持的枚举界面中的枚举函数。
-使用uint256作为ID让广泛的应用得以运用，因为UUID和sha3哈希散列值可以直接转换为uint256。
-转移机制 ETC-721定义了一个安全的转移函数safeTransferForm（不使用bytes参数进行重载）和一个不安全函数transferFrom。转移可能会在下述角色中进行初始化：
-NFT的所有者 接收NFT的地址 一个对于当前NFT拥有者可信任的操作员 另外，可信任的操作员可能会为NFT设置一个可接受的地址。这为钱包、代理人和实际应用提供一系列有力的工具来使用这些大量NFT。
-转移和接受函数文档只适用于交易必须抛出时的指定条件下。你自己的复现可能会在其他情况下同样被抛出。这让众多复现产生有趣的结果
-Disallow transfers if the contract is paused — prior art, CryptoKitties deployed contract, line 611 Blacklist certain address from receiving NFTs — prior art, CryptoKitties deployed contract, lines 565, 566 Disallow unsafe transfers — transferFrom throws unless _to equals msg.sender or countOf(_to) is non-zero or was non-zero previously (because such cases are safe) Charge a fee to both parties of a transaction — require payment when calling approve with a non-zero _approved if it was previously the zero address, refund payment if calling approve with the zero address if it was previously a non-zero address, require payment when calling any transfer function, require transfer parameter _to to equal msg.</description></item><item><title>NFT让互联网更属于自己</title><link>https://blog.thinkmoe.icu/posts/nft%E6%A6%82%E8%A6%81/</link><pubDate>Sun, 13 Jun 2021 13:24:49 +0800</pubDate><guid>https://blog.thinkmoe.icu/posts/nft%E6%A6%82%E8%A6%81/</guid><description>本文翻译自NFTs make the internet ownable
-为什么加密变成数字媒体的港湾 在成为技术人员之前，我是一名音乐艺术管理员。当我开始创业，我坚信在艺术行业中有一件定理：拥有权决定能力。例如，音乐标签对音乐掌握所有权，从而掌握创作者。
-我们的目标是通过技术手段让艺术家更能贴近粉丝，帮助艺术家保持对于他们的作品的所有权，并独立的进行商业活动。今天，我们都是在线创作者，并且继续拥有相当规模的所有权。然而，所有权对技术平台的作用往往被忽视。
-每天都有数亿的图片、视频、音乐盒其他媒体在社交平台上分享。当这些文件被上传时，都会将文件从创作者设备中拷贝一分保存在服务器平台上，Facebook、Twitter、Youtube、TikTok等都是如此。
-这看似只是一件细小的动作，但在上传时，创作者并不是简单的被复制文件，同时还被复制了该作品在平台上的所有权。
-我在谈及明确规定了上传文件信息的服务条款时，它的所有权都将在平台上分享出去，并套现。这是有一些优点的，例如平台可以提供基于广告收入的分销。但是，在今日的货币化模型中，并不总是和创作者的最佳利益相持平。并且平台都是依此为生的。久而久之，平台会窃取大量的创作者信息。
-而与此同时，加密是解锁不同的路径，我称之为Ownership Economy，一个讨论更广泛的、提供用户与用户之间直接建立、操作和持有的互联网平台。
-在媒体领域，NFTs或者说Non-Fungible Tokens让这种为创作者保持其内容所有权的平台成为现实，并且他们的作品在互联网传播上不受任何限制。因此，NFTs拥有颠覆媒体创作者及其他们的作品的潜力，为他们提供了一种可行的平台驱动货币化的替代品。
-一种对NFTs最简单的解释就是保存在区块链上的文件。这意味着，它们不可能被复制、修改、删除或其他操作。
-这些保护机制源使加密货币有价值的相同技术，如比特币。NFTs同样也是数字货币，可以购买、卖出、交易，其所有权和出处都将通过区块链来追踪。非常明显你的就是你的，并且不需要任何第三方来保证你所拥有的所有权。
-NFTs让拥有数字资产变为可能，同样的也可以拥有数字货币例如比特币
-对于许多人来说，NFTs就和新诞生的玩具一样，是一个很快就会破灭的泡沫。虽然正式的数字艺术品和加密收藏品所花费的钱一直很快是实事，但它们在雕刻创作者货币化的行为是非常有效的。
-我相信我们在NFTs成为互联网中每一块媒体的港湾是正确的。这包括了2D音频/视频和文本工作，以及未来将包含的游戏和虚拟世界代理的3D工作。
-我所相信的NFT将会把未来通过NFT带向让每个利益相关者更好的商业模式，创作者、官中和开发人员可以围绕真正的数字所有权市场中赚取更多的利益。
-NFT是如何工作的 在实践中，NFT知识一个简单的用于标识数字文件的唯一令牌。每一个NFT都有规范的标识信息，一个独一无二的ID。与之挂钩的ID是一随意的元信息，例如可以是创建人、这个NFT有关的信息或价格历史。当一个NFT被创作者生产(铸币)时，它的信息将会在区块链上永久保存并成为生产工作的数字护照。再进一步，随时在另一个平台上发布媒体时，该平台都可以通过检查护照查看该媒体的整个交易历史。这意味着，一个创新的成果可以通过在区块链上注册不可变记录来追溯原始信息。一张互联网上的图片或不再是二维数据。相反，它可以通过引入Z轴来宝尊其所有历史信息和可由第三方发现的上下文信息，用于增加其文化和财务价值。
-拥有数字艺术品有价值吗 对于NFT的一个共同疑惑是，由于数字艺术和数字收集品可以被复制，但并不会携带很多价值。但NFT创造了另一种可能，即在流动性的工作之中继续保持其真正的所有权。
-一个文件在互联网上浏览的越多，其价值也越高，想想大规模生成的霍格图像和T恤。随着臭名昭着的增加，拥有规范作品的概念变得更加激动，更有一个社会地位的标志。 它还可以推动可以从转售工作中推出的值，应该在购买后的臭名令人闻名(实在不会翻译)。NFT让收藏夹能在现实中获取大多数好处，其中额外的奖金费用可以在互联网上自由共享而不是限制，从而通过更广泛的分布式网络来积累更多的价值。
-这不仅针对于艺术品。加密收藏平将会在更多领域如游戏、数字时尚、皮肤以及艺术和编程之间的关系发生作用。
-为什么要立刻收集NFT 回到现实，和许多技术的炒作循环一样，投机价值通常受限于功能价值。由于这些资产是可编程的，任何开发者都可以在其中创建。并且因为NFT是用户便携式的，可编程资产可以触及整个数字世界中的所有程序。
-Tokens和智能合约被称之为金钱乐高，这是因为它们可以通过在[Remix]的DeFi程序中编程开发。同样，NFT是也是开发人员和创作者的媒体乐高，可以随意创建新的体验。因此，用户可以期待更为丰富的产品，并在所有物品中重复使用。
-长远来看，NFT将会走向何处 我认为NFTS将成为所有互联网媒体的进入港口，因为所涉及的每个人都可以从他们启用的市场中赚更多资金：创造者通过直接销售给粉丝并通过每次NFTS转售时收集特许权使用费，创造者赚更多的资金。 这是一个完全是新的收入流，只有可能是可以在媒体本身中编码版税逻辑的真正数字所有权。
-对于消费者来说，NFT是一个更好的模型，因为它们将惠顾人数的社会和功利福利结合起来的可能性来转动利润或实现复合效用。 在今天的网络上，消费者租用大多数商品和服务，包括他们光顾的创造者。 新的所有权经济平台的一个关键宗旨是游戏中患上肌肤的激励对齐。 关于支持创造者，我称之为“pitronage +”，其中“加号”是与您支持的创造者一起获得价值的可能性。 这是一个强大的，探讨的激励，成为第一名的赞助人 - 我认为它可能在创造性的工作中推动更多的市场中的市场需求。
-开发人员可以通过建筑物赚钱以启用这些新市场。 Wheras主要平台扼杀开发人员API并限制自由市场开发，开发商在申请方面的基础设施方面展望，在许多方面，在许多方面，函数更像是物质世界的运作。</description></item><item><title>Web用户认证方法对比</title><link>https://blog.thinkmoe.icu/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</link><pubDate>Fri, 08 Jan 2021 21:33:13 +0000</pubDate><guid>https://blog.thinkmoe.icu/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</guid><description>&lt;blockquote>
+如果钩子能够让状态管理更清晰，我认为在小型应用中可以尝试不使用Redux。但对于大型的复杂的应用程序，全局状态管理仍然不能被忽略</description></item><item><title>Web用户认证方法对比</title><link>https://blog.thinkmoe.icu/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</link><pubDate>Fri, 08 Jan 2021 21:33:13 +0000</pubDate><guid>https://blog.thinkmoe.icu/posts/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</guid><description>&lt;blockquote>
 &lt;p>本文翻译自&lt;a href="https://testdriven.io/blog/web-authentication-methods/#authentication-vs-authorization">testdriven.io&lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;p>在这篇文章，我们将从一名Python开发者的视角来观察目前最常见的几种处理Web认证的方式&lt;/p>
