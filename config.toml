@@ -12,7 +12,7 @@ copyright = "This work is licensed under a Creative Commons Attribution-NonComme
 enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/functions/emojify/
 
 [author]
-  name = "miRemid"
+  name = "无题"
 
 [blackfriday]
 
@@ -20,7 +20,7 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
   tag = "tags"
 
 [params]
-  author = "miRemid"
+  author = "无题"
   description = "伊厌."
   github = "miRemid"
   email = "miosuki241@outlook.com"
@@ -30,6 +30,7 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
   lastmod = true
   userStatusEmoji = "🤣"
   favicon = "/images/github.png"
+  avatar = "/images/avatar.jpg"
   location = "China"
   enableGitalk = true
 
