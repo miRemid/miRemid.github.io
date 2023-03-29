@@ -1,8 +1,8 @@
 baseURL = "https://blog.thinkmoe.icu"
-languageCode = "en-us"
+languageCode = "zh-cn"
 defaultContentLanguage = "zh"
 title = "狸猫窝"
-theme = "hermit"
+theme = "github-style"
 enableGitInfo = true
 pygmentsCodefences  = true
 pygmentsUseClasses  = true
@@ -10,81 +10,48 @@ hasCJKLanguage = true  # If Chinese/Japanese/Korean is your main content languag
 rssLimit = 10  # Maximum number of items in the RSS feed.
 copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License." # This message is only used by the RSS template.
 enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/functions/emojify/
-# googleAnalytics = "UA-123-45"
-# disqusShortname = "yourdiscussshortname"
 
 [author]
   name = "miRemid"
 
 [blackfriday]
-  # hrefTargetBlank = true
-  # noreferrerLinks = true
-  # nofollowLinks = true
 
 [taxonomies]
   tag = "tags"
-  # Categories are disabled by default.
 
 [params]
-  dateform        = "Jan 2, 2006"
-  dateformShort   = "Jan 2"
-  dateformNum     = "2006-01-02"
-  dateformNumTime = "2006-01-02 15:04 -0700"
+  author = "miRemid"
+  description = "伊厌."
+  github = "miRemid"
+  # facebook = "MeiK2333"
+  # twitter = "MeiK2333"
+  # linkedin = "MeiK2333"
+  # instagram = "MeiK2333"
+  # tumblr = "MeiK2333"
+  email = "miosuki241@outlook.com"
+  url = "https://blog.thinkmoe.icu"
+  keywords = "blog, google analytics"
+  rss = true
+  lastmod = true
+  userStatusEmoji = "🤣"
+  favicon = "/images/github.png"
+  location = "China"
+  enableGitalk = true
 
-  # Metadata mostly used in document's head
-  # description = ""
-  # images = [""]
-  themeColor = "#494f5c"
-
-  homeSubtitle = "Life is simple but not yet"
-  footerCopyright = ' &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
-  # bgImg = ""  # Homepage background-image URL
-
-  # Prefix of link to the git commit detail page. GitInfo must be enabled.
-  # gitUrl = "https://github.com/username/repository/commit/"
-
-  # Toggling this option needs to rebuild SCSS, requires Hugo extended version
-  justifyContent = false  # Set "text-align: justify" to `.content`.
-
-  relatedPosts = false  # Add a related content section to all single posts page
-
-  code_copy_button = true # Turn on/off the code-copy-button for code-fields
-  
-  # Add custom css
-  # customCSS = ["css/foo.css", "css/bar.css"]
-
-  # Social Icons
-  # Check https://github.com/Track3/hermit#social-icons for more info.
-  [[params.social]]
-    name = "github"
-    url = "https://github.com/miRemid"
-
-  [[params.gitalk]]
+  [params.gitalk]
     clientID = "6f2c6176848b78ef2c3b"
     clientSecret = "34f050cf4cd5211a3ec844937162f141397d49d7"
     repo = "miRemid.github.io"
     owner = "miRemid"
+    admin = "miRemid"
+    labels = "gitalk"
+    perPage = 15
+    id = "location.pathname"
+    pagerDirection = "last"
     distractionFreeMode = false
     createIssueManually = true
 
-[menu]
+lastmod = true
 
-  [[menu.main]]
-    name = "Posts"
-    url = "posts/"
-    weight = 10
-
-  [[menu.archives]]
-    name = "Archives"
-    url = "archives/"
-    weight = 10
-
-  [[menu.main]]
-    name = "Tags"
-    url = "tags/"
-    weight = 10
-
-  [[menu.main]]
-    name = "About"
-    url = "about-me/"
-    weight = 20
+[frontmatter]
+  lastmod = ["lastmod", ":fileModTime", ":default"]
