@@ -23,11 +23,6 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
   author = "miRemid"
   description = "伊厌."
   github = "miRemid"
-  # facebook = "MeiK2333"
-  # twitter = "MeiK2333"
-  # linkedin = "MeiK2333"
-  # instagram = "MeiK2333"
-  # tumblr = "MeiK2333"
   email = "miosuki241@outlook.com"
   url = "https://blog.thinkmoe.icu"
   keywords = "blog, google analytics"
@@ -39,8 +34,8 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
   enableGitalk = true
 
   [params.gitalk]
-    clientID = "6f2c6176848b78ef2c3b"
-    clientSecret = "34f050cf4cd5211a3ec844937162f141397d49d7"
+    clientID = ""
+    clientSecret = ""
     repo = "miRemid.github.io"
     owner = "miRemid"
     admin = "miRemid"
