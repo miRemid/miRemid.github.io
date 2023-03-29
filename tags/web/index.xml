@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>web on 狸猫窝</title><link>https://blog.thinkmoe.icu/tags/web/</link><description>Recent content in web on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 08 Jan 2021 21:33:13 +0000</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/tags/web/index.xml" rel="self" type="application/rss+xml"/><item><title>Web用户认证方法对比</title><link>https://blog.thinkmoe.icu/post/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</link><pubDate>Fri, 08 Jan 2021 21:33:13 +0000</pubDate><guid>https://blog.thinkmoe.icu/post/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</guid><description>&lt;blockquote>
-&lt;p>本文翻译自&lt;a href="https://testdriven.io/blog/web-authentication-methods/#authentication-vs-authorization">testdriven.io&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;p>在这篇文章，我们将从一名Python开发者的视角来观察目前最常见的几种处理Web认证的方式&lt;/p>
-&lt;blockquote>
-&lt;p>尽管本片文章所有的代码是面向Python开发者的，但是实际上对所有的Web开发者，每种认证方法实际上都是差不多的&lt;/p>
-&lt;/blockquote>
-&lt;h1 id="认证vs授权authentication-vs-authorization">认证vs授权(Authentication vs Authorization)&lt;/h1>
-&lt;p>认证是一种处理用户或设备尝试通过凭证来访问受限系统的过程。而授权则是验证用户或设备是否有权限来访问系统提供的确切服务&lt;/p>
-&lt;p>简单来讲就是&lt;/p>
-&lt;ul>
-&lt;li>认证：你是谁？&lt;/li>
-&lt;li>授权：你可以做什么？&lt;/li>
-&lt;/ul>
-&lt;p>认证比授权出现的更早，用户必须在获得访问资源权限之前经过合法验证。最常见的用户认证方法就是&lt;code>username&lt;/code>和&lt;code>password&lt;/code>。一旦认证完成，不同身份例如&lt;code>admin&lt;/code>、&lt;code>moderator&lt;/code>等等，都将被附加在用户身上用于提供访问系统的身份信息。&lt;/p>
-&lt;p>有了上述的解释，让我们来看一看验证用户的不同方法吧&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>web on 狸猫窝</title><link>https://blog.thinkmoe.icu/tags/web/</link><description>Recent content in web on 狸猫窝</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 08 Jan 2021 21:33:13 +0000</lastBuildDate><atom:link href="https://blog.thinkmoe.icu/tags/web/index.xml" rel="self" type="application/rss+xml"/><item><title>Web用户认证方法对比</title><link>https://blog.thinkmoe.icu/post/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</link><pubDate>Fri, 08 Jan 2021 21:33:13 +0000</pubDate><guid>https://blog.thinkmoe.icu/post/web%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94/</guid><description>本文翻译自testdriven.io 在这篇文章，我们将从一名Python开发者的视角来观察目前最常见的几种处理Web认证的方式 尽管本片文章所</description></item></channel></rss>
