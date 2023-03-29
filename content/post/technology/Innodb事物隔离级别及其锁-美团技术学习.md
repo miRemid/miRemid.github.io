@@ -5,6 +5,7 @@ draft: false
 toc: false
 images:
 tags: 
+  - 技术
   - MySQL
 ---
 

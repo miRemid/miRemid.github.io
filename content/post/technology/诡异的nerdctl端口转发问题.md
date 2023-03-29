@@ -6,10 +6,11 @@ toc: false
 images:
   - https://images.unsplash.com/photo-1615796153287-98eacf0abb13?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80
 tags: 
-  - Container
+  - 技术
+  - 容器
+summary: 没有什么是重启解决不了的，如果有那就重启两次吧
 ---
 
-> 没有什么是重启解决不了的，如果有那就重启两次吧
 
 由于某些原因，需要从Docker转到containerd上面来，为了保持和Docker相同的体验选择Nerdctl作为cli工具
 

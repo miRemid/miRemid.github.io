@@ -5,7 +5,7 @@ draft: false
 toc: false
 images:
 tags: 
-  - ROS2
+  - 教程
 ---
 
 在使用CARLA的ROS2包的过程中，需要导入torch对图像进行处理，按照正常情况下，激活conda环境之后应该就能够直接使用虚拟环境中安装的第三方包，但是在ROS2启动的过程中却提示`torch not found`的错误

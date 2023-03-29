@@ -5,7 +5,8 @@ draft: false
 toc: true
 images:
 tags: 
-  - Archlinux
+  - 教程
+  - Linux
 ---
 
 Archlinux是一个非常干净的Linux发行版，干净到以致于图形化界面都没有，本文将按照[官方wiki](https://wiki.archlinux.org/title/Installation_guide)，逐步安装Archlinux

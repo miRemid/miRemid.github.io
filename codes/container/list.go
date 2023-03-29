@@ -84,3 +84,82 @@ func (list *LinkedList[T]) MoveToFront(node *Node[T]) {
 	list.lazyInit()
 
 }
+
+type DLinkNode struct {
+	Key, Val int
+	Prev     *DLinkNode
+	Next     *DLinkNode
+}
+
+type DLinkList struct {
+	length, cap int
+	head, tail  *DLinkNode
+	index       map[int]*DLinkNode
+}
+
+func NewDLinkList(cap int) *DLinkList {
+	head := new(DLinkNode)
+	tail := new(DLinkNode)
+	head.Next = tail
+	tail.Prev = head
+	return &DLinkList{
+		length: 0,
+		cap:    cap,
+		head:   head,
+		tail:   tail,
+		index:  make(map[int]*DLinkNode, 0),
+	}
+}
+
+func (d *DLinkList) Insert(key, val int) {
+	if _, ok := d.index[key]; !ok {
+		node := &DLinkNode{
+			Key: key,
+			Val: val,
+		}
+		d.index[key] = node
+		d.length++
+		d.addToHead(node)
+		if d.length > d.cap {
+			removed := d.removeTail()
+			delete(d.index, removed.Key)
+			d.length--
+		}
+	} else {
+		node := d.index[key]
+		node.Val = val
+		d.moveToFront(node)
+	}
+}
+
+func (d *DLinkList) Get(key int) int {
+	node, ok := d.index[key]
+	if !ok {
+		return -1
+	}
+	d.moveToFront(node)
+	return node.Val
+}
+
+func (d *DLinkList) addToHead(node *DLinkNode) {
+	node.Next = d.head.Next
+	d.head.Next.Prev = node
+	node.Prev = d.head
+	d.head.Next = node
+}
+
+func (d *DLinkList) removeNode(node *DLinkNode) {
+	node.Prev.Next = node.Next
+	node.Next.Prev = node.Prev
+}
+
+func (d *DLinkList) moveToFront(node *DLinkNode) {
+	d.removeNode(node)
+	d.addToHead(node)
+}
+
+func (d *DLinkList) removeTail() *DLinkNode {
+	node := d.tail.Prev
+	d.removeNode(node)
+	return node
+}

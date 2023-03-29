@@ -5,7 +5,8 @@ draft: false
 toc: false
 images:
 tags: 
-  - linux
+  - 教程
+  - Linux
 ---
 
 # 安装依赖

@@ -32,7 +32,7 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
   favicon = "/images/github.png"
   avatar = "/images/avatar.jpg"
   location = "China"
-  enableGitalk = true
+  enableGitalk = false
 
   [params.gitalk]
     clientID = ""

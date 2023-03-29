@@ -5,8 +5,8 @@ draft: false
 toc: true
 images:
 tags: 
-  - Hugo
-  - Github Action
+  - 教程
+  - Github
 ---
 
 ## [Hugo](https://gohugo.io/)

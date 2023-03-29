@@ -5,8 +5,9 @@ draft: false
 toc: false
 images:
 tags: 
-  - web
-  - python
+  - 技术
+  - Web
+  - Python
   - 翻译
 ---
 

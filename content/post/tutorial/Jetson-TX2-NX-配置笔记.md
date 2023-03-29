@@ -6,10 +6,10 @@ toc: false
 images:
   - https://images.unsplash.com/photo-1653038282408-13b605af0ef7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80
 tags: 
-  - Jetson
+  - 教程
   - Linux
+summary: Jetson真的好贵
 ---
-> Jetson真的好贵啊> <
 
 {{< figure src="/images/jetsontx2nx.jpg" alt="image" caption="tx2nx开发板" >}}
 

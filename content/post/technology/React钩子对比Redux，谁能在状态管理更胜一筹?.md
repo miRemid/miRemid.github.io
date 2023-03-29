@@ -5,7 +5,8 @@ draft: false
 toc: false
 images:
 tags: 
-  - react 
+  - 技术
+  - React 
   - 翻译
 ---
 

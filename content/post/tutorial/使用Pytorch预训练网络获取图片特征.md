@@ -1,7 +1,7 @@
 ---
 title: 使用Pytorch预训练网络获取图片特征
 date: 2021-12-17T17:52:42+08:00
-draft: false
+draft: true
 toc: true
 images:
 tags: 

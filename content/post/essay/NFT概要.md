@@ -5,7 +5,7 @@ draft: true
 toc: false
 images:
 tags: 
-  - NFT
+  - 杂谈
   - 区块链
   - 翻译
 ---
