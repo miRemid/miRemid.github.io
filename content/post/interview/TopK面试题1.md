@@ -1,8 +1,10 @@
 ---
-title: "TopK面试题1"
+title: "TopK面试题（一）"
 date: 2023-03-09T14:42:35+08:00
 draft: false
 toc: true
+katex: math
+mathJax: true
 images:
 tags: 
   - 面试
@@ -190,11 +192,75 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 
 ## 快速排序的空间复杂度是多少？时间复杂度的最好最坏的情况是多少，有哪些优化方案？
 
-1. 快速排序的空间复杂度可以为$O(logn)$
-2. 时间复杂度最好的情况下为O(nlogn)，最坏情况下为O(n^2)
+1. 快速排序的空间复杂度可以为$O(\log n)$
+2. 时间复杂度最好的情况下为$O(n\log n)$，最坏情况下为$O(n^2)$
 3. 快速排序的优化点如下
     - 采用随机哨兵策略，如[5,4,3,2,1]这种数据的影响。另外也可以选择三数的中位数（左、中、右，中间数据，如8, 0, 6，选择6作为哨兵）
     - 快排针对数据量小并且部分有序的数组效率并不高，可以在切分为一定大小后转换为插入排序
     - 将与哨兵相同的元素放在分割点附近，减少分割后的数组长度
    
- 
+## 33. 搜索旋转排序数组
+
+简单二分，不同普通二分，需要额外判断与端点的大小
+
+```go
+func search(nums []int, target int) int {
+    if len(nums) == 0 {
+        return -1
+    }
+    left, right := 0, len(nums)-1
+    for left <= right {
+        mid := (left + right) / 2
+        if nums[mid] == target {
+            return mid
+        }
+        if nums[0] <= nums[mid] {
+            if nums[0] <= target && target < nums[mid] {
+                right = mid - 1
+            } else {
+                left = mid + 1
+            }
+        } else {
+            if nums[mid] < target && target <= nums[len(nums)-1] {
+                left = mid + 1
+            } else {
+                right = mid - 1
+            }
+        }
+    }
+    return -1
+}
+```
+
+## 70. 爬楼梯
+
+简单DP
+
+```go
+func climbStairs(n int) int {
+    if n < 3 {
+        return n
+    }
+    a, b, c := 1, 2, 0
+    for i := 2; i < n; i++ {
+        c = a + b
+        a = b
+        b = c
+    }
+    return c
+}
+```
+
+## 给定 100G 的 URL 磁盘数据，使用最多 1G 内存，统计出现频率最高的 Top K 个 URL
+
+TopK问题，通常会使用分而治之的方式进行，最后采取最小堆的形式进行统计，这里引用[wizardforcel](https://wizardforcel.gitbooks.io/the-art-of-programming-by-july/content/06.02.html)的其中一个问题进行解释
+
+> 有一个1G大小的一个文件，里面每一行是一个词，词的大小不超过16字节，内存限制大小是1M。返回频数最高的100个词
+
+1. 分而治之/hash映射  
+顺序读取文件，对于每个词x，取hash(x)%5000，然后把该值存到5000个小文件（记为x0,x1,...x4999）中。这样每个文件大概是200k左右。当然，如果其中有的小文件超过了1M大小，还可以按照类似的方法继续往下分，直到分解得到的小文件的大小都不超过1M。
+2. hash_map统计  
+对每个小文件，采用trie树/hash_map等统计每个文件中出现的词以及相应的频率。
+3. 堆/归并排序  
+取出出现频率最大的100个词（可以用含100个结点的最小堆）后，再把100个词及相应的频率存入文件，这样又得到了5000个文件。最后就是把这5000个文件进行归并（类似于归并排序）的过程了。
+
