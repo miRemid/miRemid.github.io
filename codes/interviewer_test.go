@@ -7,7 +7,7 @@ import (
 
 func TestQuickSort(t *testing.T) {
 	nums := []int{
-		3, 1, 5, 8, 2,
+		3, 1, 5, 2, 8,
 	}
 	quick_sort(nums)
 	fmt.Println(nums)
