@@ -68,7 +68,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ### Результат
 
-![Описание изображения](https://image.radishzz.cc/picsmaller/03.webp)
+![Описание изображения](/icons/og-logo.png)
 
 ## Цитаты
 

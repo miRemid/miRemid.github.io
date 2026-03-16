@@ -8,7 +8,7 @@ lang: ru
 abbrlink: my-native-heath
 ---
 
-![_Here's the description of the picture](https://image.radishzz.cc/picsmaller/03.webp)
+![Here is the description of the picture](/icons/og-logo.png)
 
 Было очень холодно, когда после более чем двадцатилетнего отсутствия я отправился навестить свою родную пустошь, расположенную более чем в двух тысячах ли отсюда.
 

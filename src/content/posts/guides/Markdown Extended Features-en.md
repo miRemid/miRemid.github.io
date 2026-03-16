@@ -17,16 +17,16 @@ To create automatic figure captions, use the standard Markdown image syntax `![a
 ### Syntax
 
 ```
-![Image description](https://image.radishzz.cc/image/gallery/06.webp)
+![Image description](/icons/og-logo.png)
 
-![_Image description](https://image.radishzz.cc/image/gallery/06.webp)
+![Image description](/icons/og-logo.png)
 ```
 
 ### Output
 
-![Image description](https://image.radishzz.cc/image/gallery/06.webp)
+![Image description](/icons/og-logo.png)
 
-![_Image description](https://image.radishzz.cc/image/gallery/06.webp)
+![Image description](/icons/og-logo.png)
 
 ## Admonition Blocks
 
@@ -132,22 +132,22 @@ To create image galleries, use the container directive `:::gallery`. Scroll hori
 
 ```
 :::gallery
-![Alpaca](https://image.radishzz.cc/image/gallery/sheep-1.jpg)
-![Turning head](https://image.radishzz.cc/image/gallery/sheep-2.jpg)
-![Eye contact](https://image.radishzz.cc/image/gallery/sheep-3.jpg)
-![Baby alpaca](https://image.radishzz.cc/image/gallery/sheep-4.jpg)
-![Aww, so cute!](https://image.radishzz.cc/image/gallery/sheep-5.jpg)
+![Alpaca](/icons/og-logo.png)
+![Turning head](/icons/og-logo.png)
+![Eye contact](/icons/og-logo.png)
+![Baby alpaca](/icons/og-logo.png)
+![Aww, so cute!](/icons/og-logo.png)
 :::
 ```
 
 ### Output
 
 :::gallery
-![Alpaca](https://image.radishzz.cc/image/gallery/sheep-1.jpg)
-![Turning head](https://image.radishzz.cc/image/gallery/sheep-2.jpg)
-![Eye contact](https://image.radishzz.cc/image/gallery/sheep-3.jpg)
-![Baby alpaca](https://image.radishzz.cc/image/gallery/sheep-4.jpg)
-![Aww, so cute!](https://image.radishzz.cc/image/gallery/sheep-5.jpg)
+![Alpaca](/icons/og-logo.png)
+![Turning head](/icons/og-logo.png)
+![Eye contact](/icons/og-logo.png)
+![Baby alpaca](/icons/og-logo.png)
+![Aww, so cute!](/icons/og-logo.png)
 :::
 
 ## GitHub Repositories

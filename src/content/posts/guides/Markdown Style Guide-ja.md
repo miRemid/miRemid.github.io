@@ -68,7 +68,7 @@ abbrlink: markdown-style-guide
 
 ### 効果
 
-![画像の説明](https://image.radishzz.cc/picsmaller/03.webp)
+![画像の説明](/icons/og-logo.png)
 
 ## 引用ブロック
 

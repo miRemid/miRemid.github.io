@@ -8,7 +8,7 @@ lang: ru
 abbrlink: rashomon
 ---
 
-![_Here's the description of the picture](https://image.radishzz.cc/picsmaller/06.webp)
+![Here is the description of the picture](/icons/og-logo.png)
 
 Это произошло вечером одного дня. Под Расёмоном находился слуга, ожидавший дождя.
 

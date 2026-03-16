@@ -8,7 +8,7 @@ lang: zh-tw
 abbrlink: my-native-heath
 ---
 
-![_Here's the description of the picture](https://image.radishzz.cc/picsmaller/03.webp)
+![Here is the description of the picture](/icons/og-logo.png)
 
 我冒了嚴寒，回到相隔二千餘里，別了二十餘年的故鄉去。
 

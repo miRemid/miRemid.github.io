@@ -68,7 +68,7 @@ abbrlink: markdown-style-guide
 
 ### 效果
 
-![图片描述](https://image.radishzz.cc/picsmaller/03.webp)
+![图片描述](/icons/og-logo.png)
 
 ## 块引用
 

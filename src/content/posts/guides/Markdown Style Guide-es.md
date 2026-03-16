@@ -68,7 +68,7 @@ Para agregar imágenes, añada un signo de exclamación `!`, seguido de texto al
 
 ### Resultado
 
-![Descripción de la Imagen](https://image.radishzz.cc/picsmaller/03.webp)
+![Descripción de la Imagen](/icons/og-logo.png)
 
 ## Citas en Bloque
 

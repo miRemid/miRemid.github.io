@@ -17,16 +17,16 @@ abbrlink: markdown-extended-features
 ### 構文
 
 ```
-![画像の説明](https://image.radishzz.cc/image/gallery/06.webp)
+![画像の説明](/icons/og-logo.png)
 
-![_画像の説明](https://image.radishzz.cc/image/gallery/06.webp)
+![画像の説明](/icons/og-logo.png)
 ```
 
 ### 効果
 
-![画像の説明](https://image.radishzz.cc/image/gallery/06.webp)
+![画像の説明](/icons/og-logo.png)
 
-![_画像の説明](https://image.radishzz.cc/image/gallery/06.webp)
+![画像の説明](/icons/og-logo.png)
 
 ## アドモニションブロック
 
@@ -132,22 +132,22 @@ graph TD;
 
 ```
 :::gallery
-![アルパカ](https://image.radishzz.cc/image/gallery/sheep-1.jpg)
-![振り向く](https://image.radishzz.cc/image/gallery/sheep-2.jpg)
-![見つめ合う](https://image.radishzz.cc/image/gallery/sheep-3.jpg)
-![子アルパカ](https://image.radishzz.cc/image/gallery/sheep-4.jpg)
-![可愛すぎる！](https://image.radishzz.cc/image/gallery/sheep-5.jpg)
+![アルパカ](/icons/og-logo.png)
+![振り向く](/icons/og-logo.png)
+![見つめ合う](/icons/og-logo.png)
+![子アルパカ](/icons/og-logo.png)
+![可愛すぎる！](/icons/og-logo.png)
 :::
 ```
 
 ### 効果
 
 :::gallery
-![アルパカ](https://image.radishzz.cc/image/gallery/sheep-1.jpg)
-![振り向く](https://image.radishzz.cc/image/gallery/sheep-2.jpg)
-![見つめ合う](https://image.radishzz.cc/image/gallery/sheep-3.jpg)
-![子アルパカ](https://image.radishzz.cc/image/gallery/sheep-4.jpg)
-![可愛すぎる！](https://image.radishzz.cc/image/gallery/sheep-5.jpg)
+![アルパカ](/icons/og-logo.png)
+![振り向く](/icons/og-logo.png)
+![見つめ合う](/icons/og-logo.png)
+![子アルパカ](/icons/og-logo.png)
+![可愛すぎる！](/icons/og-logo.png)
 :::
 
 ## GitHub リポジトリ

@@ -68,7 +68,7 @@ To add images, add an exclamation mark `!`, followed by alt text in brackets `[]
 
 ### Output
 
-![Image Description](https://image.radishzz.cc/picsmaller/03.webp)
+![Image Description](/icons/og-logo.png)
 
 ## Blockquotes
 

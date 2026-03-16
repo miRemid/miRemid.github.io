@@ -17,16 +17,16 @@ Para crear leyendas automáticas para figuras, utilice la sintaxis estándar de 
 ### Sintaxis
 
 ```
-![Descripción de la imagen](https://image.radishzz.cc/image/gallery/06.webp)
+![Descripción de la imagen](/icons/og-logo.png)
 
-![_Descripción de la imagen](https://image.radishzz.cc/image/gallery/06.webp)
+![Descripción de la imagen](/icons/og-logo.png)
 ```
 
 ### Resultado
 
-![Descripción de la imagen](https://image.radishzz.cc/image/gallery/06.webp)
+![Descripción de la imagen](/icons/og-logo.png)
 
-![_Descripción de la imagen](https://image.radishzz.cc/image/gallery/06.webp)
+![Descripción de la imagen](/icons/og-logo.png)
 
 ## Bloques de Admonición
 
@@ -132,22 +132,22 @@ Para crear galerías de imágenes, utilice la directiva contenedor `:::gallery`.
 
 ```
 :::gallery
-![Alpaca](https://image.radishzz.cc/image/gallery/sheep-1.jpg)
-![Girando la cabeza](https://image.radishzz.cc/image/gallery/sheep-2.jpg)
-![Contacto visual](https://image.radishzz.cc/image/gallery/sheep-3.jpg)
-![Alpaca bebé](https://image.radishzz.cc/image/gallery/sheep-4.jpg)
-![¡Ay, qué lindo!](https://image.radishzz.cc/image/gallery/sheep-5.jpg)
+![Alpaca](/icons/og-logo.png)
+![Girando la cabeza](/icons/og-logo.png)
+![Contacto visual](/icons/og-logo.png)
+![Alpaca bebé](/icons/og-logo.png)
+![¡Ay, qué lindo!](/icons/og-logo.png)
 :::
 ```
 
 ### Resultado
 
 :::gallery
-![Alpaca](https://image.radishzz.cc/image/gallery/sheep-1.jpg)
-![Girando la cabeza](https://image.radishzz.cc/image/gallery/sheep-2.jpg)
-![Contacto visual](https://image.radishzz.cc/image/gallery/sheep-3.jpg)
-![Alpaca bebé](https://image.radishzz.cc/image/gallery/sheep-4.jpg)
-![¡Ay, qué lindo!](https://image.radishzz.cc/image/gallery/sheep-5.jpg)
+![Alpaca](/icons/og-logo.png)
+![Girando la cabeza](/icons/og-logo.png)
+![Contacto visual](/icons/og-logo.png)
+![Alpaca bebé](/icons/og-logo.png)
+![¡Ay, qué lindo!](/icons/og-logo.png)
 :::
 
 ## Repositorios de GitHub

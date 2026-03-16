@@ -17,16 +17,16 @@ abbrlink: markdown-extended-features
 ### Синтаксис
 
 ```
-![Описание изображения](https://image.radishzz.cc/image/gallery/06.webp)
+![Описание изображения](/icons/og-logo.png)
 
-![_Описание изображения](https://image.radishzz.cc/image/gallery/06.webp)
+![Описание изображения](/icons/og-logo.png)
 ```
 
 ### Результат
 
-![Описание изображения](https://image.radishzz.cc/image/gallery/06.webp)
+![Описание изображения](/icons/og-logo.png)
 
-![_Описание изображения](https://image.radishzz.cc/image/gallery/06.webp)
+![Описание изображения](/icons/og-logo.png)
 
 ## Блоки примечаний
 
@@ -132,22 +132,22 @@ graph TD;
 
 ```
 :::gallery
-![Альпака](https://image.radishzz.cc/image/gallery/sheep-1.jpg)
-![Поворачивает голову](https://image.radishzz.cc/image/gallery/sheep-2.jpg)
-![Зрительный контакт](https://image.radishzz.cc/image/gallery/sheep-3.jpg)
-![Детёныш альпаки](https://image.radishzz.cc/image/gallery/sheep-4.jpg)
-![Ой, какая прелесть!](https://image.radishzz.cc/image/gallery/sheep-5.jpg)
+![Альпака](/icons/og-logo.png)
+![Поворачивает голову](/icons/og-logo.png)
+![Зрительный контакт](/icons/og-logo.png)
+![Детёныш альпаки](/icons/og-logo.png)
+![Ой, какая прелесть!](/icons/og-logo.png)
 :::
 ```
 
 ### Результат
 
 :::gallery
-![Альпака](https://image.radishzz.cc/image/gallery/sheep-1.jpg)
-![Поворачивает голову](https://image.radishzz.cc/image/gallery/sheep-2.jpg)
-![Зрительный контакт](https://image.radishzz.cc/image/gallery/sheep-3.jpg)
-![Детёныш альпаки](https://image.radishzz.cc/image/gallery/sheep-4.jpg)
-![Ой, какая прелесть!](https://image.radishzz.cc/image/gallery/sheep-5.jpg)
+![Альпака](/icons/og-logo.png)
+![Поворачивает голову](/icons/og-logo.png)
+![Зрительный контакт](/icons/og-logo.png)
+![Детёныш альпаки](/icons/og-logo.png)
+![Ой, какая прелесть!](/icons/og-logo.png)
 :::
 
 ## Репозитории GitHub

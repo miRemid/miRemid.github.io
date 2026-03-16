@@ -8,7 +8,7 @@ lang: es
 abbrlink: rashomon
 ---
 
-![_Here's the description of the picture](https://image.radishzz.cc/picsmaller/06.webp)
+![Here is the description of the picture](/icons/og-logo.png)
 
 Ocurrió al anochecer de un día. Había un sirviente que estaba esperando la lluvia bajo Rashomon.
 
