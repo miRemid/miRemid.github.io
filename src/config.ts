@@ -4,11 +4,11 @@ export const themeConfig: ThemeConfig = {
   // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   site: {
     // site title
-    title: '随记',
+    title: '碎碎念',
     // site subtitle
-    subtitle: '随手记下日常与所感',
+    subtitle: '把日常说给自己听',
     // site description
-    description: '这里是随记，记录日常片段、阅读札记、偶然念头与生活里值得停留的瞬间。',
+    description: '碎碎念的角落，记录日常片段、阅读札记与一闪而过的念头，把生活里值得停留的瞬间轻轻放下。',
     // use i18n title/subtitle/description from src/i18n/ui.ts instead of static ones above
     i18nTitle: false, // true | false
     // author name
