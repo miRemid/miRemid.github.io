@@ -14,7 +14,7 @@ export const themeConfig: ThemeConfig = {
     // author name
     author: '织咲云',
     // site url
-    url: 'https://retypeset.radishzz.cc',
+    url: 'https://blog.thinkmoe.icu',
     // base path
     // root directory for all pages and assets
     base: '/', // e.g., '/blog', '/docs'
