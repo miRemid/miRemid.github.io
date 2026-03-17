@@ -4,6 +4,7 @@ html {
   scrollbar-color: oklch(var(--un-preset-theme-colors-secondary) / 0.25) transparent;
   scrollbar-gutter: stable;
   text-autospace: normal;
+  --font-apple-serif: "Songti SC", "Songti TC", "Noto Serif CJK SC", "Source Han Serif SC", "Source Han Serif CN", "STSong", "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
 }
 
 /* Fix Flash Issue On iOS */
@@ -13,6 +14,16 @@ body {
 }
 body::selection {
   --at-apply: 'bg-highlight';
+}
+
+/* Scope Apple-style serif to post body only. */
+.post-body,
+.post-body :where(p, blockquote, li, dt, dd, figcaption, table, th, td, h1, h2, h3, h4, h5, h6, strong, b, em, i, mark, small, sub, sup, a) {
+  font-family: var(--font-apple-serif);
+}
+
+.post-body :where(code, pre, kbd, samp) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /* Highlight Hover Animation >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
